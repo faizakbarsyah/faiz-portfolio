@@ -1,0 +1,65 @@
+[
+  {
+    "slug": "pnm-unity",
+    "title": "Kingdom of PNM Unity",
+    "categories": ["Event Visual", "Motion Design", "Graphic Design"],
+    "year": "2026",
+    "client": "",
+    "role": "Lead Visual & Stage Designer",
+    "featured": true,
+    "size": "large",
+    "coverImage": "/projects/pnm-unity/cover.webp",
+    "previewVideo": "/projects/pnm-unity/preview.mp4",
+    "summary": "Stage visual architecture, dynamic key assets, and video content production for corporate gathering.",
+    "context": "PNM required an immersive visual identity and stage experience for their corporate unity gathering event.",
+    "approach": "Developed 3D stage layout renders and high-impact key visuals designed for wide-format LED displays.",
+    "execution": "Created stage layouts, photobooth visual systems, key visual assets, and documentary video edits.",
+    "impact": "Delivered a synchronized visual direction across physical stage builds and digital screen backdrops.",
+    "reflection": "",
+    "gallery": [
+      {
+        "type": "image",
+        "src": "/projects/pnm-unity/01.webp",
+        "caption": "3D Stage Visual Render"
+      }
+    ]
+  },
+  {
+    "slug": "mie-kari-129",
+    "title": "Mie Kari 129 — Pitstop Jam Sibuk",
+    "categories": ["Brand Identity", "Social Media Design", "Graphic Design"],
+    "year": "2026",
+    "client": "Mie Kari 129",
+    "role": "Creative Director",
+    "featured": true,
+    "size": "medium",
+    "coverImage": "/projects/mie-kari-129/cover.webp",
+    "previewVideo": "",
+    "summary": "Contextual marketing strategy and visual campaign targeting daily rush-hour commute culture.",
+    "context": "Formulated a contextual campaign connecting culinary positioning with daily urban transit patterns in Medan.",
+    "approach": "Positioned the dining experience around rush-hour breaks using high-contrast editorial typography and street-level graphics.",
+    "execution": "Produced pitch deck creative strategy, campaign assets, social media content, and promotional visuals.",
+    "impact": "Established a cohesive brand campaign narrative across digital channels and local touchpoints.",
+    "reflection": "",
+    "gallery": []
+  },
+  {
+    "slug": "hotel-sibayak",
+    "title": "Hotel Sibayak International",
+    "categories": ["Brand Identity", "Presentation Design"],
+    "year": "2026",
+    "client": "Hotel Sibayak International Berastagi",
+    "role": "Creative Strategist",
+    "featured": false,
+    "size": "small",
+    "coverImage": "/projects/hotel-sibayak/cover.webp",
+    "previewVideo": "",
+    "summary": "B2B brand positioning analysis and multi-tier agency service pitch deck development.",
+    "context": "Market positioning analysis and strategic creative proposal for hospitality brand communication.",
+    "approach": "Constructed a comprehensive competitor landscape analysis paired with modular agency service packages.",
+    "execution": "Developed strategic B2B proposal decks, visual service tiers, and brand presentation frameworks.",
+    "impact": "",
+    "reflection": "",
+    "gallery": []
+  }
+]
