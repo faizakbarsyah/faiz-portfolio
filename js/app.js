@@ -1,11 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
   // 1. Inisialisasi Link Kontak dari Config
   if (typeof SITE_CONFIG !== 'undefined') {
-    const emailLink = document.getElementById("emailLink");
-    const waLink = document.getElementById("whatsappLink");
+    const emailLinks = document.querySelectorAll("#emailLink");
+    const waLinks = document.querySelectorAll("#whatsappLink");
 
-    if (emailLink) emailLink.href = `mailto:${SITE_CONFIG.contact.email}`;
-    if (waLink) waLink.href = `https://wa.me/${SITE_CONFIG.contact.whatsappNumber}?text=${encodeURIComponent(SITE_CONFIG.contact.whatsappDefaultMessage)}`;
+    emailLinks.forEach(link => { link.href = `mailto:${SITE_CONFIG.contact.email}`; });
+    waLinks.forEach(link => { link.href = `https://wa.me/${SITE_CONFIG.contact.whatsappNumber}?text=${encodeURIComponent(SITE_CONFIG.contact.whatsappDefaultMessage)}`; });
   }
 
   // 2. Load Data Proyek & Fitur Utama
@@ -40,20 +40,18 @@ function initHeroKineticScroll() {
 }
 
 /* ==========================================================================
-   02. GALLERY & HOVER VIDEO PREVIEW SYSTEM
+   02. GALLERY & HOVER VIDEO PREVIEW SYSTEM (Bebas Pembajakan Scroll)
    ========================================================================== */
 function initFilterAndGallery(projects) {
   const filterContainer = document.getElementById("filterContainer");
   const gallery = document.getElementById("workGallery");
   if (!filterContainer || !gallery) return;
 
-  // Render Tombol Filter
   const categories = SITE_CONFIG.categories || ["All"];
   filterContainer.innerHTML = categories.map((cat, idx) => `
     <button class="filter-btn ${idx === 0 ? 'active' : ''}" data-category="${cat}">${cat}</button>
   `).join('');
 
-  // Render Kartu Proyek
   const renderProjects = (category) => {
     const filtered = category === "All" 
       ? projects 
@@ -85,7 +83,6 @@ function initFilterAndGallery(projects) {
 
   renderProjects("All");
 
-  // Handler Event Filter
   filterContainer.addEventListener("click", (e) => {
     if (e.target.classList.contains("filter-btn")) {
       document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
@@ -94,7 +91,7 @@ function initFilterAndGallery(projects) {
     }
   });
 
-  // PERBAIKAN UX (Gambar 2): e.preventDefault() Dihapus agar scroll down alami tidak terhambat
+  // TANPA e.preventDefault(): Pengguna bebas melakukan scroll down alami tanpa kursor tersangkut.
 }
 
 /* ==========================================================================
@@ -109,7 +106,6 @@ function initServicesInteractivity() {
       const category = item.getAttribute("data-category");
       if (!category) return;
 
-      // Filter Tombol di Galeri
       const filterBtns = document.querySelectorAll(".filter-btn");
       filterBtns.forEach(btn => {
         if (btn.getAttribute("data-category") === category) {
@@ -117,7 +113,6 @@ function initServicesInteractivity() {
         }
       });
 
-      // Scroll Halus ke Seksi Work
       const workSection = document.getElementById("work");
       if (workSection) {
         workSection.scrollIntoView({ behavior: "smooth" });
