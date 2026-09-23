@@ -3,11 +3,9 @@ document.addEventListener("DOMContentLoaded", () => {
   if (typeof SITE_CONFIG !== 'undefined') {
     const emailLink = document.getElementById("emailLink");
     const waLink = document.getElementById("whatsappLink");
-    const cvLink = document.getElementById("cvLink");
 
     if (emailLink) emailLink.href = `mailto:${SITE_CONFIG.contact.email}`;
     if (waLink) waLink.href = `https://wa.me/${SITE_CONFIG.contact.whatsappNumber}?text=${encodeURIComponent(SITE_CONFIG.contact.whatsappDefaultMessage)}`;
-    if (cvLink) cvLink.href = SITE_CONFIG.owner.cvPath;
   }
 
   // 2. Load Data Proyek & Fitur Utama
@@ -18,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
       initHeroKineticScroll();
       initProjectDetailView(projects);
       initPrintView(projects);
+      initServicesInteractivity();
     })
     .catch(err => console.error("Gagal memuat data proyek:", err));
 });
@@ -95,17 +94,40 @@ function initFilterAndGallery(projects) {
     }
   });
 
-  // Convert Scroll Mouse Wheel Ke Horizontal (Hanya Jika Kursor Di Dalam Galeri)
-  gallery.addEventListener("wheel", (e) => {
-    if (window.innerWidth > 1024) {
-      e.preventDefault();
-      gallery.scrollLeft += e.deltaY;
-    }
-  }, { passive: false });
+  // PERBAIKAN UX (Gambar 2): e.preventDefault() Dihapus agar scroll down alami tidak terhambat
 }
 
 /* ==========================================================================
-   03. HOVER VIDEO PLAYBACK ENGINE (PERFORMANCE FIRST)
+   03. INTERAKSI TOMBOL SERVICES (Direct Filter Routing)
+   ========================================================================== */
+function initServicesInteractivity() {
+  const serviceItems = document.querySelectorAll(".service-item");
+  if (serviceItems.length === 0) return;
+
+  serviceItems.forEach(item => {
+    item.addEventListener("click", () => {
+      const category = item.getAttribute("data-category");
+      if (!category) return;
+
+      // Filter Tombol di Galeri
+      const filterBtns = document.querySelectorAll(".filter-btn");
+      filterBtns.forEach(btn => {
+        if (btn.getAttribute("data-category") === category) {
+          btn.click();
+        }
+      });
+
+      // Scroll Halus ke Seksi Work
+      const workSection = document.getElementById("work");
+      if (workSection) {
+        workSection.scrollIntoView({ behavior: "smooth" });
+      }
+    });
+  });
+}
+
+/* ==========================================================================
+   04. HOVER VIDEO PLAYBACK ENGINE
    ========================================================================== */
 function attachHoverVideoHandlers() {
   const cards = document.querySelectorAll(".project-card");
@@ -136,7 +158,7 @@ function attachHoverVideoHandlers() {
 }
 
 /* ==========================================================================
-   04. ADAPTIVE CASE STUDY ROUTER & RENDERER
+   05. ADAPTIVE CASE STUDY ROUTER & RENDERER
    ========================================================================== */
 function initProjectDetailView(projects) {
   const container = document.getElementById("projectContainer");
@@ -166,10 +188,8 @@ function initProjectDetailView(projects) {
     return;
   }
 
-  // Hitung Proyek Berikutnya
   const nextProject = projects[(projectIndex + 1) % projects.length];
 
-  // Render Galeri Visual
   const galleryHTML = (project.gallery && project.gallery.length > 0) ? `
     <div class="case-study-gallery">
       ${project.gallery.map(item => `
@@ -220,7 +240,6 @@ function initProjectDetailView(projects) {
           <img src="${project.coverImage}" alt="${project.title}" />
         </div>
 
-        <!-- Narasi Adaptif -->
         ${project.context ? `
           <div class="case-study-narrative">
             <h3 class="narrative-title">01. Konteks</h3>
@@ -259,7 +278,6 @@ function initProjectDetailView(projects) {
         ` : ''}
       </section>
 
-      <!-- Navigasi Proyek Selanjutnya -->
       <a href="/projects/${nextProject.slug}" class="next-project-bar">
         <div>
           <span style="font-size: var(--text-meta); text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.8;">Proyek Selanjutnya →</span>
@@ -272,7 +290,7 @@ function initProjectDetailView(projects) {
 }
 
 /* ==========================================================================
-   05. PRINT PORTFOLIO VIEW GENERATOR (PHASE 6 ENHANCED)
+   06. PRINT PORTFOLIO VIEW GENERATOR
    ========================================================================== */
 function initPrintView(projects) {
   const printGallery = document.getElementById("printGallery");
@@ -283,10 +301,8 @@ function initPrintView(projects) {
 
   const categories = SITE_CONFIG.categories || ["All"];
 
-  // Populate Dropdown Options
   categorySelect.innerHTML = categories.map(cat => `<option value="${cat}">${cat}</option>`).join('');
 
-  // Ambil Kategori Dari Query Parameter (e.g. print.html?category=Motion%20Design)
   const urlParams = new URLSearchParams(window.location.search);
   const initialCategory = urlParams.get("category") || "All";
 
@@ -294,7 +310,6 @@ function initPrintView(projects) {
     categorySelect.value = initialCategory;
   }
 
-  // Render Fungsi Cetak
   const renderPrintItems = (selectedCategory) => {
     printCategoryLabel.textContent = selectedCategory === "All" 
       ? "ALL CATEGORIES PORTFOLIO" 
@@ -334,7 +349,6 @@ function initPrintView(projects) {
 
   renderPrintItems(categorySelect.value);
 
-  // Re-render Saat Dropdown Berubah
   categorySelect.addEventListener("change", (e) => {
     renderPrintItems(e.target.value);
   });

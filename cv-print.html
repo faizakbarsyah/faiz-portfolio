@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curriculum Vitae — FAIZ AKBARSYAH®</title>
+  <style>
+    /* Styling Standar ATS-Friendly (1 Kolom, Tipografi Bersih & Kontras) */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; color: #111; background: #f4f4f0; line-height: 1.5; font-size: 14px; }
+    
+    .no-print-bar { position: sticky; top: 0; background: #0d0d0e; color: #fff; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; z-index: 100; }
+    .no-print-bar a { color: #fff; text-decoration: none; font-weight: 600; font-size: 13px; }
+    .btn-download-ats { background: #CCFF00; color: #0d0d0e; border: none; padding: 0.6rem 1.2rem; font-weight: 700; font-size: 13px; border-radius: 4px; cursor: pointer; display: inline-flex; align-items: center; gap: 0.5rem; }
+    
+    .cv-container { max-width: 800px; margin: 2rem auto; background: #fff; padding: 3rem; border: 1px solid #ddd; }
+    .cv-header { border-bottom: 2px solid #111; padding-bottom: 1.5rem; margin-bottom: 2rem; }
+    .cv-name { font-size: 28px; font-weight: 800; text-transform: uppercase; letter-spacing: -0.02em; }
+    .cv-title { font-size: 16px; font-weight: 600; color: #444; margin-top: 0.25rem; }
+    .cv-contact { font-size: 13px; color: #555; margin-top: 0.75rem; display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    
+    .cv-section { margin-bottom: 2rem; }
+    .cv-section-title { font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; border-bottom: 1px solid #111; padding-bottom: 0.25rem; margin-bottom: 1rem; color: #111; }
+    
+    .cv-item { margin-bottom: 1.25rem; }
+    .cv-item-header { display: flex; justify-content: space-between; font-weight: 700; font-size: 15px; }
+    .cv-item-sub { font-weight: 600; color: #444; font-size: 13px; margin-bottom: 0.35rem; }
+    .cv-list { padding-left: 1.2rem; }
+    .cv-list li { margin-bottom: 0.25rem; }
+
+    @media print {
+      .no-print-bar { display: none !important; }
+      body { background: #fff; }
+      .cv-container { border: none; padding: 0; margin: 0; max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="no-print-bar">
+    <a href="/">← KEMBALI KE PORTFOLIO</a>
+    <button onclick="window.print()" class="btn-download-ats">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+      Print / Save PDF (ATS-Friendly)
+    </button>
+  </div>
+
+  <main class="cv-container">
+    <header class="cv-header">
+      <h1 class="cv-name">Faiz Akbarsyah</h1>
+      <p class="cv-title">Graphic Designer, Motion Designer & Creative Director</p>
+      <div class="cv-contact">
+        <span>Medan, Indonesia</span>
+        <span>contact@faizakbarsyah.com</span>
+        <span>faizakbarsyah.com</span>
+        <span>linkedin.com/in/faizakbarsyah</span>
+      </div>
+    </header>
+
+    <section class="cv-section">
+      <h2 class="cv-section-title">Ringkasan Profesional</h2>
+      <p>Multidisciplinary Designer dan Creative Director berbasis di Medan[cite: 1]. Berpengalaman dalam pengarahan identitas brand, desain sistem visual, grafis gerak (motion graphics), serta arsitektur visual panggung dan event korporat[cite: 1]. Berfokus pada kejelasan komunikasi visual, disiplin naratif, dan eksekusi strategis[cite: 1].</p>
+    </section>
+
+    <section class="cv-section">
+      <h2 class="cv-section-title">Keahlian Utama</h2>
+      <ul class="cv-list">
+        <li><strong>Creative Direction & Branding:</strong> Brand Identity Systems, Graphic Design, Editorial Design, Pitch Decks[cite: 1].</li>
+        <li><strong>Motion & Spatial Design:</strong> 2D Animation, Broadcast Motion Loops, Stage Visual Systems, 3D Renders[cite: 1].</li>
+        <li><strong>Software & Tools:</strong> Adobe Creative Suite (Illustrator, Photoshop, Premiere, After Effects), SketchUp, V-Ray, Enscape[cite: 1].</li>
+      </ul>
+    </section>
+
+    <section class="cv-section">
+      <h2 class="cv-section-title">Pendidikan</h2>
+      <div class="cv-item">
+        <div class="cv-item-header">
+          <span>Universitas Islam Sumatera Utara</span>
+          <span>Lulus 2026</span>
+        </div>
+        <div class="cv-item-sub">Sarjana Teknik (S.T.) — Teknik Mesin</div>
+      </div>
+    </section>
+  </main>
+
+</body>
+</html>

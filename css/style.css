@@ -272,11 +272,21 @@ section {
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   padding-bottom: 2rem;
-  scrollbar-width: none;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-purple) var(--color-surface);
 }
 
 .horizontal-gallery-wrapper::-webkit-scrollbar {
-  display: none;
+  height: 6px;
+}
+
+.horizontal-gallery-wrapper::-webkit-scrollbar-track {
+  background: var(--color-surface);
+}
+
+.horizontal-gallery-wrapper::-webkit-scrollbar-thumb {
+  background-color: var(--color-purple);
+  border-radius: 10px;
 }
 
 .project-card {
@@ -435,6 +445,16 @@ section {
   gap: 1.5rem;
   border-top: 1px solid var(--color-border);
   padding-top: 1.5rem;
+  cursor: pointer;
+  transition: transform var(--transition-fast);
+}
+
+.service-item:hover {
+  transform: translateY(-4px);
+}
+
+.service-item:hover .service-title {
+  color: var(--color-purple);
 }
 
 .service-num {
@@ -447,6 +467,7 @@ section {
   font-size: 1.25rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
+  transition: color var(--transition-fast);
 }
 
 .service-desc {
@@ -488,7 +509,7 @@ section {
   color: var(--color-text-muted);
 }
 
-/* Contact & Footer */
+/* Contact & Footer (Perbaikan Kontras Tombol - Gambar 1) */
 .contact-section {
   background-color: var(--color-bg-dark);
   color: var(--color-text-inverse);
@@ -509,19 +530,33 @@ section {
 
 .contact-actions {
   display: flex;
-  gap: 1rem;
+  gap: 1.25rem;
   flex-wrap: wrap;
   margin-bottom: 4rem;
 }
 
+/* Styling Tombol Editorial Khusus Footer Dark Background */
 .contact-section .btn-editorial {
-  background-color: var(--color-text-inverse);
-  color: var(--color-text-main);
+  background-color: var(--color-surface-dark);
+  color: var(--color-text-inverse);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0.9rem 1.8rem;
+  font-size: var(--text-meta);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-radius: 2px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all var(--transition-fast);
 }
 
 .contact-section .btn-editorial:hover {
   background-color: var(--color-lime);
   color: var(--color-bg-dark);
+  border-color: var(--color-lime);
 }
 
 .social-links-row {
@@ -677,7 +712,7 @@ section {
   font-size: var(--text-h2);
 }
 
-/* Print / PDF Generator Styling */
+/* Print / PDF Generator Styling (Tombol Aksi Utama Mencolok) */
 .print-body {
   background-color: #ffffff;
   color: #111111;
@@ -719,7 +754,7 @@ section {
 .print-controls-right {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
 .print-label {
@@ -730,10 +765,33 @@ section {
   background: #222225;
   color: #fff;
   border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 0.5rem 1rem;
+  padding: 0.6rem 1rem;
   font-family: var(--font-sans);
   font-size: var(--text-meta);
   border-radius: 4px;
+}
+
+/* Tombol Aksi Utama Download PDF yang Mencolok */
+.btn-print-action {
+  background-color: var(--color-lime);
+  color: var(--color-bg-dark);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-family: var(--font-sans);
+  font-size: var(--text-meta);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  transition: background-color var(--transition-fast);
+}
+
+.btn-print-action:hover {
+  background-color: var(--color-lime-hover);
 }
 
 .print-document {
@@ -859,7 +917,7 @@ section {
   }
 }
 
-/* Print Stylesheet overrides */
+/* Print Stylesheet Overrides */
 @media print {
   .no-print {
     display: none !important;
