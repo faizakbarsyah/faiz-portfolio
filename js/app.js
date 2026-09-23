@@ -8,12 +8,21 @@ document.addEventListener("DOMContentLoaded", () => {
     waLinks.forEach(link => { link.href = `https://wa.me/${SITE_CONFIG.contact.whatsappNumber}?text=${encodeURIComponent(SITE_CONFIG.contact.whatsappDefaultMessage)}`; });
   }
 
-  // 2. Load Data Proyek & Fitur Utama
+  // 2. Inisialisasi Halaman Berbasis ABOUT_DATA (about.html & cv-print.html)
+  //    Tidak bergantung pada projects.json, sehingga dijalankan terpisah dari fetch di bawah.
+  initAboutPageView();
+  initCvPrintView();
+
+  // 2b. Inisialisasi Hamburger Menu Mobile (index.html, about.html, services.html)
+  initMobileNavToggle();
+
+  // 3. Load Data Proyek & Fitur Utama
   fetch("/data/projects.json")
     .then(res => res.json())
     .then(projects => {
       initFilterAndGallery(projects);
       initHeroKineticScroll();
+      initHeroDynamicBackground();
       initProjectDetailView(projects);
       initPrintView(projects);
       initServicesPageView(projects);
@@ -37,6 +46,122 @@ function initHeroKineticScroll() {
       }
     }
   }, { passive: true });
+}
+
+/* ==========================================================================
+   01c. HERO DYNAMIC BACKGROUND — Cursor Parallax & Scroll-Reactive Cover Image
+   Menggerakkan .hero-cover-img (lihat css/style.css) berdasarkan posisi
+   cursor (desktop/pointer halus saja) dan progres scroll (semua device,
+   termasuk touch). Sepenuhnya terpisah dari initHeroKineticScroll di atas,
+   sehingga posisi/transform teks hero-title & hero-subtitle tidak tersentuh.
+
+   Catatan performa: versi ini TIDAK memakai requestAnimationFrame loop yang
+   berjalan selamanya (beda dari versi blob sebelumnya). JS hanya menaruh
+   target transform sekali per event (mousemove/scroll, dibatch lewat satu
+   rAF per event), lalu CSS `transition` di .hero-cover-img yang menghaluskan
+   animasinya di compositor thread browser — jauh lebih ringan untuk CPU/baterai.
+   ========================================================================== */
+function initHeroDynamicBackground() {
+  const heroSection = document.querySelector(".hero-section");
+  const coverImg = document.querySelector(".hero-cover-img");
+  if (!heroSection || !coverImg) return;
+
+  // Hormati preferensi user: jika reduced-motion aktif, gambar tetap diam total.
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (prefersReducedMotion) return;
+
+  const supportsCursor = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+  const MAX_PAN = 2.2;          // % translate maksimum dari parallax cursor — subtle, tidak pernah menyingkap tepi (buffer overscan 4% di CSS)
+  const MAX_SCROLL_SCALE = 0.05; // zoom-in halus (maks +5%) saat user scroll melewati hero
+
+  let panX = 0, panY = 0;
+  let scrollProgress = 0;
+  let rafPending = false;
+
+  const applyTransform = () => {
+    rafPending = false;
+    const scale = 1 + scrollProgress * MAX_SCROLL_SCALE;
+    coverImg.style.transform = `translate3d(${panX.toFixed(2)}%, ${panY.toFixed(2)}%, 0) scale(${scale.toFixed(3)})`;
+  };
+
+  // Batch penulisan style: kalau ada beberapa event menumpuk dalam 1 frame,
+  // cukup 1x pembaruan DOM — bukan 1x update per event mentah.
+  const requestApply = () => {
+    if (!rafPending) {
+      rafPending = true;
+      requestAnimationFrame(applyTransform);
+    }
+  };
+
+  if (supportsCursor) {
+    heroSection.addEventListener("mousemove", (e) => {
+      const rect = heroSection.getBoundingClientRect();
+      const normX = (e.clientX - rect.left) / rect.width - 0.5;   // -0.5 .. 0.5
+      const normY = (e.clientY - rect.top) / rect.height - 0.5;   // -0.5 .. 0.5
+      panX = normX * -2 * MAX_PAN;
+      panY = normY * -2 * MAX_PAN;
+      requestApply();
+    });
+
+    heroSection.addEventListener("mouseleave", () => {
+      panX = 0;
+      panY = 0;
+      requestApply();
+    });
+  }
+
+  const updateScrollProgress = () => {
+    const heroHeight = heroSection.offsetHeight || 1;
+    scrollProgress = Math.min(Math.max(window.scrollY / heroHeight, 0), 1);
+    requestApply();
+  };
+
+  updateScrollProgress();
+  window.addEventListener("scroll", updateScrollProgress, { passive: true });
+  window.addEventListener("resize", updateScrollProgress);
+}
+
+/* ==========================================================================
+   01b. MOBILE NAVIGATION — HAMBURGER TOGGLE (Responsive Fix)
+   Mengontrol buka/tutup overlay nav fullscreen di mobile (<=768px).
+   Dipasang di halaman yang punya #navToggleBtn + #mainNav: index.html,
+   about.html, services.html.
+   ========================================================================== */
+function initMobileNavToggle() {
+  const toggleBtn = document.getElementById("navToggleBtn");
+  const nav = document.getElementById("mainNav");
+  if (!toggleBtn || !nav) return;
+
+  const closeNav = () => {
+    document.body.classList.remove("nav-open");
+    toggleBtn.setAttribute("aria-expanded", "false");
+  };
+
+  const openNav = () => {
+    document.body.classList.add("nav-open");
+    toggleBtn.setAttribute("aria-expanded", "true");
+  };
+
+  toggleBtn.addEventListener("click", () => {
+    const isOpen = document.body.classList.contains("nav-open");
+    isOpen ? closeNav() : openNav();
+  });
+
+  // Tutup otomatis saat salah satu link nav diklik
+  nav.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", closeNav);
+  });
+
+  // Tutup otomatis kalau layar di-resize balik ke desktop (mis. rotasi tablet)
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 768) closeNav();
+  });
+
+  // Tutup dengan tombol Escape untuk aksesibilitas keyboard
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeNav();
+  });
 }
 
 /* ==========================================================================
@@ -92,75 +217,72 @@ function initFilterAndGallery(projects) {
   });
 
   // Task D: Setup Circular Desktop Navigation
-  const btnPrev = document.getElementById('galleryPrev');
-  const btnNext = document.getElementById('galleryNext');
-  
-  if (btnPrev && btnNext) {
-    const scrollAmount = 450 + 32; // Card width + gap estimation
-    btnPrev.addEventListener('click', () => {
-      gallery.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+  const prevBtn = document.getElementById("galleryPrev");
+  const nextBtn = document.getElementById("galleryNext");
+
+  if (prevBtn && nextBtn) {
+    const scrollAmount = 470;
+
+    nextBtn.addEventListener("click", () => {
+      if (gallery.scrollLeft + gallery.clientWidth >= gallery.scrollWidth - 10) {
+        gallery.scrollTo({ left: 0, behavior: 'smooth' });
+      } else {
+        gallery.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      }
     });
-    btnNext.addEventListener('click', () => {
-      gallery.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+
+    prevBtn.addEventListener("click", () => {
+      if (gallery.scrollLeft <= 10) {
+        gallery.scrollTo({ left: gallery.scrollWidth, behavior: 'smooth' });
+      } else {
+        gallery.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+      }
     });
   }
 }
 
 /* ==========================================================================
-   03. SERVICES PITCH PAGE DYNAMIC RENDERER
+   03. SERVICES PAGE VIEW (Dynamic Category Pitch Page)
    ========================================================================== */
 function initServicesPageView(projects) {
-  const categoryTitle = document.getElementById("serviceCategoryTitle");
-  const categoryGallery = document.getElementById("serviceGallery");
-
-  if (!categoryTitle || !categoryGallery) return;
+  const titleEl = document.getElementById("serviceCategoryTitle");
+  const galleryEl = document.getElementById("serviceGallery");
+  if (!titleEl || !galleryEl) return;
 
   const urlParams = new URLSearchParams(window.location.search);
   const category = urlParams.get("category") || "Brand Identity";
 
-  categoryTitle.textContent = category;
+  titleEl.textContent = category;
 
   const filtered = projects.filter(p => p.categories.includes(category));
 
-  if (filtered.length === 0) {
-    categoryGallery.innerHTML = `<p style="grid-column: 1/-1;">Belum ada eksekusi proyek dalam arsip untuk kategori "${category}".</p>`;
-    return;
-  }
-
-  categoryGallery.innerHTML = filtered.map(p => `
-    <a href="/projects/${p.slug}" class="project-card size-small" style="flex: auto;">
-      <div class="card-media-wrapper">
-        <img src="${p.coverImage}" alt="${p.title}" loading="lazy" />
+  galleryEl.innerHTML = filtered.map(p => `
+    <a href="/projects/${p.slug}" style="text-decoration:none; color:inherit; display:block;">
+      <div style="aspect-ratio: 4/3; background: var(--color-surface); overflow:hidden; margin-bottom: 0.75rem;">
+        <img src="${p.coverImage}" alt="${p.title}" style="width:100%; height:100%; object-fit:cover;" loading="lazy" />
       </div>
-      <div class="card-info">
-        <span class="card-title" style="font-size: 1.1rem;">${p.title}</span>
-        <span class="card-meta">${p.year}</span>
-      </div>
+      <span style="font-weight:600; font-size: var(--text-body);">${p.title}</span>
     </a>
   `).join('');
 }
 
 /* ==========================================================================
-   04. HOVER VIDEO PLAYBACK ENGINE
+   04. HOVER VIDEO PREVIEW HANDLERS
    ========================================================================== */
 function attachHoverVideoHandlers() {
-  const cards = document.querySelectorAll(".project-card");
+  const cards = document.querySelectorAll(".project-card[data-video]");
 
   cards.forEach(card => {
+    const videoSrc = card.dataset.video;
+    if (!videoSrc) return;
+
     const video = card.querySelector("video");
     if (!video) return;
 
     card.addEventListener("mouseenter", () => {
-      if (video.readyState >= 2) {
-        video.play();
+      video.play().then(() => {
         video.classList.add("is-playing");
-      } else {
-        video.load();
-        video.addEventListener("loadeddata", () => {
-          video.play();
-          video.classList.add("is-playing");
-        }, { once: true });
-      }
+      }).catch(() => {});
     });
 
     card.addEventListener("mouseleave", () => {
@@ -172,15 +294,15 @@ function attachHoverVideoHandlers() {
 }
 
 /* ==========================================================================
-   05. ADAPTIVE CASE STUDY ROUTER & RENDERER
+   05. PROJECT DETAIL / CASE STUDY VIEW
    ========================================================================== */
 function initProjectDetailView(projects) {
   const container = document.getElementById("projectContainer");
   if (!container) return;
 
-  const urlParams = new URLSearchParams(window.location.search);
-  let slug = urlParams.get("slug");
-  
+  let slug = new URLSearchParams(window.location.search).get("slug");
+
+  // Fallback: parsing dari pathname jika query string tidak terbawa saat rewrite Netlify
   if (!slug) {
     const pathParts = window.location.pathname.split("/").filter(Boolean);
     if (pathParts[0] === "projects" && pathParts[1]) {
@@ -188,72 +310,61 @@ function initProjectDetailView(projects) {
     }
   }
 
-  const projectIndex = projects.findIndex(p => p.slug === slug);
-  const project = projects[projectIndex];
+  const project = projects.find(p => p.slug === slug);
 
   if (!project) {
-    container.innerHTML = `
-      <section class="case-study-hero">
-        <h1 class="font-serif" style="font-size: var(--text-h1); margin-bottom: 2rem;">404 — Proyek Tidak Ditemukan</h1>
-        <p style="margin-bottom: 2rem;">Halaman proyek yang Anda cari tidak ada atau telah dipindahkan.</p>
-        <a href="/" class="cta-pill cta-secondary">Kembali ke Selected Work</a>
-      </section>
-    `;
+    container.innerHTML = `<p style="padding: 4rem 2.5rem;">Proyek tidak ditemukan.</p>`;
     return;
   }
 
-  const nextProject = projects[(projectIndex + 1) % projects.length];
+  const currentIndex = projects.findIndex(p => p.slug === slug);
+  const nextProject = projects[(currentIndex + 1) % projects.length];
 
-  const galleryHTML = (project.gallery && project.gallery.length > 0) ? `
+  const galleryHTML = project.gallery && project.gallery.length > 0 ? `
     <div class="case-study-gallery">
       ${project.gallery.map(item => `
         <div class="gallery-item">
-          ${item.type === 'video' ? `
-            <video autoplay loop muted playsinline poster="${project.coverImage}">
-              <source src="${item.src}" type="video/mp4">
-            </video>
-          ` : `
-            <img src="${item.src}" alt="${item.caption || project.title}" loading="lazy" />
-          `}
+          ${item.type === "video"
+            ? `<video src="${item.src}" controls></video>`
+            : `<img src="${item.src}" alt="${item.caption || project.title}" loading="lazy" />`
+          }
           ${item.caption ? `<p class="gallery-caption">${item.caption}</p>` : ''}
         </div>
       `).join('')}
     </div>
   ` : '';
 
+  document.title = `${project.title} — FAIZ AKBARSYAH®`;
+
   container.innerHTML = `
-    <article class="case-study-hero">
-      <section style="border-bottom: none; padding-top: 0;">
-        <p class="hero-subtitle">${project.categories.join(" / ")} — ${project.year}</p>
-        <h1 class="font-serif" style="font-size: var(--text-h1); margin-bottom: 2rem;">${project.title}</h1>
-        
-        <div class="case-study-meta-grid">
-          <div>
-            <div class="meta-item-label">Kategori</div>
-            <div class="meta-item-value">${project.categories.join(", ")}</div>
-          </div>
-          <div>
-            <div class="meta-item-label">Tahun</div>
-            <div class="meta-item-value">${project.year}</div>
-          </div>
-          ${project.client ? `
-            <div>
-              <div class="meta-item-label">Klien</div>
-              <div class="meta-item-value">${project.client}</div>
-            </div>
-          ` : ''}
-          ${project.role ? `
-            <div>
-              <div class="meta-item-label">Peran</div>
-              <div class="meta-item-value">${project.role}</div>
-            </div>
-          ` : ''}
-        </div>
+    <article>
+      <section class="case-study-hero">
+        <p class="hero-subtitle">${project.categories.join(" / ")}</p>
+        <h1 class="font-serif" style="font-size: var(--text-h1); line-height: 1.05; max-width: 1000px;">${project.title}</h1>
+      </section>
 
-        <div class="case-study-media-hero">
-          <img src="${project.coverImage}" alt="${project.title}" />
+      <div class="case-study-meta-grid">
+        <div>
+          <p class="meta-item-label">Year</p>
+          <p class="meta-item-value">${project.year}</p>
         </div>
+        ${project.client ? `
+          <div>
+            <p class="meta-item-label">Client</p>
+            <p class="meta-item-value">${project.client}</p>
+          </div>
+        ` : ''}
+        <div>
+          <p class="meta-item-label">Role</p>
+          <p class="meta-item-value">${project.role}</p>
+        </div>
+      </div>
 
+      <div class="case-study-media-hero">
+        <img src="${project.coverImage}" alt="${project.title}" />
+      </div>
+
+      <section>
         ${project.context ? `
           <div class="case-study-narrative">
             <h3 class="narrative-title">01. Konteks</h3>
@@ -324,6 +435,22 @@ function initPrintView(projects) {
     categorySelect.value = initialCategory;
   }
 
+  // Render Foto Profil + Ringkasan About (data dari ABOUT_DATA, sinkron dengan about.html)
+  const printAboutContent = document.getElementById("printAboutContent");
+  if (printAboutContent && typeof ABOUT_DATA !== 'undefined') {
+    printAboutContent.innerHTML = `
+      <div class="print-about-photo-wrap">
+        <div class="print-about-photo-frame">
+          <img src="${ABOUT_DATA.photo.src}" alt="${ABOUT_DATA.photo.alt}" />
+        </div>
+        <span class="print-about-photo-caption">${ABOUT_DATA.photo.caption}</span>
+      </div>
+      <div class="print-about-text-wrap">
+        <p class="print-about-text">${ABOUT_DATA.printSummary}</p>
+      </div>
+    `;
+  }
+
   const renderPrintItems = (selectedCategory) => {
     printCategoryLabel.textContent = selectedCategory === "All" 
       ? "ALL CATEGORIES PORTFOLIO" 
@@ -366,4 +493,93 @@ function initPrintView(projects) {
   categorySelect.addEventListener("change", (e) => {
     renderPrintItems(e.target.value);
   });
+}
+
+/* ==========================================================================
+   07. ABOUT PAGE DYNAMIC RENDERER
+   Merender about.html dari ABOUT_DATA (data/about-data.js): foto profil,
+   Background & Philosophy, dan Core Disciplines.
+   ========================================================================== */
+function initAboutPageView() {
+  const photoContainer = document.getElementById("aboutPhotoCard");
+  const backgroundContainer = document.getElementById("aboutBackgroundBlock");
+  const disciplinesContainer = document.getElementById("aboutDisciplinesBlock");
+
+  if (!photoContainer || !backgroundContainer || !disciplinesContainer) return;
+  if (typeof ABOUT_DATA === 'undefined') return;
+
+  const data = ABOUT_DATA;
+
+  photoContainer.innerHTML = `
+    <div class="about-photo-card">
+      <div class="about-photo-frame">
+        <img src="${data.photo.src}" alt="${data.photo.alt}" />
+      </div>
+      <span class="about-photo-caption">${data.photo.caption}</span>
+    </div>
+  `;
+
+  backgroundContainer.innerHTML = `
+    <h2 class="font-serif" style="font-size: var(--text-h2); color: var(--color-purple); margin-bottom: 1.5rem;">${data.background.title}</h2>
+    ${data.background.paragraphs.map(p => `<p class="about-text">${p}</p>`).join('')}
+  `;
+
+  disciplinesContainer.innerHTML = `
+    <h2 class="font-serif" style="font-size: var(--text-h2); color: var(--color-purple); margin-bottom: 1.5rem;">${data.disciplines.title}</h2>
+    <div class="about-capabilities-matrix" style="margin-top: 0; border-top: none; padding-top: 0;">
+      ${data.disciplines.items.map((item, idx) => `
+        <div class="matrix-item"${idx > 0 ? ' style="margin-top: 1.5rem;"' : ''}>
+          <span class="matrix-title">${item.title}</span>
+          <span class="matrix-desc">${item.desc}</span>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+/* ==========================================================================
+   08. CV ATS-FRIENDLY DYNAMIC RENDERER
+   Merender cv-print.html dari ABOUT_DATA.cv + SITE_CONFIG. Sengaja tidak
+   menyertakan foto — format tetap plain-text/1 kolom agar aman untuk parser ATS.
+   ========================================================================== */
+function initCvPrintView() {
+  const nameEl = document.getElementById("cvName");
+  const titleEl = document.getElementById("cvTitle");
+  const contactEl = document.getElementById("cvContact");
+  const summaryEl = document.getElementById("cvSummary");
+  const skillsEl = document.getElementById("cvSkills");
+  const educationEl = document.getElementById("cvEducation");
+
+  if (!nameEl || !titleEl || !contactEl || !summaryEl || !skillsEl || !educationEl) return;
+  if (typeof ABOUT_DATA === 'undefined' || typeof SITE_CONFIG === 'undefined') return;
+
+  const cv = ABOUT_DATA.cv;
+  const owner = SITE_CONFIG.owner;
+  const contact = SITE_CONFIG.contact;
+
+  nameEl.textContent = cv.fullName;
+  titleEl.textContent = owner.title;
+
+  contactEl.innerHTML = `
+    <span>${owner.location}</span>
+    <span>${contact.email}</span>
+    <span>faizakbarsyah.com</span>
+    <span>${contact.linkedinUrl.replace(/^https?:\/\//, '')}</span>
+  `;
+
+  summaryEl.textContent = cv.professionalSummary;
+
+  skillsEl.innerHTML = cv.skills.map(group => `
+    <li><strong>${group.category}:</strong> ${group.items.join(', ')}.</li>
+  `).join('');
+
+  educationEl.innerHTML = cv.education.map(edu => `
+    <div class="cv-item">
+      <div class="cv-item-header">
+        <span>${edu.institution}</span>
+        <span>${edu.period}</span>
+      </div>
+      <div class="cv-item-sub">${edu.degree}</div>
+    </div>
+  `).join('');
 }

@@ -45,6 +45,13 @@
       </div>
     </header>
 
+    <!-- About Me — mengambil ±50% tinggi halaman pertama saat dicetak/di-PDF -->
+    <section class="print-about-section">
+      <h2 class="print-about-title font-serif">About</h2>
+      <!-- Dirender dinamis dari ABOUT_DATA (foto + printSummary) -> lihat js/app.js initPrintView() -->
+      <div id="printAboutContent" class="print-about-grid"></div>
+    </section>
+
     <div id="printGallery" class="print-gallery-grid"></div>
 
     <footer class="print-doc-footer">
@@ -54,6 +61,7 @@
   </main>
 
   <script src="/data/site-config.js"></script>
+  <script src="/data/about-data.js"></script>
   <script src="/js/app.js"></script>
 </body>
 </html>

@@ -6,8 +6,8 @@ const SITE_CONFIG = {
     cvPath: "/assets/faiz-akbarsyah-cv.pdf"
   },
   contact: {
-    email: "contact@faizakbarsyah.com",
-    whatsappNumber: "6281234567890",
+    email: "faiz.akbarsyah@gmail.com",
+    whatsappNumber: "628116362406",
     whatsappDefaultMessage: "Halo Faiz, saya ingin berdiskusi mengenai proyek kreatif.",
     instagramUrl: "https://instagram.com/faizakbarsyah",
     linkedinUrl: "https://linkedin.com/in/faizakbarsyah"

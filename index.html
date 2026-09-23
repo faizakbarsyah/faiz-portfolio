@@ -47,7 +47,10 @@
 
   <header class="site-header" role="banner">
     <a href="/" class="brand-logo" aria-label="Beranda FAIZ AKBARSYAH">FAIZ AKBARSYAH®</a>
-    <nav aria-label="Navigasi Utama">
+    <button id="navToggleBtn" class="nav-toggle-btn" type="button" aria-label="Buka Menu Navigasi" aria-expanded="false" aria-controls="mainNav">
+      <span class="nav-toggle-icon"></span>
+    </button>
+    <nav id="mainNav" aria-label="Navigasi Utama">
       <ul class="nav-links">
         <li><a href="#work">Work</a></li>
         <li><a href="/about.html">About</a></li>
@@ -60,6 +63,12 @@
   <main id="main-content" role="main">
     <!-- 01. HERO SECTION -->
     <section class="hero-section" aria-label="Pengenalan Utama">
+      <div class="hero-bg" aria-hidden="true">
+        <picture>
+          <source srcset="/assets/images/hero-cover.webp" type="image/webp">
+          <img class="hero-cover-img" src="/assets/images/hero-cover.jpg" alt="" loading="eager" fetchpriority="high" />
+        </picture>
+      </div>
       <p class="hero-subtitle">Graphic Designer — Motion Designer — Creative Director</p>
       <h1 class="hero-title">
         <span class="hero-title-line">FAIZ</span>
@@ -110,22 +119,22 @@
       <p class="section-label">05 / SERVICES & DISCIPLINES</p>
       <div class="services-list">
         <a href="/services.html?category=Brand%20Identity" target="_blank" rel="noopener" class="service-item-link">
-          <h3 class="service-title">Brand Identity <span class="service-indicator">→</span></h3>
+          <h3 class="service-title">Brand Identity <span class="service-indicator">↗</span></h3>
         </a>
         <a href="/services.html?category=Graphic%20Design" target="_blank" rel="noopener" class="service-item-link">
-          <h3 class="service-title">Graphic Design <span class="service-indicator">→</span></h3>
+          <h3 class="service-title">Graphic Design <span class="service-indicator">↗</span></h3>
         </a>
         <a href="/services.html?category=Motion%20Design" target="_blank" rel="noopener" class="service-item-link">
-          <h3 class="service-title">Motion Design <span class="service-indicator">→</span></h3>
+          <h3 class="service-title">Motion Design <span class="service-indicator">↗</span></h3>
         </a>
         <a href="/services.html?category=Event%20Visual" target="_blank" rel="noopener" class="service-item-link">
-          <h3 class="service-title">Event Visual <span class="service-indicator">→</span></h3>
+          <h3 class="service-title">Event Visual <span class="service-indicator">↗</span></h3>
         </a>
         <a href="/services.html?category=Social%20Media%20Design" target="_blank" rel="noopener" class="service-item-link">
-          <h3 class="service-title">Social Media Design <span class="service-indicator">→</span></h3>
+          <h3 class="service-title">Social Media Design <span class="service-indicator">↗</span></h3>
         </a>
         <a href="/services.html?category=Presentation%20Design" target="_blank" rel="noopener" class="service-item-link">
-          <h3 class="service-title">Presentation Design <span class="service-indicator">→</span></h3>
+          <h3 class="service-title">Presentation Design <span class="service-indicator">↗</span></h3>
         </a>
       </div>
     </section>

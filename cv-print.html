@@ -33,6 +33,17 @@
       body { background: #fff; }
       .cv-container { border: none; padding: 0; margin: 0; max-width: 100%; }
     }
+
+    @media (max-width: 600px) {
+      .no-print-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.75rem;
+        padding: 1rem 1.25rem;
+      }
+      .no-print-bar a { text-align: center; }
+      .btn-download-ats { width: 100%; justify-content: center; }
+    }
   </style>
 </head>
 <body>
@@ -47,41 +58,31 @@
 
   <main class="cv-container">
     <header class="cv-header">
-      <h1 class="cv-name">Faiz Akbarsyah</h1>
-      <p class="cv-title">Graphic Designer, Motion Designer & Creative Director</p>
-      <div class="cv-contact">
-        <span>Medan, Indonesia</span>
-        <span>contact@faizakbarsyah.com</span>
-        <span>faizakbarsyah.com</span>
-        <span>linkedin.com/in/faizakbarsyah</span>
-      </div>
+      <!-- Sengaja TANPA foto: praktik ATS-friendly terbaik menghindari elemen non-teks -->
+      <h1 id="cvName" class="cv-name"></h1>
+      <p id="cvTitle" class="cv-title"></p>
+      <div id="cvContact" class="cv-contact"></div>
     </header>
 
     <section class="cv-section">
       <h2 class="cv-section-title">Ringkasan Profesional</h2>
-      <p>Multidisciplinary Designer dan Creative Director berbasis di Medan[cite: 1]. Berpengalaman dalam pengarahan identitas brand, desain sistem visual, grafis gerak (motion graphics), serta arsitektur visual panggung dan event korporat[cite: 1]. Berfokus pada kejelasan komunikasi visual, disiplin naratif, dan eksekusi strategis[cite: 1].</p>
+      <p id="cvSummary"></p>
     </section>
 
     <section class="cv-section">
       <h2 class="cv-section-title">Keahlian Utama</h2>
-      <ul class="cv-list">
-        <li><strong>Creative Direction & Branding:</strong> Brand Identity Systems, Graphic Design, Editorial Design, Pitch Decks[cite: 1].</li>
-        <li><strong>Motion & Spatial Design:</strong> 2D Animation, Broadcast Motion Loops, Stage Visual Systems, 3D Renders[cite: 1].</li>
-        <li><strong>Software & Tools:</strong> Adobe Creative Suite (Illustrator, Photoshop, Premiere, After Effects), SketchUp, V-Ray, Enscape[cite: 1].</li>
-      </ul>
+      <ul id="cvSkills" class="cv-list"></ul>
     </section>
 
     <section class="cv-section">
       <h2 class="cv-section-title">Pendidikan</h2>
-      <div class="cv-item">
-        <div class="cv-item-header">
-          <span>Universitas Islam Sumatera Utara</span>
-          <span>Lulus 2026</span>
-        </div>
-        <div class="cv-item-sub">Sarjana Teknik (S.T.) — Teknik Mesin</div>
-      </div>
+      <div id="cvEducation"></div>
     </section>
   </main>
 
+  <!-- Data diambil dari sumber yang sama dengan about.html & print.html -->
+  <script src="/data/site-config.js"></script>
+  <script src="/data/about-data.js"></script>
+  <script src="/js/app.js"></script>
 </body>
 </html>

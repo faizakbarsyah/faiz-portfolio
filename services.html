@@ -13,7 +13,10 @@
 
   <header class="site-header" role="banner">
     <a href="/" class="brand-logo">FAIZ AKBARSYAH®</a>
-    <nav aria-label="Navigasi Utama">
+    <button id="navToggleBtn" class="nav-toggle-btn" type="button" aria-label="Buka Menu Navigasi" aria-expanded="false" aria-controls="mainNav">
+      <span class="nav-toggle-icon"></span>
+    </button>
+    <nav id="mainNav" aria-label="Navigasi Utama">
       <ul class="nav-links">
         <li><a href="/#work">Work</a></li>
         <li><a href="/about.html">About</a></li>
@@ -83,8 +86,14 @@
           <div class="contact-actions">
             <a id="emailLink" href="#" class="cta-pill cta-secondary">Email Me</a>
             <a id="whatsappLink" href="#" class="cta-pill cta-secondary" target="_blank" rel="noopener">WhatsApp ↗</a>
-            <a href="/print.html" class="cta-pill cta-primary" target="_blank" rel="noopener">Download Portfolio PDF</a>
-            <a href="/cv-print.html" class="cta-pill cta-primary" target="_blank" rel="noopener">Download CV</a>
+            <a href="/print.html" class="cta-pill cta-primary" target="_blank" rel="noopener">
+              <svg class="cta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              Download Portfolio PDF
+            </a>
+            <a href="/cv-print.html" class="cta-pill cta-primary" target="_blank" rel="noopener">
+              <svg class="cta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              Download CV
+            </a>
           </div>
           
           <div class="social-links-row">

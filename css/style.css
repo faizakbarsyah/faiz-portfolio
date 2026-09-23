@@ -145,6 +145,94 @@ body {
 
 .nav-links a:hover { color: var(--color-purple); }
 
+/* Mobile Navigation — Hamburger Toggle & Fullscreen Overlay */
+.nav-toggle-btn {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 210;
+  padding: 0;
+}
+
+.nav-toggle-icon {
+  position: relative;
+  display: block;
+  width: 22px;
+  height: 2px;
+  background-color: var(--color-text);
+  transition: background-color var(--transition-fast);
+}
+
+.nav-toggle-icon::before,
+.nav-toggle-icon::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 22px;
+  height: 2px;
+  background-color: var(--color-text);
+  transition: transform var(--transition-fast), top var(--transition-fast);
+}
+
+.nav-toggle-icon::before { top: -7px; }
+.nav-toggle-icon::after { top: 7px; }
+
+/* "X" state saat menu terbuka */
+body.nav-open .nav-toggle-icon { background-color: transparent; }
+body.nav-open .nav-toggle-icon::before { top: 0; transform: rotate(45deg); }
+body.nav-open .nav-toggle-icon::after { top: 0; transform: rotate(-45deg); }
+
+@media (max-width: 768px) {
+  .nav-toggle-btn { display: flex; }
+
+  /* Overlay fullscreen gelap berisi nav-links, disembunyikan by default */
+  .site-header > nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    background-color: var(--color-bg-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-12px);
+    transition: opacity var(--transition-medium), transform var(--transition-medium), visibility var(--transition-medium);
+    z-index: 150;
+  }
+
+  body.nav-open .site-header > nav {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .site-header .nav-links {
+    flex-direction: column;
+    gap: 2.5rem;
+    text-align: center;
+  }
+
+  .site-header .nav-links a {
+    font-size: 1.5rem;
+    color: var(--color-text-inverse) !important;
+  }
+
+  .site-header .nav-links a:hover { color: var(--color-lime) !important; }
+
+  /* Kunci scroll body saat overlay menu terbuka */
+  body.nav-open { overflow: hidden; }
+}
+
 /* Layout Section Containers */
 section {
   padding: 8rem 2.5rem 4rem;
@@ -164,6 +252,44 @@ section {
   justify-content: flex-end;
   padding-bottom: 4rem;
   overflow: hidden;
+  position: relative; /* konteks posisi untuk .hero-bg, tidak mengubah flex layout teks */
+}
+
+/* Hero Cover Image — full-bleed, desain kustom dari user (bukan lagi CSS-generated blob/glass).
+   Layer dekoratif absolute di belakang teks (z-index: -1), sehingga TIDAK
+   mempengaruhi posisi/layout .hero-subtitle & .hero-title sama sekali.
+   Parallax cursor + zoom scroll digerakkan oleh js/app.js -> initHeroDynamicBackground(). */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero-cover-img {
+  position: absolute;
+  top: -4%;
+  left: -4%;
+  width: 108%;
+  height: 108%;
+  object-fit: cover;
+  object-position: 62% center; /* fokus ke area transisi warna paling kaya di desain */
+  will-change: transform;
+  transform: translate3d(0, 0, 0) scale(1);
+  /* Transisi CSS yang menghaluskan animasi (bukan JS rAF loop terus-menerus) — jauh lebih ringan */
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (max-width: 768px) {
+  .hero-cover-img {
+    /* Crop mobile portrait lebih sempit — geser fokus agar pita warna aksen tetap kelihatan */
+    object-position: 78% center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-cover-img { transition: none; }
 }
 
 .hero-title {
@@ -192,14 +318,20 @@ section {
   margin-bottom: 1rem;
 }
 
-/* Short Manifesto */
-.manifesto-section { max-width: 900px; }
+/* Short Manifesto — Full-Bleed Purple Band (pola sama dengan .contact-section) */
+.manifesto-section {
+  max-width: none;
+  background-color: var(--color-purple);
+  color: var(--color-lime);
+  border-bottom: none;
+}
 
 .manifesto-text {
   font-family: var(--font-serif);
   font-size: var(--text-h2);
   line-height: 1.3;
-  color: var(--color-text);
+  color: var(--color-lime);
+  max-width: 900px;
 }
 
 /* Category Filter Bar */
@@ -372,6 +504,7 @@ section {
 @media (max-width: 900px) {
   .about-grid { grid-template-columns: 1fr; gap: 2rem; }
   .about-page-container { padding: 0 1.5rem; }
+  .about-photo-card { max-width: 160px; margin-bottom: 2rem; }
 }
 
 .about-heading { font-size: var(--text-h2); line-height: 1.2; }
@@ -389,6 +522,37 @@ section {
 .matrix-item { display: flex; flex-direction: column; gap: 0.25rem; }
 .matrix-title { font-weight: 600; font-size: var(--text-body); }
 .matrix-desc { font-size: var(--text-meta); color: var(--color-text-muted); }
+
+/* About Page — Profile Photo Identity Card */
+.about-photo-card {
+  max-width: 220px;
+  margin-bottom: 2.5rem;
+}
+
+.about-photo-frame {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border: 1px solid var(--color-purple);
+  background-color: var(--color-surface);
+}
+
+.about-photo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.about-photo-caption {
+  display: block;
+  margin-top: 0.75rem;
+  font-size: var(--text-meta);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-purple);
+}
 
 /* Services Section (Task C - Editorial Typographic Links) */
 .services-list {
@@ -413,22 +577,77 @@ section {
 .service-title {
   font-family: var(--font-serif);
   font-size: 2rem;
-  display: flex;
-  justify-content: space-between;
+  display: inline-flex;
   align-items: center;
-  transition: color var(--transition-fast);
+  align-self: flex-start;
+  gap: 0.75rem;
+  padding: 0.35rem 0;
+  border-radius: 100px;
+  transition: all var(--transition-fast);
 }
 
 .service-indicator {
   opacity: 0;
-  transform: translateX(-10px);
+  transform: translate(-4px, 4px);
   transition: all var(--transition-fast);
   color: var(--color-lime);
   font-family: var(--font-sans);
 }
 
-.service-item-link:hover .service-title { color: var(--color-purple); }
-.service-item-link:hover .service-indicator { opacity: 1; transform: translateX(0); }
+.service-item-link:hover .service-title {
+  background-color: var(--color-purple);
+  color: #F5F5F0;
+  padding: 0.35rem 1.25rem;
+  transform: translateY(-2px);
+}
+
+.service-item-link:hover .service-indicator {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+/* Testimonials / Endorsements Section (06) */
+.testimonials-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  max-width: 900px;
+}
+
+.testimonial-card {
+  border-left: 3px solid var(--color-purple);
+  padding-left: 2rem;
+}
+
+.testimonial-quote {
+  font-size: var(--text-h2);
+  line-height: 1.35;
+  color: var(--color-text);
+  margin-bottom: 1.5rem;
+}
+
+.testimonial-author {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-style: normal;
+}
+
+.author-name {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: var(--text-body);
+  color: var(--color-text);
+}
+
+.author-role {
+  font-family: var(--font-sans);
+  font-size: var(--text-meta);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
 
 /* Service Pitch Page Architecture */
 .pitch-grid {
@@ -530,6 +749,20 @@ section {
   background-color: var(--color-purple);
   color: #F5F5F0;
   border-color: #F5F5F0;
+}
+
+/* Accent CTA (Purple Background, White Text -> Lime Hover)
+   Digunakan untuk aksen kontekstual di luar grup CTA utama,
+   misalnya tombol "Download ATS-Friendly CV" di halaman About. */
+.cta-accent {
+  background-color: var(--color-purple);
+  color: #F5F5F0;
+}
+
+.cta-accent:hover {
+  background-color: var(--color-lime);
+  color: #0D0D0E;
+  border-color: var(--color-purple);
 }
 
 .cta-icon {
@@ -691,6 +924,49 @@ section {
 
 .btn-print-action:hover { background-color: var(--color-lime-hover); }
 
+@media (max-width: 768px) {
+  .print-controls-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+  }
+
+  .print-controls-left {
+    flex-wrap: wrap;
+    row-gap: 0.5rem;
+  }
+
+  .print-separator { display: none; }
+
+  .print-title {
+    font-size: 0.7rem;
+    width: 100%;
+  }
+
+  .print-controls-right {
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .print-label { display: none; }
+
+  .print-select {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .btn-print-action {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .print-controls-right { flex-direction: column; align-items: stretch; }
+  .print-select { width: 100%; }
+}
+
 .print-document { max-width: 1100px; margin: 0 auto; padding: 3rem 2rem; }
 
 .print-doc-header {
@@ -705,6 +981,81 @@ section {
 .print-doc-title { font-size: 2.5rem; line-height: 1; }
 .print-doc-subtitle { font-size: var(--text-meta); color: var(--color-text-muted); margin-top: 0.5rem; }
 .print-doc-meta { text-align: right; display: flex; flex-direction: column; gap: 0.25rem; }
+
+/* About Me — target ±50% tinggi halaman pertama A4 (lihat catatan presisi di respons chat) */
+.print-about-section {
+  min-height: 10cm;
+  padding: 1.5rem 0 2.5rem;
+  border-bottom: 1px dashed var(--color-border);
+  margin-bottom: 3rem;
+  page-break-inside: avoid;
+}
+
+.print-about-title {
+  font-size: 1.75rem;
+  color: var(--color-purple);
+  margin-bottom: 1.25rem;
+}
+
+.print-about-text {
+  font-size: var(--text-body);
+  line-height: 1.9;
+  color: #222;
+  max-width: 800px;
+}
+
+/* Print Portfolio — About Section: Photo + Text Grid */
+.print-about-grid {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+.print-about-photo-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.print-about-photo-frame {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border: 1px solid var(--color-purple);
+  background-color: var(--color-surface);
+}
+
+.print-about-photo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.print-about-photo-caption {
+  display: block;
+  margin-top: 0.75rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-purple);
+}
+
+.print-about-text-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@media (max-width: 700px) {
+  .print-about-grid { grid-template-columns: 1fr; }
+  .print-about-photo-wrap { max-width: 220px; }
+}
+
+@media print {
+  .print-about-grid { grid-template-columns: 200px 1fr; }
+}
 
 .print-tag {
   font-size: 0.75rem;

@@ -14,7 +14,10 @@
 
   <header class="site-header" role="banner">
     <a href="/" class="brand-logo" aria-label="Beranda FAIZ AKBARSYAH">FAIZ AKBARSYAH®</a>
-    <nav aria-label="Navigasi Utama">
+    <button id="navToggleBtn" class="nav-toggle-btn" type="button" aria-label="Buka Menu Navigasi" aria-expanded="false" aria-controls="mainNav">
+      <span class="nav-toggle-icon"></span>
+    </button>
+    <nav id="mainNav" aria-label="Navigasi Utama">
       <ul class="nav-links">
         <li><a href="/#work">Work</a></li>
         <li><a href="/about.html" style="color: var(--color-purple);">About</a></li>
@@ -34,35 +37,18 @@
 
         <div class="about-grid">
           <div class="about-col-left">
-            <h2 class="font-serif" style="font-size: var(--text-h2); color: var(--color-purple); margin-bottom: 1.5rem;">Background & Philosophy</h2>
-            <p class="about-text">
-              Saya adalah seorang Multidisciplinary Designer dan Creative Director yang berdomisili di Medan, Indonesia. Bidang keahlian saya mencakup identitas brand, grafis gerak (motion graphics), arsitektur visual panggung event, hingga pengarahan seni editorial komersial.
-            </p>
-            <p class="about-text">
-              Alih-alih memperlakukan desain sekadar sebagai dekorasi visual, saya berfokus pada bagaimana bahasa visual berfungsi dalam konteks dunia nyata — baik saat mengarahkan tampilan layar LED panggung untuk acara gathering korporat, menyusun kerangka narasi kampanye, maupun merancang sistem gerak berpresisi tinggi.
-            </p>
+            <!-- Dirender dinamis dari ABOUT_DATA.photo (lihat js/app.js -> initAboutPageView) -->
+            <div id="aboutPhotoCard"></div>
+            <!-- Dirender dinamis dari ABOUT_DATA.background -->
+            <div id="aboutBackgroundBlock"></div>
           </div>
 
           <div class="about-col-right">
-            <h2 class="font-serif" style="font-size: var(--text-h2); color: var(--color-purple); margin-bottom: 1.5rem;">Core Disciplines</h2>
-            
-            <div class="about-capabilities-matrix" style="margin-top: 0; border-top: none; padding-top: 0;">
-              <div class="matrix-item">
-                <span class="matrix-title">Visual Systems & Brand Identity</span>
-                <span class="matrix-desc">Perancangan sistem identitas visual menyeluruh, pedoman tipografi, tata letak editorial, dan dokumen komunikasi brand.</span>
-              </div>
-              <div class="matrix-item" style="margin-top: 1.5rem;">
-                <span class="matrix-title">Motion Design & Broadcast</span>
-                <span class="matrix-desc">Animasi 2D, grafis siaran, sekuens video pembuka, dan konten perulangan (looping) layar LED panggung.</span>
-              </div>
-              <div class="matrix-item" style="margin-top: 1.5rem;">
-                <span class="matrix-title">Spatial & Event Visuals</span>
-                <span class="matrix-desc">Render panggung 3D, konsep photobooth, key visual acara, dan sistem petunjuk arah fisik/digital.</span>
-              </div>
-            </div>
+            <!-- Dirender dinamis dari ABOUT_DATA.disciplines -->
+            <div id="aboutDisciplinesBlock"></div>
 
             <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--color-border);">
-              <a href="/cv-print.html" target="_blank" rel="noopener" class="btn-editorial" style="background-color: var(--color-purple); color: #fff;">
+              <a href="/cv-print.html" target="_blank" rel="noopener" class="cta-pill cta-accent">
                 Download ATS-Friendly CV ↗
               </a>
             </div>
@@ -77,10 +63,16 @@
           <h2 class="contact-heading font-serif">Have an idea worth turning into something people can see?</h2>
           
           <div class="contact-actions">
-            <a id="emailLink" href="#" class="btn-footer">Email Me</a>
-            <a id="whatsappLink" href="#" class="btn-footer" target="_blank" rel="noopener">WhatsApp ↗</a>
-            <a href="/print.html" class="btn-footer" target="_blank" rel="noopener">Download Portfolio PDF ↗</a>
-            <a href="/cv-print.html" class="btn-footer" target="_blank" rel="noopener">Download CV ↗</a>
+            <a id="emailLink" href="#" class="cta-pill cta-secondary">Email Me</a>
+            <a id="whatsappLink" href="#" class="cta-pill cta-secondary" target="_blank" rel="noopener">WhatsApp ↗</a>
+            <a href="/print.html" class="cta-pill cta-primary" target="_blank" rel="noopener">
+              <svg class="cta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              Download Portfolio PDF
+            </a>
+            <a href="/cv-print.html" class="cta-pill cta-primary" target="_blank" rel="noopener">
+              <svg class="cta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              Download CV
+            </a>
           </div>
 
           <div class="social-links-row">
@@ -98,6 +90,7 @@
   </main>
 
   <script src="/data/site-config.js"></script>
+  <script src="/data/about-data.js"></script>
   <script src="/js/app.js"></script>
 </body>
 </html>
