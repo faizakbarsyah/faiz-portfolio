@@ -40,7 +40,7 @@ function initHeroKineticScroll() {
 }
 
 /* ==========================================================================
-   02. GALLERY & HOVER VIDEO PREVIEW SYSTEM
+   02. GALLERY & HOVER VIDEO PREVIEW SYSTEM (Task D Controls)
    ========================================================================== */
 function initFilterAndGallery(projects) {
   const filterContainer = document.getElementById("filterContainer");
@@ -90,10 +90,24 @@ function initFilterAndGallery(projects) {
       renderProjects(e.target.dataset.category);
     }
   });
+
+  // Task D: Setup Circular Desktop Navigation
+  const btnPrev = document.getElementById('galleryPrev');
+  const btnNext = document.getElementById('galleryNext');
+  
+  if (btnPrev && btnNext) {
+    const scrollAmount = 450 + 32; // Card width + gap estimation
+    btnPrev.addEventListener('click', () => {
+      gallery.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    });
+    btnNext.addEventListener('click', () => {
+      gallery.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    });
+  }
 }
 
 /* ==========================================================================
-   03. SERVICES PAGE DYNAMIC CATEGORY RENDERER
+   03. SERVICES PITCH PAGE DYNAMIC RENDERER
    ========================================================================== */
 function initServicesPageView(projects) {
   const categoryTitle = document.getElementById("serviceCategoryTitle");
@@ -109,17 +123,17 @@ function initServicesPageView(projects) {
   const filtered = projects.filter(p => p.categories.includes(category));
 
   if (filtered.length === 0) {
-    categoryGallery.innerHTML = `<p style="grid-column: 1/-1; padding: 3rem 0;">Belum ada proyek yang dimasukkan dalam kategori "${category}".</p>`;
+    categoryGallery.innerHTML = `<p style="grid-column: 1/-1;">Belum ada eksekusi proyek dalam arsip untuk kategori "${category}".</p>`;
     return;
   }
 
   categoryGallery.innerHTML = filtered.map(p => `
-    <a href="/projects/${p.slug}" class="project-card size-medium" style="flex: auto;">
+    <a href="/projects/${p.slug}" class="project-card size-small" style="flex: auto;">
       <div class="card-media-wrapper">
         <img src="${p.coverImage}" alt="${p.title}" loading="lazy" />
       </div>
       <div class="card-info">
-        <span class="card-title">${p.title}</span>
+        <span class="card-title" style="font-size: 1.1rem;">${p.title}</span>
         <span class="card-meta">${p.year}</span>
       </div>
     </a>
@@ -182,7 +196,7 @@ function initProjectDetailView(projects) {
       <section class="case-study-hero">
         <h1 class="font-serif" style="font-size: var(--text-h1); margin-bottom: 2rem;">404 — Proyek Tidak Ditemukan</h1>
         <p style="margin-bottom: 2rem;">Halaman proyek yang Anda cari tidak ada atau telah dipindahkan.</p>
-        <a href="/" class="btn-pill">Kembali ke Selected Work</a>
+        <a href="/" class="cta-pill cta-secondary">Kembali ke Selected Work</a>
       </section>
     `;
     return;

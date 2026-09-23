@@ -18,7 +18,6 @@
 
   /* Primary Accents */
   --color-purple: #4B1FA6;
-  --color-purple-subtle: rgba(75, 31, 166, 0.08);
   --color-lime: #CCFF00;
   --color-lime-hover: #B8E600;
 
@@ -33,9 +32,8 @@
   --text-meta: 0.8125rem;
 
   /* Transitions */
-  --ease-editorial: cubic-bezier(0.16, 1, 0.3, 1);
-  --transition-fast: 0.2s var(--ease-editorial);
-  --transition-medium: 0.4s var(--ease-editorial);
+  --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-medium: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Accessibility Utilities */
@@ -147,7 +145,7 @@ body {
 
 .nav-links a:hover { color: var(--color-purple); }
 
-/* Section Containers */
+/* Layout Section Containers */
 section {
   padding: 8rem 2.5rem 4rem;
   border-bottom: 1px solid var(--color-border);
@@ -204,7 +202,7 @@ section {
   color: var(--color-text);
 }
 
-/* Category Filter Bar & Universal Pill Button Style */
+/* Category Filter Bar */
 .filter-bar {
   display: flex;
   gap: 0.75rem;
@@ -212,7 +210,7 @@ section {
   margin-bottom: 2.5rem;
 }
 
-.filter-btn, .btn-pill {
+.filter-btn {
   background: transparent;
   border: 1px solid var(--color-border);
   padding: 0.65rem 1.4rem;
@@ -220,38 +218,59 @@ section {
   font-size: var(--text-meta);
   font-weight: 500;
   color: var(--color-text);
-  text-decoration: none;
   cursor: pointer;
   border-radius: 100px;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  position: relative;
-  overflow: hidden;
   transition: all var(--transition-fast);
 }
 
-.filter-btn.active, .filter-btn:hover, .btn-pill:hover {
+.filter-btn.active, .filter-btn:hover {
   background-color: var(--color-purple);
-  color: var(--color-text-inverse) !important;
+  color: var(--color-text-inverse);
   border-color: var(--color-purple);
 }
 
-/* Style Khusus Tombol Pill di Seksi Footer Dark Background */
-.contact-section .btn-pill {
-  border-color: rgba(255, 255, 255, 0.25);
+/* Horizontal Work Gallery & Circular Controls (Task D) */
+.work-section {
+  overflow: hidden;
+  position: relative;
+}
+
+.gallery-controls-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 2.5rem;
+}
+
+.gallery-nav-group {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.gallery-nav-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.gallery-nav-btn:hover {
+  background: var(--color-purple);
   color: var(--color-text-inverse);
-  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--color-purple);
 }
 
-.contact-section .btn-pill:hover {
-  background-color: var(--color-lime) !important;
-  color: var(--color-bg-dark) !important;
-  border-color: var(--color-lime) !important;
+@media (max-width: 768px) {
+  .gallery-nav-group { display: none; }
 }
-
-/* Horizontal Work Gallery */
-.work-section { overflow: hidden; }
 
 .horizontal-gallery-wrapper {
   display: flex;
@@ -259,13 +278,11 @@ section {
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   padding-bottom: 2rem;
-  scrollbar-width: thin;
-  scrollbar-color: var(--color-purple) var(--color-surface);
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
 }
 
-.horizontal-gallery-wrapper::-webkit-scrollbar { height: 6px; }
-.horizontal-gallery-wrapper::-webkit-scrollbar-track { background: var(--color-surface); }
-.horizontal-gallery-wrapper::-webkit-scrollbar-thumb { background-color: var(--color-purple); border-radius: 10px; }
+.horizontal-gallery-wrapper::-webkit-scrollbar { display: none; }
 
 .project-card {
   flex: 0 0 450px;
@@ -373,45 +390,80 @@ section {
 .matrix-title { font-weight: 600; font-size: var(--text-body); }
 .matrix-desc { font-size: var(--text-meta); color: var(--color-text-muted); }
 
-/* Services Section */
+/* Services Section (Task C - Editorial Typographic Links) */
 .services-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 3rem;
+  column-gap: 4rem;
+  row-gap: 2rem;
   margin-top: 2rem;
 }
 
 .service-item-link {
   text-decoration: none;
   color: inherit;
-  display: block;
-}
-
-.service-item {
   display: flex;
-  gap: 1.5rem;
-  border-top: 1px solid var(--color-border);
-  padding-top: 1.5rem;
-  cursor: pointer;
-  transition: transform var(--transition-fast);
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--color-border);
+  transition: all var(--transition-fast);
 }
 
-.service-item:hover { transform: translateY(-4px); }
-.service-item:hover .service-title { color: var(--color-purple); }
+.service-title {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: color var(--transition-fast);
+}
 
-.service-num { font-size: 2rem; color: var(--color-purple); line-height: 1; }
-.service-title { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem; transition: color var(--transition-fast); }
-.service-desc { font-size: var(--text-meta); color: var(--color-text-muted); line-height: 1.6; }
+.service-indicator {
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all var(--transition-fast);
+  color: var(--color-lime);
+  font-family: var(--font-sans);
+}
 
-/* Testimonials Section */
-.testimonials-grid { max-width: 900px; margin-top: 2rem; }
-.testimonial-card { border-left: 3px solid var(--color-purple); padding-left: 2rem; }
-.testimonial-quote { font-size: var(--text-h2); line-height: 1.3; margin-bottom: 1.5rem; }
-.testimonial-author { display: flex; flex-direction: column; font-style: normal; }
-.author-name { font-weight: 600; font-size: var(--text-body); }
-.author-role { font-size: var(--text-meta); color: var(--color-text-muted); }
+.service-item-link:hover .service-title { color: var(--color-purple); }
+.service-item-link:hover .service-indicator { opacity: 1; transform: translateX(0); }
 
-/* Contact & Footer */
+/* Service Pitch Page Architecture */
+.pitch-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 4rem;
+  margin-bottom: 6rem;
+  border-top: 1px solid var(--color-border);
+  padding-top: 3rem;
+}
+
+@media (max-width: 900px) {
+  .pitch-grid { grid-template-columns: 1fr; gap: 1rem; }
+}
+
+.pitch-step {
+  font-size: var(--text-meta);
+  font-weight: 700;
+  color: var(--color-purple);
+  letter-spacing: 0.05em;
+}
+
+.pitch-content h3 {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.pitch-content p {
+  font-size: var(--text-body);
+  line-height: 1.8;
+  color: var(--color-text-muted);
+}
+
+/* CTA Button System (Task A & B) */
 .contact-section {
   background-color: var(--color-bg-dark);
   color: var(--color-text-inverse);
@@ -430,9 +482,60 @@ section {
 
 .contact-actions {
   display: flex;
-  gap: 0.75rem;
+  gap: 1rem;
   flex-wrap: wrap;
   margin-bottom: 4rem;
+  align-items: center;
+}
+
+/* Base CTA Pill */
+.cta-pill {
+  font-family: var(--font-sans);
+  font-size: var(--text-meta);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 100px;
+  padding: 0.9rem 1.8rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all var(--transition-fast);
+  border: 1px solid transparent;
+}
+
+/* Secondary CTA (White Background, Black Text -> Purple Hover) */
+.cta-secondary {
+  background-color: #F5F5F0;
+  color: #0D0D0E;
+}
+
+.cta-secondary:hover {
+  background-color: var(--color-purple);
+  color: var(--color-lime);
+  border-color: var(--color-lime);
+}
+
+/* Primary CTA (Lime Background, Black Text -> Purple Hover) */
+.cta-primary {
+  background-color: var(--color-lime);
+  color: #0D0D0E;
+  padding: 0.9rem 2.2rem;
+  font-size: 0.85rem;
+}
+
+.cta-primary:hover {
+  background-color: var(--color-purple);
+  color: #F5F5F0;
+  border-color: #F5F5F0;
+}
+
+.cta-icon {
+  width: 16px;
+  height: 16px;
+  stroke-width: 2.5;
 }
 
 .social-links-row {
@@ -468,7 +571,7 @@ section {
   .site-footer { flex-direction: column; gap: 0.5rem; }
 }
 
-/* Case Study Styling */
+/* Case Study & Print Overrides */
 .case-study-hero { padding-top: 10rem; padding-bottom: 4rem; }
 
 .case-study-meta-grid {
@@ -648,14 +751,6 @@ section {
   justify-content: space-between;
   font-size: 0.75rem;
   color: var(--color-text-muted);
-}
-
-/* Services Page Grid System */
-.services-page-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 2.5rem;
-  margin-top: 3rem;
 }
 
 /* Reduced Motion */

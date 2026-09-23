@@ -74,14 +74,20 @@
       </p>
     </section>
 
-    <!-- 03. SELECTED WORK -->
+    <!-- 03. SELECTED WORK (Task D - Kontrol Navigasi Sirkular) -->
     <section id="work" class="work-section" aria-label="Galeri Karya Terpilih">
-      <div id="filterContainer" class="filter-bar" role="group" aria-label="Filter Kategori Proyek"></div>
+      <div class="gallery-controls-header">
+        <div id="filterContainer" class="filter-bar" role="group" aria-label="Filter Kategori Proyek" style="margin-bottom:0;"></div>
+        <div class="gallery-nav-group" aria-hidden="true">
+          <button id="galleryPrev" class="gallery-nav-btn" aria-label="Previous">←</button>
+          <button id="galleryNext" class="gallery-nav-btn" aria-label="Next">→</button>
+        </div>
+      </div>
 
       <div id="workGallery" class="horizontal-gallery-wrapper" tabindex="0" aria-label="Daftar Proyek Terpilih"></div>
     </section>
 
-    <!-- 04. ABOUT PREVIEW -->
+    <!-- 04. ABOUT PREVIEW (Task A - Read Full Biography Button) -->
     <section id="about" class="about-section" aria-label="Ringkasan Tentang Faiz Akbarsyah">
       <div class="about-grid">
         <div class="about-col-left">
@@ -93,74 +99,33 @@
             I am a multidisciplinary designer and creative director based in Medan, Indonesia. My work spans brand identity, motion graphics, spatial event visual systems, and commercial art direction.
           </p>
           <div style="margin-top: 2rem;">
-            <a href="/about.html" class="btn-pill" style="background-color: var(--color-purple); color: #fff; border-color: var(--color-purple);">Read Full Biography ↗</a>
+            <a href="/about.html" class="cta-pill cta-secondary" style="border: 1px solid var(--color-text);">Read Full Biography ↗</a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 05. SERVICES (Link Terbuka di New Tab) -->
+    <!-- 05. SERVICES (Task C - Typographic Editorial Links) -->
     <section id="services" class="services-section" aria-label="Layanan dan Disiplin">
       <p class="section-label">05 / SERVICES & DISCIPLINES</p>
       <div class="services-list">
         <a href="/services.html?category=Brand%20Identity" target="_blank" rel="noopener" class="service-item-link">
-          <div class="service-item">
-            <span class="service-num font-serif" aria-hidden="true">01</span>
-            <div class="service-content">
-              <h3 class="service-title">Brand Identity ↗</h3>
-              <p class="service-desc">Complete visual systems, logo design, typography guidelines, and brand communication assets.</p>
-            </div>
-          </div>
+          <h3 class="service-title">Brand Identity <span class="service-indicator">→</span></h3>
         </a>
-
         <a href="/services.html?category=Graphic%20Design" target="_blank" rel="noopener" class="service-item-link">
-          <div class="service-item">
-            <span class="service-num font-serif" aria-hidden="true">02</span>
-            <div class="service-content">
-              <h3 class="service-title">Graphic Design ↗</h3>
-              <p class="service-desc">Editorial layouts, key visual creation, commercial marketing collateral, and print direction.</p>
-            </div>
-          </div>
+          <h3 class="service-title">Graphic Design <span class="service-indicator">→</span></h3>
         </a>
-
         <a href="/services.html?category=Motion%20Design" target="_blank" rel="noopener" class="service-item-link">
-          <div class="service-item">
-            <span class="service-num font-serif" aria-hidden="true">03</span>
-            <div class="service-content">
-              <h3 class="service-title">Motion Design ↗</h3>
-              <p class="service-desc">Motion graphics, promotional animation loops, video titles, and LED screen visual sequences.</p>
-            </div>
-          </div>
+          <h3 class="service-title">Motion Design <span class="service-indicator">→</span></h3>
         </a>
-
         <a href="/services.html?category=Event%20Visual" target="_blank" rel="noopener" class="service-item-link">
-          <div class="service-item">
-            <span class="service-num font-serif" aria-hidden="true">04</span>
-            <div class="service-content">
-              <h3 class="service-title">Event Visual ↗</h3>
-              <p class="service-desc">3D stage renders, photobooth concepts, dynamic backdrop loops, and spatial graphics.</p>
-            </div>
-          </div>
+          <h3 class="service-title">Event Visual <span class="service-indicator">→</span></h3>
         </a>
-
         <a href="/services.html?category=Social%20Media%20Design" target="_blank" rel="noopener" class="service-item-link">
-          <div class="service-item">
-            <span class="service-num font-serif" aria-hidden="true">05</span>
-            <div class="service-content">
-              <h3 class="service-title">Social Media Design ↗</h3>
-              <p class="service-desc">Content architecture, visual editorial calendars, dynamic video templates, and digital campaigns.</p>
-            </div>
-          </div>
+          <h3 class="service-title">Social Media Design <span class="service-indicator">→</span></h3>
         </a>
-
         <a href="/services.html?category=Presentation%20Design" target="_blank" rel="noopener" class="service-item-link">
-          <div class="service-item">
-            <span class="service-num font-serif" aria-hidden="true">06</span>
-            <div class="service-content">
-              <h3 class="service-title">Presentation Design ↗</h3>
-              <p class="service-desc">High-stakes pitch decks, B2B agency proposals, keynote visual structures, and brand decks.</p>
-            </div>
-          </div>
+          <h3 class="service-title">Presentation Design <span class="service-indicator">→</span></h3>
         </a>
       </div>
     </section>
@@ -181,17 +146,24 @@
       </div>
     </section>
 
-    <!-- 07. CONTACT & FOOTER (Tombol Style Filter Kategori / Pill) -->
+    <!-- 07. CONTACT & FOOTER (Task A & B - Integrated CTA System) -->
     <section id="contact" class="contact-section" aria-label="Kontak dan Informasi">
       <div class="contact-content">
         <p class="section-label">07 / CONTACT & INQUIRIES</p>
         <h2 class="contact-heading font-serif">Have an idea worth turning into something people can see?</h2>
         
         <div class="contact-actions">
-          <a id="emailLink" href="#" class="btn-pill">Email Me</a>
-          <a id="whatsappLink" href="#" class="btn-pill" target="_blank" rel="noopener">WhatsApp ↗</a>
-          <a href="/print.html" class="btn-pill" target="_blank" rel="noopener">Download Portfolio PDF ↗</a>
-          <a href="/cv-print.html" class="btn-pill" target="_blank" rel="noopener">Download CV ↗</a>
+          <a id="emailLink" href="#" class="cta-pill cta-secondary">Email Me</a>
+          <a id="whatsappLink" href="#" class="cta-pill cta-secondary" target="_blank" rel="noopener">WhatsApp ↗</a>
+          
+          <a href="/print.html" class="cta-pill cta-primary" target="_blank" rel="noopener">
+            <svg class="cta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            Download Portfolio PDF
+          </a>
+          <a href="/cv-print.html" class="cta-pill cta-primary" target="_blank" rel="noopener">
+            <svg class="cta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            Download CV
+          </a>
         </div>
 
         <div class="social-links-row">

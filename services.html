@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Services — FAIZ AKBARSYAH®</title>
+  <title>Service Profile — FAIZ AKBARSYAH®</title>
   <link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg">
   <link rel="stylesheet" href="/css/style.css">
 </head>
@@ -26,31 +26,67 @@
   <main id="main-content" style="padding-top: 10rem;">
     <article class="about-page-container">
       <section style="border-bottom: none; padding-top: 0;">
-        <p class="hero-subtitle">05 / SELECTED WORKS BY SERVICE</p>
-        <h1 id="serviceCategoryTitle" class="font-serif" style="font-size: var(--text-h1); line-height: 1.05; margin-bottom: 1.5rem;">
+        <p class="hero-subtitle">DISCIPLINE OVERVIEW</p>
+        <h1 id="serviceCategoryTitle" class="font-serif" style="font-size: var(--text-h1); line-height: 1.05; margin-bottom: 4rem;">
           Service Category
         </h1>
-        <p id="serviceCategoryDesc" class="about-text" style="max-width: 800px; color: var(--color-text-muted);">
-          Daftar eksekusi proyek dan hasil karya terbaik dalam kategori ini.
-        </p>
 
-        <!-- Dynamic Services Projects Grid -->
-        <div id="serviceGallery" class="services-page-grid"></div>
+        <!-- Pitch Page Architecture 6 Steps -->
+        <div class="pitch-grid">
+          <div class="pitch-step">01 / WHY</div>
+          <div class="pitch-content">
+            <h3>Strategic Necessity</h3>
+            <p>[Struktur arsitektur informasi untuk mendokumentasikan nilai fundamental layanan ini, menguraikan mengapa disiplin ini penting dalam menyelesaikan masalah persepsi dan komunikasi audiens telah disiapkan. Konten spesifik klien akan diisi sesuai rekam jejak aktual.]</p>
+          </div>
+        </div>
+
+        <div class="pitch-grid">
+          <div class="pitch-step">02 / HOW</div>
+          <div class="pitch-content">
+            <h3>Working Methodology</h3>
+            <p>[Seksi ini disiapkan untuk merinci pendekatan metodologis, proses eksplorasi desain, dan standar eksekusi operasional yang diterapkan secara konsisten dalam menangani setiap brief terkait disiplin ini.]</p>
+          </div>
+        </div>
+
+        <div class="pitch-grid">
+          <div class="pitch-step">03 / WHAT YOU GET</div>
+          <div class="pitch-content">
+            <h3>Deliverables Structure</h3>
+            <p>[Arsitektur sistem luaran terukur. Deskripsi konkret mengenai format resolusi final, komponen panduan visual, matriks media, dan berkas final siap distribusi dapat dipetakan dengan akurat di ruang ini.]</p>
+          </div>
+        </div>
+
+        <div class="pitch-grid" style="border-bottom: 1px solid var(--color-border); padding-bottom: 3rem;">
+          <div class="pitch-step">04 / PROOF</div>
+          <div class="pitch-content">
+            <h3>Selected Execution</h3>
+            <!-- Dynamic Services Projects Rendered Here -->
+            <div id="serviceGallery" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem;"></div>
+          </div>
+        </div>
+        
+        <div class="pitch-grid" style="border-top: none;">
+          <div class="pitch-step">05 / WHY ME</div>
+          <div class="pitch-content">
+            <h3>Value Proposition</h3>
+            <p>[Bagian untuk menekankan nilai strategis dari kolaborasi bersama: fokus pada penyampaian fungsional, adaptabilitas eksekusi, serta jaminan standar visual editorial dan estetika struktural tinggi.]</p>
+          </div>
+        </div>
+
       </section>
 
-      <!-- Seksi Kontak Footer -->
+      <!-- Integrated Footer CTA Section -->
       <section class="contact-section" style="margin-top: 5rem;">
         <div class="contact-content">
-          <p class="section-label">07 / CONTACT & INQUIRIES</p>
-          <h2 class="contact-heading font-serif">Have an idea worth turning into something people can see?</h2>
-          
+          <p class="section-label">06 / INITIATE PROJECT</p>
+          <h2 class="contact-heading font-serif">Let's discuss how this discipline can structure your brand's next phase.</h2>
           <div class="contact-actions">
-            <a id="emailLink" href="#" class="btn-pill">Email Me</a>
-            <a id="whatsappLink" href="#" class="btn-pill" target="_blank" rel="noopener">WhatsApp ↗</a>
-            <a href="/print.html" class="btn-pill" target="_blank" rel="noopener">Download Portfolio PDF ↗</a>
-            <a href="/cv-print.html" class="btn-pill" target="_blank" rel="noopener">Download CV ↗</a>
+            <a id="emailLink" href="#" class="cta-pill cta-secondary">Email Me</a>
+            <a id="whatsappLink" href="#" class="cta-pill cta-secondary" target="_blank" rel="noopener">WhatsApp ↗</a>
+            <a href="/print.html" class="cta-pill cta-primary" target="_blank" rel="noopener">Download Portfolio PDF</a>
+            <a href="/cv-print.html" class="cta-pill cta-primary" target="_blank" rel="noopener">Download CV</a>
           </div>
-
+          
           <div class="social-links-row">
             <a href="https://instagram.com/faizakbarsyah" target="_blank" rel="noopener" class="social-link">Instagram ↗</a>
             <a href="https://linkedin.com/in/faizakbarsyah" target="_blank" rel="noopener" class="social-link">LinkedIn ↗</a>
@@ -64,7 +100,7 @@
       </section>
     </article>
   </main>
-
+  
   <script src="/data/site-config.js"></script>
   <script src="/js/app.js"></script>
 </body>
