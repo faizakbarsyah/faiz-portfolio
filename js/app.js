@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
       initHeroKineticScroll();
       initProjectDetailView(projects);
       initPrintView(projects);
-      initServicesInteractivity();
+      initServicesPageView(projects);
     })
     .catch(err => console.error("Gagal memuat data proyek:", err));
 });
@@ -40,7 +40,7 @@ function initHeroKineticScroll() {
 }
 
 /* ==========================================================================
-   02. GALLERY & HOVER VIDEO PREVIEW SYSTEM (Bebas Pembajakan Scroll)
+   02. GALLERY & HOVER VIDEO PREVIEW SYSTEM
    ========================================================================== */
 function initFilterAndGallery(projects) {
   const filterContainer = document.getElementById("filterContainer");
@@ -90,35 +90,40 @@ function initFilterAndGallery(projects) {
       renderProjects(e.target.dataset.category);
     }
   });
-
-  // TANPA e.preventDefault(): Pengguna bebas melakukan scroll down alami tanpa kursor tersangkut.
 }
 
 /* ==========================================================================
-   03. INTERAKSI TOMBOL SERVICES (Direct Filter Routing)
+   03. SERVICES PAGE DYNAMIC CATEGORY RENDERER
    ========================================================================== */
-function initServicesInteractivity() {
-  const serviceItems = document.querySelectorAll(".service-item");
-  if (serviceItems.length === 0) return;
+function initServicesPageView(projects) {
+  const categoryTitle = document.getElementById("serviceCategoryTitle");
+  const categoryGallery = document.getElementById("serviceGallery");
 
-  serviceItems.forEach(item => {
-    item.addEventListener("click", () => {
-      const category = item.getAttribute("data-category");
-      if (!category) return;
+  if (!categoryTitle || !categoryGallery) return;
 
-      const filterBtns = document.querySelectorAll(".filter-btn");
-      filterBtns.forEach(btn => {
-        if (btn.getAttribute("data-category") === category) {
-          btn.click();
-        }
-      });
+  const urlParams = new URLSearchParams(window.location.search);
+  const category = urlParams.get("category") || "Brand Identity";
 
-      const workSection = document.getElementById("work");
-      if (workSection) {
-        workSection.scrollIntoView({ behavior: "smooth" });
-      }
-    });
-  });
+  categoryTitle.textContent = category;
+
+  const filtered = projects.filter(p => p.categories.includes(category));
+
+  if (filtered.length === 0) {
+    categoryGallery.innerHTML = `<p style="grid-column: 1/-1; padding: 3rem 0;">Belum ada proyek yang dimasukkan dalam kategori "${category}".</p>`;
+    return;
+  }
+
+  categoryGallery.innerHTML = filtered.map(p => `
+    <a href="/projects/${p.slug}" class="project-card size-medium" style="flex: auto;">
+      <div class="card-media-wrapper">
+        <img src="${p.coverImage}" alt="${p.title}" loading="lazy" />
+      </div>
+      <div class="card-info">
+        <span class="card-title">${p.title}</span>
+        <span class="card-meta">${p.year}</span>
+      </div>
+    </a>
+  `).join('');
 }
 
 /* ==========================================================================
@@ -177,7 +182,7 @@ function initProjectDetailView(projects) {
       <section class="case-study-hero">
         <h1 class="font-serif" style="font-size: var(--text-h1); margin-bottom: 2rem;">404 — Proyek Tidak Ditemukan</h1>
         <p style="margin-bottom: 2rem;">Halaman proyek yang Anda cari tidak ada atau telah dipindahkan.</p>
-        <a href="/" class="btn-editorial">Kembali ke Selected Work</a>
+        <a href="/" class="btn-pill">Kembali ke Selected Work</a>
       </section>
     `;
     return;
