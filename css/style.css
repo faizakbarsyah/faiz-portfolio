@@ -275,6 +275,7 @@ section {
   height: 108%;
   object-fit: cover;
   object-position: 62% center; /* fokus ke area transisi warna paling kaya di desain */
+  transform-origin: 62% 50%;   /* pusat zoom-scroll = titik fokus yang sama dengan object-position */
   will-change: transform;
   transform: translate3d(0, 0, 0) scale(1);
   /* Transisi CSS yang menghaluskan animasi (bukan JS rAF loop terus-menerus) — jauh lebih ringan */
@@ -285,6 +286,28 @@ section {
   .hero-cover-img {
     /* Crop mobile portrait lebih sempit — geser fokus agar pita warna aksen tetap kelihatan */
     object-position: 78% center;
+    transform-origin: 78% 50%;
+  }
+
+  /* Readability Overlay (khusus mobile) — gradient putih → transparan dari bawah ke atas.
+     Menempel di .hero-bg (bukan di <img>), jadi overlay tetap diam saat gambar
+     di-zoom oleh scroll, dan area teks hero (rata bawah) selalu terlindungi.
+     Tetap di dalam .hero-bg (z-index: -1) sehingga layout teks tidak tersentuh. */
+  .hero-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    /* Fallback untuk browser tanpa dukungan color-mix() */
+    background: linear-gradient(to top, var(--color-bg) 0%, var(--color-bg) 30%, transparent 75%);
+    background: linear-gradient(
+      to top,
+      var(--color-bg) 0%,
+      var(--color-bg) 30%,
+      color-mix(in srgb, var(--color-bg) 80%, transparent) 45%,
+      color-mix(in srgb, var(--color-bg) 35%, transparent) 60%,
+      transparent 75%
+    );
   }
 }
 

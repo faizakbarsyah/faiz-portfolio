@@ -16,13 +16,20 @@ document.addEventListener("DOMContentLoaded", () => {
   // 2b. Inisialisasi Hamburger Menu Mobile (index.html, about.html, services.html)
   initMobileNavToggle();
 
+  // 2c. Inisialisasi Animasi Hero (index.html)
+  //     Sengaja dijalankan DI LUAR fetch projects.json: animasi hero tidak butuh
+  //     data proyek, jadi harus langsung aktif walaupun fetch lambat atau gagal.
+  initHeroKineticScroll();
+  initHeroDynamicBackground();
+
   // 3. Load Data Proyek & Fitur Utama
   fetch("/data/projects.json")
-    .then(res => res.json())
+    .then(res => {
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return res.json();
+    })
     .then(projects => {
       initFilterAndGallery(projects);
-      initHeroKineticScroll();
-      initHeroDynamicBackground();
       initProjectDetailView(projects);
       initPrintView(projects);
       initServicesPageView(projects);
@@ -52,7 +59,8 @@ function initHeroKineticScroll() {
    01c. HERO DYNAMIC BACKGROUND — Cursor Parallax & Scroll-Reactive Cover Image
    Menggerakkan .hero-cover-img (lihat css/style.css) berdasarkan posisi
    cursor (desktop/pointer halus saja) dan progres scroll (semua device,
-   termasuk touch). Sepenuhnya terpisah dari initHeroKineticScroll di atas,
+   termasuk touch). Scroll down = zoom-in hingga +22% (MAX_SCROLL_SCALE),
+   berpusat di transform-origin yang diatur di CSS. Sepenuhnya terpisah dari initHeroKineticScroll di atas,
    sehingga posisi/transform teks hero-title & hero-subtitle tidak tersentuh.
 
    Catatan performa: versi ini TIDAK memakai requestAnimationFrame loop yang
@@ -72,11 +80,12 @@ function initHeroDynamicBackground() {
 
   const supportsCursor = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
-  const MAX_PAN = 2.2;          // % translate maksimum dari parallax cursor — subtle, tidak pernah menyingkap tepi (buffer overscan 4% di CSS)
-  const MAX_SCROLL_SCALE = 0.05; // zoom-in halus (maks +5%) saat user scroll melewati hero
+  const MAX_PAN = 2.2;           // % translate maksimum dari parallax cursor — subtle, tidak pernah menyingkap tepi (buffer overscan 4% di CSS)
+  const MAX_SCROLL_SCALE = 0.22; // zoom-in saat scroll: dari scale(1) di atas hero → scale(1.22) saat hero habis di-scroll
 
   let panX = 0, panY = 0;
   let scrollProgress = 0;
+  let lastAppliedProgress = -1;
   let rafPending = false;
 
   const applyTransform = () => {
@@ -113,7 +122,14 @@ function initHeroDynamicBackground() {
 
   const updateScrollProgress = () => {
     const heroHeight = heroSection.offsetHeight || 1;
-    scrollProgress = Math.min(Math.max(window.scrollY / heroHeight, 0), 1);
+    const linear = Math.min(Math.max(window.scrollY / heroHeight, 0), 1);
+    // Easing ease-out (1 - (1-t)^2): zoom langsung terasa di awal scroll,
+    // lalu melambat mendekati akhir hero — terasa lebih "sinematik" daripada linear.
+    scrollProgress = 1 - Math.pow(1 - linear, 2);
+
+    // Hemat kerja: setelah hero lewat dari viewport, tidak perlu update DOM lagi.
+    if (scrollProgress === lastAppliedProgress) return;
+    lastAppliedProgress = scrollProgress;
     requestApply();
   };
 
