@@ -556,6 +556,44 @@ function initAboutPageView() {
 
   const data = ABOUT_DATA;
 
+  // Blok opsional: stats & timeline pengalaman — masing-masing punya guard sendiri
+  const statsContainer = document.getElementById("aboutStatsBlock");
+  if (statsContainer && Array.isArray(data.stats) && data.stats.length > 0) {
+    statsContainer.innerHTML = `
+      <dl class="about-stats">
+        ${data.stats.map(stat => `
+          <div class="about-stat">
+            <dt class="about-stat-label">${stat.label}</dt>
+            <dd class="about-stat-value font-serif">${stat.value}</dd>
+          </div>
+        `).join('')}
+      </dl>
+    `;
+  }
+
+  const experienceContainer = document.getElementById("aboutExperienceBlock");
+  const experience = data.cv && Array.isArray(data.cv.experience) ? data.cv.experience : [];
+  if (experienceContainer && experience.length > 0) {
+    const title = (data.experienceSection && data.experienceSection.title) || "Experience";
+    experienceContainer.innerHTML = `
+      <div class="about-timeline">
+        <h2 class="font-serif about-timeline-heading">${title}</h2>
+        <ol class="timeline-list">
+          ${experience.map(exp => `
+            <li class="timeline-item">
+              <span class="timeline-period">${exp.period}</span>
+              <div class="timeline-body">
+                <h3 class="timeline-role">${exp.role}</h3>
+                <p class="timeline-org">${[exp.organization, exp.location].filter(Boolean).join(' · ')}</p>
+                ${exp.summary ? `<p class="timeline-summary">${exp.summary}</p>` : ''}
+              </div>
+            </li>
+          `).join('')}
+        </ol>
+      </div>
+    `;
+  }
+
   photoContainer.innerHTML = `
     <div class="about-photo-card">
       <div class="about-photo-frame">
@@ -604,7 +642,7 @@ function initCvPrintView() {
   const contact = SITE_CONFIG.contact;
 
   nameEl.textContent = cv.fullName;
-  titleEl.textContent = owner.title;
+  titleEl.textContent = cv.headline || owner.title;
 
   const stripProtocol = (url) => url.replace(/^https?:\/\//, '');
 
@@ -614,6 +652,7 @@ function initCvPrintView() {
     <span>${contact.whatsappDisplay}</span>
     <span>${stripProtocol(SITE_CONFIG.siteUrl)}</span>
     <span>${stripProtocol(contact.linkedinUrl)}</span>
+    ${contact.behanceUrl ? `<span>${stripProtocol(contact.behanceUrl)}</span>` : ''}
     <span>Instagram ${contact.instagramHandle}</span>
   `;
 
@@ -629,7 +668,7 @@ function initCvPrintView() {
           <span>${exp.role}</span>
           <span>${exp.period}</span>
         </div>
-        <div class="cv-item-sub">${exp.organization}</div>
+        <div class="cv-item-sub">${[exp.organization, exp.location].filter(Boolean).join(' — ')}</div>
         ${exp.highlights && exp.highlights.length > 0 ? `
           <ul class="cv-list">
             ${exp.highlights.map(h => `<li>${h}</li>`).join('')}

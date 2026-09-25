@@ -21,7 +21,8 @@ const SITE_CONFIG = {
     whatsappDefaultMessage: "Halo Faiz, saya ingin berdiskusi mengenai proyek kreatif.",
     instagramHandle: "@faizakbarsyah",
     instagramUrl: "https://instagram.com/faizakbarsyah",
-    linkedinUrl: "https://linkedin.com/in/faizakbarsyah"
+    linkedinUrl: "https://linkedin.com/in/faizakbarsyah",
+    behanceUrl: "https://behance.net/faizakbarsyah"
   },
 
   categories: [

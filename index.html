@@ -9,19 +9,19 @@
   <meta name="description" content="Portofolio digital resmi Faiz Akbarsyah. Creative Director dan Multidisciplinary Designer spesialis Brand Identity, Motion Design, Event Visual, dan Editorial Web Design.">
   <meta name="author" content="Faiz Akbarsyah">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://faizakbarsyah.com/">
+  <link rel="canonical" href="https://faizcreativework.netlify.app/">
 
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://faizakbarsyah.com/">
+  <meta property="og:url" content="https://faizcreativework.netlify.app/">
   <meta property="og:title" content="FAIZ AKBARSYAH® — Graphic Designer, Motion Designer & Creative Director">
   <meta property="og:description" content="Portofolio digital resmi Faiz Akbarsyah. Creative Director dan Multidisciplinary Designer spesialis Brand Identity, Motion Design, Event Visual, dan Editorial Web Design.">
-  <meta property="og:image" content="https://faizakbarsyah.com/assets/og-cover.jpg">
+  <meta property="og:image" content="https://faizcreativework.netlify.app/assets/og-cover.jpg">
 
   <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://faizakbarsyah.com/">
+  <meta property="twitter:url" content="https://faizcreativework.netlify.app/">
   <meta property="twitter:title" content="FAIZ AKBARSYAH® — Graphic Designer, Motion Designer & Creative Director">
   <meta property="twitter:description" content="Portofolio digital resmi Faiz Akbarsyah. Creative Director dan Multidisciplinary Designer spesialis Brand Identity, Motion Design, Event Visual, dan Editorial Web Design.">
-  <meta property="twitter:image" content="https://faizakbarsyah.com/assets/og-cover.jpg">
+  <meta property="twitter:image" content="https://faizcreativework.netlify.app/assets/og-cover.jpg">
 
   <link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg">
   <link rel="stylesheet" href="/css/style.css">
@@ -33,10 +33,12 @@
     "name": "Faiz Akbarsyah",
     "alternateName": "FAIZ AKBARSYAH®",
     "jobTitle": "Creative Director & Multidisciplinary Designer",
-    "url": "https://faizakbarsyah.com",
+    "url": "https://faizcreativework.netlify.app",
+    "email": "mailto:faiz.akbarsyah@gmail.com",
     "sameAs": [
       "https://instagram.com/faizakbarsyah",
-      "https://linkedin.com/in/faizakbarsyah"
+      "https://linkedin.com/in/faizakbarsyah",
+      "https://behance.net/faizakbarsyah"
     ]
   }
   </script>
@@ -105,7 +107,7 @@
         </div>
         <div class="about-col-right">
           <p class="about-text">
-            I am a multidisciplinary designer and creative director based in Medan, Indonesia. My work spans brand identity, motion graphics, spatial event visual systems, and commercial art direction.
+            Creative Director and Graphic Designer based in Medan. For over three years, I've shaped the visual language of music festivals, lifestyle events, and brands — from the first key visual to the LED screen on show day.
           </p>
           <div style="margin-top: 2rem;">
             <a href="/about.html" class="cta-pill cta-secondary" style="border: 1px solid var(--color-text);">Read Full Biography ↗</a>
@@ -139,20 +141,11 @@
       </div>
     </section>
 
-    <!-- 06. TESTIMONIALS -->
-    <section id="testimonials" class="testimonials-section" aria-label="Rekomendasi Profesional">
+    <!-- 06. TESTIMONIALS — dirender dari SITE_CONFIG.testimonials (js/app.js -> initTestimonialsView).
+         Default `hidden`: section baru tampil kalau ada minimal 1 testimoni asli. -->
+    <section id="testimonials" class="testimonials-section" aria-label="Rekomendasi Profesional" hidden>
       <p class="section-label">06 / ENDORSEMENTS</p>
-      <div class="testimonials-grid">
-        <blockquote class="testimonial-card">
-          <p class="testimonial-quote font-serif">
-            "Faiz demonstrates an exceptional ability to translate strategic brand goals into high-impact visual systems that perform across both physical and digital media."
-          </p>
-          <cite class="testimonial-author">
-            <span class="author-name">[CLIENT NAME — PLACEHOLDER]</span>
-            <span class="author-role">[ROLE & ORGANIZATION]</span>
-          </cite>
-        </blockquote>
-      </div>
+      <div id="testimonialsGrid" class="testimonials-grid"></div>
     </section>
 
     <!-- 07. CONTACT & FOOTER (Task A & B - Integrated CTA System) -->
@@ -178,6 +171,7 @@
         <div class="social-links-row">
           <a href="https://instagram.com/faizakbarsyah" target="_blank" rel="noopener" class="social-link">Instagram ↗</a>
           <a href="https://linkedin.com/in/faizakbarsyah" target="_blank" rel="noopener" class="social-link">LinkedIn ↗</a>
+          <a href="https://behance.net/faizakbarsyah" target="_blank" rel="noopener" class="social-link">Behance ↗</a>
         </div>
       </div>
 
