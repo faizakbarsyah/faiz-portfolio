@@ -3,46 +3,54 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Curriculum Vitae — FAIZ AKBARSYAH®</title>
+  <!-- document.title di-set ulang oleh js/app.js → jadi nama file default saat "Save as PDF" -->
+  <title>CV — Faiz Akbarsyah</title>
+  <meta name="robots" content="noindex">
   <style>
-    /* Styling Standar ATS-Friendly (1 Kolom, Tipografi Bersih & Kontras) */
+    /* ATS-Friendly: 1 kolom, tanpa tabel/ikon/foto, font sistem, kontras tinggi,
+       judul section standar, semua info kontak berupa teks biasa. */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; color: #111; background: #f4f4f0; line-height: 1.5; font-size: 14px; }
-    
-    .no-print-bar { position: sticky; top: 0; background: #0d0d0e; color: #fff; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; z-index: 100; }
+    body { font-family: Arial, Helvetica, sans-serif; color: #111; background: #f4f4f0; line-height: 1.5; font-size: 14px; }
+
+    .no-print-bar { position: sticky; top: 0; background: #0d0d0e; color: #fff; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; z-index: 100; }
     .no-print-bar a { color: #fff; text-decoration: none; font-weight: 600; font-size: 13px; }
+    .no-print-hint { font-size: 12px; color: rgba(255, 255, 255, 0.6); }
     .btn-download-ats { background: #CCFF00; color: #0d0d0e; border: none; padding: 0.6rem 1.2rem; font-weight: 700; font-size: 13px; border-radius: 4px; cursor: pointer; display: inline-flex; align-items: center; gap: 0.5rem; }
-    
+
     .cv-container { max-width: 800px; margin: 2rem auto; background: #fff; padding: 3rem; border: 1px solid #ddd; }
-    .cv-header { border-bottom: 2px solid #111; padding-bottom: 1.5rem; margin-bottom: 2rem; }
-    .cv-name { font-size: 28px; font-weight: 800; text-transform: uppercase; letter-spacing: -0.02em; }
-    .cv-title { font-size: 16px; font-weight: 600; color: #444; margin-top: 0.25rem; }
-    .cv-contact { font-size: 13px; color: #555; margin-top: 0.75rem; display: flex; gap: 1.5rem; flex-wrap: wrap; }
-    
-    .cv-section { margin-bottom: 2rem; }
-    .cv-section-title { font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; border-bottom: 1px solid #111; padding-bottom: 0.25rem; margin-bottom: 1rem; color: #111; }
-    
-    .cv-item { margin-bottom: 1.25rem; }
-    .cv-item-header { display: flex; justify-content: space-between; font-weight: 700; font-size: 15px; }
-    .cv-item-sub { font-weight: 600; color: #444; font-size: 13px; margin-bottom: 0.35rem; }
-    .cv-list { padding-left: 1.2rem; }
-    .cv-list li { margin-bottom: 0.25rem; }
+    .cv-header { border-bottom: 2px solid #111; padding-bottom: 1.25rem; margin-bottom: 1.75rem; }
+    .cv-name { font-size: 26px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.01em; }
+    .cv-title { font-size: 15px; font-weight: 700; color: #333; margin-top: 0.25rem; }
+    .cv-contact { font-size: 12.5px; color: #333; margin-top: 0.6rem; line-height: 1.7; }
+
+    .cv-section { margin-bottom: 1.6rem; }
+    .cv-section-title { font-size: 13.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; border-bottom: 1px solid #111; padding-bottom: 0.25rem; margin-bottom: 0.85rem; color: #111; }
+
+    .cv-item { margin-bottom: 1.1rem; }
+    .cv-item-header { display: flex; justify-content: space-between; gap: 1rem; font-weight: 700; font-size: 14.5px; }
+    .cv-item-sub { font-weight: 700; color: #444; font-size: 13px; margin-bottom: 0.3rem; }
+    .cv-item-desc { font-size: 13px; color: #222; }
+    .cv-list { padding-left: 1.1rem; }
+    .cv-list li { margin-bottom: 0.2rem; font-size: 13px; }
+    #cvSummary { font-size: 13.5px; }
+
+    @page { size: A4; margin: 1.4cm 1.6cm; }
 
     @media print {
       .no-print-bar { display: none !important; }
-      body { background: #fff; }
+      body { background: #fff; font-size: 12.5px; }
       .cv-container { border: none; padding: 0; margin: 0; max-width: 100%; }
+      .cv-item { break-inside: avoid; page-break-inside: avoid; }
+      .cv-section-title { break-after: avoid; page-break-after: avoid; }
     }
 
     @media (max-width: 600px) {
-      .no-print-bar {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 0.75rem;
-        padding: 1rem 1.25rem;
-      }
+      .no-print-bar { flex-direction: column; align-items: stretch; gap: 0.75rem; padding: 1rem 1.25rem; }
       .no-print-bar a { text-align: center; }
+      .no-print-hint { text-align: center; }
       .btn-download-ats { width: 100%; justify-content: center; }
+      .cv-container { padding: 1.5rem; margin: 1rem; }
+      .cv-item-header { flex-direction: column; gap: 0; }
     }
   </style>
 </head>
@@ -50,37 +58,51 @@
 
   <div class="no-print-bar">
     <a href="/">← KEMBALI KE PORTFOLIO</a>
+    <span class="no-print-hint">Pilih "Save as PDF" sebagai printer untuk mengunduh CV</span>
     <button onclick="window.print()" class="btn-download-ats">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-      Print / Save PDF (ATS-Friendly)
+      Download CV (PDF)
     </button>
   </div>
 
+  <!-- Seluruh isi CV dirender dari data/about-data.js (ABOUT_DATA.cv) + data/site-config.js
+       — sumber yang sama dengan halaman About. Ubah data di sana, CV ikut berubah. -->
   <main class="cv-container">
     <header class="cv-header">
       <!-- Sengaja TANPA foto: praktik ATS-friendly terbaik menghindari elemen non-teks -->
       <h1 id="cvName" class="cv-name"></h1>
       <p id="cvTitle" class="cv-title"></p>
-      <div id="cvContact" class="cv-contact"></div>
+      <p id="cvContact" class="cv-contact"></p>
     </header>
 
     <section class="cv-section">
-      <h2 class="cv-section-title">Ringkasan Profesional</h2>
+      <h2 class="cv-section-title">Ringkasan</h2>
       <p id="cvSummary"></p>
     </section>
 
-    <section class="cv-section">
-      <h2 class="cv-section-title">Keahlian Utama</h2>
-      <ul id="cvSkills" class="cv-list"></ul>
+    <!-- Disembunyikan otomatis bila ABOUT_DATA.cv.experience kosong -->
+    <section id="cvExperienceSection" class="cv-section" hidden>
+      <h2 class="cv-section-title">Pengalaman Kerja</h2>
+      <div id="cvExperience"></div>
+    </section>
+
+    <!-- Dari ABOUT_DATA.cv.projects; fallback ke projects.json bila kosong -->
+    <section id="cvProjectsSection" class="cv-section" hidden>
+      <h2 class="cv-section-title">Pengalaman Proyek</h2>
+      <div id="cvProjects"></div>
     </section>
 
     <section class="cv-section">
       <h2 class="cv-section-title">Pendidikan</h2>
       <div id="cvEducation"></div>
     </section>
+
+    <section class="cv-section">
+      <h2 class="cv-section-title">Keterampilan</h2>
+      <ul id="cvSkills" class="cv-list"></ul>
+    </section>
   </main>
 
-  <!-- Data diambil dari sumber yang sama dengan about.html & print.html -->
   <script src="/data/site-config.js"></script>
   <script src="/data/about-data.js"></script>
   <script src="/js/app.js"></script>

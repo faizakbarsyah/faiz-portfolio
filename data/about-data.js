@@ -121,6 +121,55 @@ const ABOUT_DATA = {
       }
     ],
 
+    /* Pengalaman proyek khusus CV (dari bagian "Pengalaman Proyek" resume).
+       Diurutkan terbaru → terlama. Bila array ini kosong, CV memakai
+       proyek published dari data/projects.json sebagai cadangan. */
+    projects: [
+      {
+        name: "Healthy Lifestyle Festival",
+        type: "Festival Kesehatan & Olahraga",
+        year: "2025",
+        role: "Creative Director",
+        highlights: [
+          "Mengarahkan konsep visual keseluruhan (creative direction) bertema energi dan gaya hidup sehat, diterapkan konsisten pada 100+ aset digital dan cetak.",
+          "Memimpin strategi komunikasi digital dengan mengoordinasikan tim media sosial, 15+ Key Opinion Leader (KOL), 20+ media partner, dan komunitas lokal untuk menjangkau puluhan ribu audiens.",
+          "Mengawasi produksi aset kemitraan dan sponsorship, memastikan integrasi logo 10+ sponsor utama tetap selaras dengan estetika festival."
+        ]
+      },
+      {
+        name: "Hajatan Xperience",
+        type: "Festival Musik",
+        year: "2025",
+        role: "Key Visual & Stage Graphic Designer",
+        highlights: [
+          "Merancang key visual utama, grafis panggung dinamis, dan materi pemasaran digital yang berkontribusi menarik 8.000+ pengunjung.",
+          "Berkolaborasi dengan tim produksi lapangan, vendor lighting, dan tim multimedia untuk memastikan eksekusi visual LED screen panggung sesuai konsep desain.",
+          "Mengembangkan visual guidelines yang digunakan seluruh tim promosi untuk menjaga konsistensi estetika dari fase pre-event hingga post-event."
+        ]
+      },
+      {
+        name: "Glam Space",
+        type: "Festival Musik & Kecantikan",
+        year: "2023",
+        role: "Visual Production Lead",
+        highlights: [
+          "Merencanakan jadwal dan mengeksekusi produksi 50+ aset visual harian, dari fase teaser hingga pengumuman line-up artis secara bertahap.",
+          "Merumuskan strategi visual storytelling di media sosial untuk membangun hype dan antisipasi audiens menjelang hari pelaksanaan.",
+          "Menganalisis performa konten bersama tim pemasaran dan menyesuaikan arah desain secara cepat, meningkatkan engagement sebesar 15–20%."
+        ]
+      },
+      {
+        name: "Hajatan Anak Medan",
+        type: "Festival Musik",
+        year: "2023",
+        role: "Lead Graphic Designer",
+        highlights: [
+          "Memimpin perancangan 30+ materi desain grafis untuk ticketing, flyer, poster, dan aktivasi promosi offline.",
+          "Mendesain merchandise resmi festival serta elemen dekorasi venue (ambient media) seperti spanduk dan gate untuk memperkuat identitas acara di lapangan."
+        ]
+      }
+    ],
+
     education: [
       {
         institution: "Universitas Islam Sumatera Utara",

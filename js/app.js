@@ -646,15 +646,17 @@ function initCvPrintView() {
 
   const stripProtocol = (url) => url.replace(/^https?:\/\//, '');
 
-  contactEl.innerHTML = `
-    <span>${owner.location}</span>
-    <span>${contact.email}</span>
-    <span>${contact.whatsappDisplay}</span>
-    <span>${stripProtocol(SITE_CONFIG.siteUrl)}</span>
-    <span>${stripProtocol(contact.linkedinUrl)}</span>
-    ${contact.behanceUrl ? `<span>${stripProtocol(contact.behanceUrl)}</span>` : ''}
-    <span>Instagram ${contact.instagramHandle}</span>
-  `;
+  // Nama file default saat "Save as PDF" mengikuti document.title
+  document.title = `CV - ${cv.fullName}`;
+
+  // Kontak sebagai teks biasa dengan pemisah " | " — paling aman untuk parser ATS
+  const lineOne = [owner.location, contact.whatsappDisplay, contact.email].filter(Boolean);
+  const lineTwo = [
+    contact.linkedinUrl && stripProtocol(contact.linkedinUrl),
+    contact.behanceUrl && stripProtocol(contact.behanceUrl),
+    SITE_CONFIG.siteUrl && `Portfolio: ${stripProtocol(SITE_CONFIG.siteUrl)}`
+  ].filter(Boolean);
+  contactEl.innerHTML = `${lineOne.join(' | ')}<br>${lineTwo.join(' | ')}`;
 
   summaryEl.textContent = cv.professionalSummary;
 
@@ -683,6 +685,16 @@ function initCvPrintView() {
     <li><strong>${group.category}:</strong> ${group.items.join(', ')}.</li>
   `).join('');
 
+  // Pengalaman Proyek dari ABOUT_DATA.cv.projects (bila kosong → fallback projects.json di initCvProjectsView)
+  if (Array.isArray(cv.projects) && cv.projects.length > 0) {
+    renderCvProjects(cv.projects.map(proj => ({
+      heading: [proj.name, proj.type].filter(Boolean).join(' — '),
+      period: proj.year,
+      sub: proj.role,
+      highlights: proj.highlights || []
+    })));
+  }
+
   educationEl.innerHTML = cv.education.map(edu => `
     <div class="cv-item">
       <div class="cv-item-header">
@@ -700,24 +712,45 @@ function initCvPrintView() {
    dengan galeri website: tambah proyek di projects.json → otomatis masuk CV.
    Format plain-text (tanpa gambar) agar tetap aman untuk parser ATS.
    ========================================================================== */
-function initCvProjectsView(projects) {
+function renderCvProjects(items) {
   const section = document.getElementById("cvProjectsSection");
   const container = document.getElementById("cvProjects");
-  if (!section || !container) return;
-  if (!Array.isArray(projects) || projects.length === 0) return;
+  if (!section || !container || items.length === 0) return;
 
-  container.innerHTML = projects.map(p => `
+  container.innerHTML = items.map(item => `
     <div class="cv-item">
       <div class="cv-item-header">
-        <span>${p.title}</span>
-        <span>${p.year}</span>
+        <span>${item.heading}</span>
+        ${item.period ? `<span>${item.period}</span>` : ''}
       </div>
-      <div class="cv-item-sub">${[[p.role, p.client].filter(Boolean).join(' — '), p.categories.join(', ')].filter(Boolean).join(' · ')}</div>
-      ${p.summary ? `<p class="cv-item-desc">${p.summary}</p>` : ''}
+      ${item.sub ? `<div class="cv-item-sub">${item.sub}</div>` : ''}
+      ${item.highlights && item.highlights.length > 0 ? `
+        <ul class="cv-list">
+          ${item.highlights.map(h => `<li>${h}</li>`).join('')}
+        </ul>
+      ` : item.desc ? `<p class="cv-item-desc">${item.desc}</p>` : ''}
     </div>
   `).join('');
 
   section.hidden = false;
+}
+
+function initCvProjectsView(projects) {
+  const section = document.getElementById("cvProjectsSection");
+  if (!section) return;
+
+  // Prioritas: data kurasi CV di ABOUT_DATA.cv.projects (sudah dirender oleh initCvPrintView)
+  if (typeof ABOUT_DATA !== 'undefined' && ABOUT_DATA.cv && Array.isArray(ABOUT_DATA.cv.projects) && ABOUT_DATA.cv.projects.length > 0) return;
+  if (!Array.isArray(projects) || projects.length === 0) return;
+
+  // Cadangan: hanya proyek yang punya role — proyek tanpa detail tidak menambah nilai di CV
+  const withRole = projects.filter(p => p.role);
+  renderCvProjects(withRole.map(p => ({
+    heading: p.title,
+    period: p.year,
+    sub: [p.role, p.client].filter(Boolean).join(' — '),
+    desc: p.summary
+  })));
 }
 
 /* ==========================================================================
