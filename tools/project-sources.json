@@ -1,0 +1,20 @@
+{
+  "_catatan": "Peta nama folder SUMBER (file mentah, di luar repo) -> slug proyek di data/projects.json. Nama folder harus persis sama (huruf besar/kecil & spasi). Tambah baris baru untuk setiap folder proyek baru.",
+  "folders": {
+    "Company Profile - CV KAS": "cv-kas-company-profile",
+    "Company Profile - Seremony": "seremony-company-profile",
+    "Corporate Imlek Dinner": "imlek-dinner-invitation",
+    "Creative Proposal - Pasar Nurlela at Petisah": "petisah-street-market",
+    "Dua Sisi - Imlek Edition": "dua-sisi-imlek",
+    "Eramas Coconut Industries": "eramas-7th-anniversary",
+    "F1 Powerboat": "f1-powerboat",
+    "Glamspace - 2023": "glamspace-2023",
+    "Hajatan Anak Medan 2023": "hajatan-anak-medan-2023",
+    "Hajatan Soundsfest Xperience 2025": "hajatan-soundfest-2025",
+    "Healthy Lifestyle Festival - 2025": "healthy-lifestyle-festival-2025",
+    "Menfest Medan 2025": "menfest-medan-2025",
+    "Mudakom": "mudakom",
+    "Sumpah Apoteker FF USU Angkatan 30": "sumpah-apoteker-usu-30",
+    "Zin Studio": "zin-studio"
+  }
+}

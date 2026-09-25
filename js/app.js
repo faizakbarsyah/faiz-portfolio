@@ -13,6 +13,9 @@ document.addEventListener("DOMContentLoaded", () => {
   initAboutPageView();
   initCvPrintView();
 
+  // 2a. Testimoni dari SITE_CONFIG (index.html) — section disembunyikan bila kosong
+  initTestimonialsView();
+
   // 2b. Inisialisasi Hamburger Menu Mobile (index.html, about.html, services.html)
   initMobileNavToggle();
 
@@ -28,11 +31,17 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       return res.json();
     })
-    .then(projects => {
+    .then(allProjects => {
+      // Hanya proyek dengan published !== false yang tampil di seluruh situs
+      // (galeri, services, case study, PDF, CV). Proyek tanpa aset/video yang
+      // belum siap diberi "published": false di projects.json.
+      const projects = allProjects.filter(p => p.published !== false);
+
       initFilterAndGallery(projects);
       initProjectDetailView(projects);
       initPrintView(projects);
       initServicesPageView(projects);
+      initCvProjectsView(projects);
     })
     .catch(err => console.error("Gagal memuat data proyek:", err));
 });
@@ -213,13 +222,14 @@ function initFilterAndGallery(projects) {
           </div>
           <div class="card-info">
             <span class="card-title">${p.title}</span>
-            <span class="card-meta">${p.categories[0]} / ${p.year}</span>
+            <span class="card-meta">${[p.categories[0], p.year].filter(Boolean).join(" / ")}</span>
           </div>
         </a>
       `;
     }).join('');
 
     attachHoverVideoHandlers();
+    attachYouTubeThumbFallback(gallery);
   };
 
   renderProjects("All");
@@ -280,6 +290,8 @@ function initServicesPageView(projects) {
       <span style="font-weight:600; font-size: var(--text-body);">${p.title}</span>
     </a>
   `).join('');
+
+  attachYouTubeThumbFallback(galleryEl);
 }
 
 /* ==========================================================================
@@ -340,9 +352,11 @@ function initProjectDetailView(projects) {
     <div class="case-study-gallery">
       ${project.gallery.map(item => `
         <div class="gallery-item">
-          ${item.type === "video"
-            ? `<video src="${item.src}" controls></video>`
-            : `<img src="${item.src}" alt="${item.caption || project.title}" loading="lazy" />`
+          ${item.type === "youtube"
+            ? renderYouTubeFacade(item, project.title)
+            : item.type === "video"
+              ? `<video src="${item.src}" controls></video>`
+              : `<img src="${item.src}" alt="${item.caption || project.title}" loading="lazy" />`
           }
           ${item.caption ? `<p class="gallery-caption">${item.caption}</p>` : ''}
         </div>
@@ -360,20 +374,24 @@ function initProjectDetailView(projects) {
       </section>
 
       <div class="case-study-meta-grid">
-        <div>
-          <p class="meta-item-label">Year</p>
-          <p class="meta-item-value">${project.year}</p>
-        </div>
+        ${project.year ? `
+          <div>
+            <p class="meta-item-label">Year</p>
+            <p class="meta-item-value">${project.year}</p>
+          </div>
+        ` : ''}
         ${project.client ? `
           <div>
             <p class="meta-item-label">Client</p>
             <p class="meta-item-value">${project.client}</p>
           </div>
         ` : ''}
-        <div>
-          <p class="meta-item-label">Role</p>
-          <p class="meta-item-value">${project.role}</p>
-        </div>
+        ${project.role ? `
+          <div>
+            <p class="meta-item-label">Role</p>
+            <p class="meta-item-value">${project.role}</p>
+          </div>
+        ` : ''}
       </div>
 
       <div class="case-study-media-hero">
@@ -428,6 +446,9 @@ function initProjectDetailView(projects) {
       </a>
     </article>
   `;
+
+  initYouTubeFacades(container);
+  attachYouTubeThumbFallback(container);
 }
 
 /* ==========================================================================
@@ -449,6 +470,13 @@ function initPrintView(projects) {
 
   if (categories.includes(initialCategory)) {
     categorySelect.value = initialCategory;
+  }
+
+  // Footer kontak dokumen PDF — dari SITE_CONFIG agar selalu sama dengan website & CV
+  const printFooterContact = document.getElementById("printFooterContact");
+  if (printFooterContact) {
+    const { email, whatsappDisplay } = SITE_CONFIG.contact;
+    printFooterContact.textContent = `${email} — WA ${whatsappDisplay} — ${SITE_CONFIG.owner.location}`.toUpperCase();
   }
 
   // Render Foto Profil + Ringkasan About (data dari ABOUT_DATA, sinkron dengan about.html)
@@ -487,7 +515,7 @@ function initPrintView(projects) {
           <span class="print-item-num font-serif">0${idx + 1}</span>
           <div>
             <h2 class="print-item-title">${p.title}</h2>
-            <p class="print-item-sub">${p.categories.join(" / ")} — ${p.year}</p>
+            <p class="print-item-sub">${[p.categories.join(" / "), p.year].filter(Boolean).join(" — ")}</p>
           </div>
         </div>
 
@@ -505,9 +533,11 @@ function initPrintView(projects) {
   };
 
   renderPrintItems(categorySelect.value);
+  attachYouTubeThumbFallback(printGallery);
 
   categorySelect.addEventListener("change", (e) => {
     renderPrintItems(e.target.value);
+    attachYouTubeThumbFallback(printGallery);
   });
 }
 
@@ -576,14 +606,39 @@ function initCvPrintView() {
   nameEl.textContent = cv.fullName;
   titleEl.textContent = owner.title;
 
+  const stripProtocol = (url) => url.replace(/^https?:\/\//, '');
+
   contactEl.innerHTML = `
     <span>${owner.location}</span>
     <span>${contact.email}</span>
-    <span>faizakbarsyah.com</span>
-    <span>${contact.linkedinUrl.replace(/^https?:\/\//, '')}</span>
+    <span>${contact.whatsappDisplay}</span>
+    <span>${stripProtocol(SITE_CONFIG.siteUrl)}</span>
+    <span>${stripProtocol(contact.linkedinUrl)}</span>
+    <span>Instagram ${contact.instagramHandle}</span>
   `;
 
   summaryEl.textContent = cv.professionalSummary;
+
+  // Pengalaman — hanya tampil bila ABOUT_DATA.cv.experience berisi data
+  const experienceSection = document.getElementById("cvExperienceSection");
+  const experienceEl = document.getElementById("cvExperience");
+  if (experienceSection && experienceEl && Array.isArray(cv.experience) && cv.experience.length > 0) {
+    experienceEl.innerHTML = cv.experience.map(exp => `
+      <div class="cv-item">
+        <div class="cv-item-header">
+          <span>${exp.role}</span>
+          <span>${exp.period}</span>
+        </div>
+        <div class="cv-item-sub">${exp.organization}</div>
+        ${exp.highlights && exp.highlights.length > 0 ? `
+          <ul class="cv-list">
+            ${exp.highlights.map(h => `<li>${h}</li>`).join('')}
+          </ul>
+        ` : ''}
+      </div>
+    `).join('');
+    experienceSection.hidden = false;
+  }
 
   skillsEl.innerHTML = cv.skills.map(group => `
     <li><strong>${group.category}:</strong> ${group.items.join(', ')}.</li>
@@ -598,4 +653,216 @@ function initCvPrintView() {
       <div class="cv-item-sub">${edu.degree}</div>
     </div>
   `).join('');
+}
+
+/* ==========================================================================
+   09. CV — PROYEK TERPILIH (dari projects.json)
+   Dipanggil dari fetch callback karena butuh data proyek. Satu sumber data
+   dengan galeri website: tambah proyek di projects.json → otomatis masuk CV.
+   Format plain-text (tanpa gambar) agar tetap aman untuk parser ATS.
+   ========================================================================== */
+function initCvProjectsView(projects) {
+  const section = document.getElementById("cvProjectsSection");
+  const container = document.getElementById("cvProjects");
+  if (!section || !container) return;
+  if (!Array.isArray(projects) || projects.length === 0) return;
+
+  container.innerHTML = projects.map(p => `
+    <div class="cv-item">
+      <div class="cv-item-header">
+        <span>${p.title}</span>
+        <span>${p.year}</span>
+      </div>
+      <div class="cv-item-sub">${[[p.role, p.client].filter(Boolean).join(' — '), p.categories.join(', ')].filter(Boolean).join(' · ')}</div>
+      ${p.summary ? `<p class="cv-item-desc">${p.summary}</p>` : ''}
+    </div>
+  `).join('');
+
+  section.hidden = false;
+}
+
+/* ==========================================================================
+   10. TESTIMONIALS VIEW (index.html section 06)
+   Merender SITE_CONFIG.testimonials. Section punya atribut `hidden` di HTML,
+   dan baru dimunculkan bila ada minimal 1 testimoni — tidak ada placeholder
+   yang pernah tampil ke pengunjung.
+   ========================================================================== */
+function initTestimonialsView() {
+  const section = document.getElementById("testimonials");
+  const grid = document.getElementById("testimonialsGrid");
+  if (!section || !grid) return;
+  if (typeof SITE_CONFIG === 'undefined') return;
+
+  const items = Array.isArray(SITE_CONFIG.testimonials) ? SITE_CONFIG.testimonials : [];
+  if (items.length === 0) return;
+
+  grid.innerHTML = items.map(t => `
+    <blockquote class="testimonial-card">
+      <p class="testimonial-quote font-serif">"${t.quote}"</p>
+      <cite class="testimonial-author">
+        <span class="author-name">${t.name}</span>
+        ${t.role ? `<span class="author-role">${t.role}</span>` : ''}
+      </cite>
+    </blockquote>
+  `).join('');
+
+  section.hidden = false;
+}
+
+
+/* ==========================================================================
+   11. YOUTUBE FACADE PLAYER (case study)
+   Tujuan: video dari channel YouTube agency tetap bisa diputar, tetapi
+   identitas channel seminimal mungkin terlihat.
+   • Sebelum diklik: hanya thumbnail + tombol play milik situs — player
+     YouTube (beserta nama/logo channel) BELUM dimuat sama sekali.
+   • Saat diklik: player dimuat via domain youtube-nocookie.com, autoplay.
+   • Saat video selesai: player dihancurkan & facade dikembalikan, sehingga
+     layar rekomendasi "video lain dari channel ini" tidak sempat tampil.
+   • Hanya 1 video diputar dalam satu waktu.
+   Catatan jujur: selama video diputar, YouTube masih bisa menampilkan judul/
+   channel sesaat saat hover/pause — ini dikunci oleh YouTube, tidak bisa
+   dimatikan lewat parameter apa pun.
+
+   Format item di projects.json → gallery:
+   { "type": "youtube", "id": "nDZxX-zBR6c", "caption": "Aftermovie", "poster": "" }
+   • "id" boleh diganti "src" berisi URL YouTube lengkap (youtu.be/..., watch?v=...).
+   • "poster" opsional: gambar thumbnail kustom (mis. /projects/<slug>/cover.webp).
+   ========================================================================== */
+function getYouTubeId(item) {
+  if (item.id) return String(item.id).trim();
+  const src = String(item.src || "");
+  const match = src.match(/(?:youtu\.be\/|[?&]v=|\/embed\/|\/shorts\/)([A-Za-z0-9_-]{11})/);
+  return match ? match[1] : "";
+}
+
+function getYouTubeThumb(id) {
+  return `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`;
+}
+
+function renderYouTubeFacade(item, projectTitle) {
+  const id = getYouTubeId(item);
+  if (!id) return "";
+  const label = item.caption || projectTitle;
+  const poster = item.poster || getYouTubeThumb(id);
+
+  return `
+    <div class="yt-facade" data-yt-id="${id}">
+      <img class="yt-facade-thumb" src="${poster}" alt="${label}" loading="lazy" />
+      <button class="yt-facade-play" type="button" aria-label="Putar video: ${label}">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.14v13.72a1 1 0 0 0 1.5.86l11-6.86a1 1 0 0 0 0-1.72l-11-6.86A1 1 0 0 0 8 5.14z"></path></svg>
+      </button>
+    </div>
+  `;
+}
+
+/* Thumbnail maxresdefault tidak selalu tersedia (video non-HD). YouTube lalu
+   mengirim gambar abu-abu 120×90 atau error 404 → turunkan ke hqdefault. */
+function attachYouTubeThumbFallback(root) {
+  if (!root) return;
+  root.querySelectorAll('img[src*="i.ytimg.com"][src*="maxresdefault"]').forEach(img => {
+    const downgrade = () => {
+      img.src = img.src.replace("maxresdefault", "hqdefault");
+    };
+    img.addEventListener("error", downgrade, { once: true });
+    img.addEventListener("load", () => {
+      if (img.naturalWidth > 0 && img.naturalWidth <= 120) downgrade();
+    }, { once: true });
+    if (img.complete && img.naturalWidth > 0 && img.naturalWidth <= 120) downgrade();
+  });
+}
+
+let youTubeApiPromise = null;
+
+function loadYouTubeApi() {
+  if (window.YT && window.YT.Player) return Promise.resolve(window.YT);
+  if (youTubeApiPromise) return youTubeApiPromise;
+
+  youTubeApiPromise = new Promise((resolve, reject) => {
+    const timeout = setTimeout(() => reject(new Error("YouTube API timeout")), 6000);
+    const previous = window.onYouTubeIframeAPIReady;
+    window.onYouTubeIframeAPIReady = () => {
+      clearTimeout(timeout);
+      if (typeof previous === "function") previous();
+      resolve(window.YT);
+    };
+    const script = document.createElement("script");
+    script.src = "https://www.youtube.com/iframe_api";
+    script.async = true;
+    script.onerror = () => {
+      clearTimeout(timeout);
+      reject(new Error("YouTube API gagal dimuat"));
+    };
+    document.head.appendChild(script);
+  }).catch(err => {
+    youTubeApiPromise = null;
+    throw err;
+  });
+
+  return youTubeApiPromise;
+}
+
+function initYouTubeFacades(root) {
+  if (!root) return;
+  const facades = root.querySelectorAll(".yt-facade");
+  if (facades.length === 0) return;
+
+  let activeReset = null;
+
+  facades.forEach(facade => {
+    const id = facade.dataset.ytId;
+    if (!id) return;
+    const facadeHTML = facade.innerHTML;
+    let player = null;
+
+    const reset = () => {
+      if (player && typeof player.destroy === "function") {
+        try { player.destroy(); } catch (e) { /* abaikan */ }
+      }
+      player = null;
+      facade.classList.remove("is-playing");
+      facade.innerHTML = facadeHTML;
+      attachYouTubeThumbFallback(facade);
+      if (activeReset === reset) activeReset = null;
+    };
+
+    const play = () => {
+      if (facade.classList.contains("is-playing")) return;
+      if (activeReset) activeReset();
+      activeReset = reset;
+
+      facade.classList.add("is-playing");
+      facade.innerHTML = `<div class="yt-facade-player"></div>`;
+      const mount = facade.querySelector(".yt-facade-player");
+
+      loadYouTubeApi()
+        .then(YT => {
+          if (!facade.classList.contains("is-playing")) return;
+          player = new YT.Player(mount, {
+            host: "https://www.youtube-nocookie.com",
+            videoId: id,
+            playerVars: { autoplay: 1, rel: 0, playsinline: 1 },
+            events: {
+              onReady: (e) => e.target.playVideo(),
+              onStateChange: (e) => {
+                if (e.data === YT.PlayerState.ENDED) reset();
+              }
+            }
+          });
+        })
+        .catch(() => {
+          // Fallback (mis. API diblokir ad-blocker): iframe biasa tanpa auto-reset di akhir video
+          if (!facade.classList.contains("is-playing")) return;
+          mount.outerHTML = `
+            <iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&playsinline=1"
+              title="Video" allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+              allowfullscreen></iframe>
+          `;
+        });
+    };
+
+    facade.addEventListener("click", (e) => {
+      if (e.target.closest(".yt-facade-play") || e.target.classList.contains("yt-facade-thumb")) play();
+    });
+  });
 }
