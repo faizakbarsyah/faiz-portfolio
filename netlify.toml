@@ -1,20 +1,45 @@
 [build]
   publish = "."
 
+# --------------------------------------------------------------------------
+# Pretty project URLs
+# /projects/<slug> -> /project.html?slug=<slug>
+# --------------------------------------------------------------------------
 [[redirects]]
   from = "/projects/*"
   to = "/project.html?slug=:splat"
   status = 200
 
 # --------------------------------------------------------------------------
+# Protect internal build tools
+#
+# File di /tools hanya untuk workflow development lokal dan tidak boleh
+# diakses sebagai static asset dari website production.
+#
+# status = 404:
+#   request dianggap "Not Found"
+#
+# force = true:
+#   rule tetap berlaku walaupun file/path tersebut benar-benar ada di repo.
+#
+# Untuk sementara target diarahkan ke index.html dengan status 404.
+# Nanti pada P2, target ini bisa diganti ke 404.html custom Swiss Editorial.
+# --------------------------------------------------------------------------
+[[redirects]]
+  from = "/tools/*"
+  to = "/index.html"
+  status = 404
+  force = true
+
+# --------------------------------------------------------------------------
 # Cache-Control Strategy
-# Nama file di proyek ini TIDAK memakai hash/versi (mis. style.css, hero-cover.webp),
-# jadi browser WAJIB mengecek ulang ke server setiap kali halaman dibuka.
-# Netlify mengirim ETag otomatis: kalau file tidak berubah, server hanya membalas
-# "304 Not Modified" (sangat ringan, tanpa download ulang). Kalau file berubah
-# setelah deploy baru, browser langsung mendapat versi terbaru.
-# (Sebelumnya: CSS/JS di-cache 7 hari & assets 1 tahun "immutable" → penyebab
-#  tampilan deploy tertinggal dari Live Server.)
+#
+# Nama file proyek belum menggunakan hash/versioning
+# (mis. style.css, app.js, hero-cover.webp), sehingga browser harus
+# mengecek kembali ke server pada setiap kunjungan.
+#
+# Netlify tetap bisa memakai ETag untuk response ringan ketika asset tidak
+# berubah.
 # --------------------------------------------------------------------------
 [[headers]]
   for = "/assets/*"
@@ -36,7 +61,9 @@
     [headers.values]
       Cache-Control = "public, max-age=0, must-revalidate"
 
+# --------------------------------------------------------------------------
 # Global Security Headers
+# --------------------------------------------------------------------------
 [[headers]]
   for = "/*"
     [headers.values]

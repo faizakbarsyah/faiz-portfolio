@@ -8,18 +8,18 @@
 </head>
 <body class="print-body">
 
-  <!-- Controls Header (Disembunyikan Otomatis saat Di-print/Save PDF) -->
+  <!-- Controls Header (Disembunyikan Otomatis saat Di-Print/Save PDF) -->
   <header class="print-controls-header no-print">
     <div class="print-controls-left">
       <a href="/" class="brand-logo">← BACK TO WEBSITE</a>
       <span class="print-separator">|</span>
       <span class="print-title">PORTFOLIO PDF GENERATOR</span>
     </div>
-    
+
     <div class="print-controls-right">
       <label for="categorySelect" class="print-label">Filter Kategori:</label>
       <select id="categorySelect" class="print-select"></select>
-      
+
       <!-- Tombol Aksi Download PDF Utama Ber-Ikon & Mencolok -->
       <button onclick="window.print()" class="btn-print-action">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -39,6 +39,7 @@
         <h1 class="font-serif print-doc-title">FAIZ AKBARSYAH®</h1>
         <p class="print-doc-subtitle">Graphic Designer — Motion Designer — Creative Director</p>
       </div>
+
       <div class="print-doc-meta">
         <span id="printCategoryLabel" class="print-tag">ALL CATEGORIES</span>
         <span class="print-date">SELECTED WORKS 2026</span>
@@ -48,7 +49,9 @@
     <!-- About Me — mengambil ±50% tinggi halaman pertama saat dicetak/di-PDF -->
     <section class="print-about-section">
       <h2 class="print-about-title font-serif">About</h2>
-      <!-- Dirender dinamis dari ABOUT_DATA (foto + printSummary) -> lihat js/app.js initPrintView() -->
+
+      <!-- Dirender dinamis dari ABOUT_DATA (foto + printSummary) -->
+      <!-- lihat js/app.js -> initPrintView() -->
       <div id="printAboutContent" class="print-about-grid"></div>
     </section>
 
@@ -56,7 +59,12 @@
 
     <footer class="print-doc-footer">
       <span>FAIZ AKBARSYAH® PORTFOLIO SHOWCASE</span>
-      <span>CONTACT@FAIZAKBARSYAH.COM — MEDAN, INDONESIA</span>
+
+      <!--
+        Kontak dirender dari SITE_CONFIG oleh initPrintView().
+        Jangan hardcode email / WhatsApp / lokasi di sini.
+      -->
+      <span id="printFooterContact"></span>
     </footer>
   </main>
 
