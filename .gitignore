@@ -2,3 +2,6 @@
 
 .DS_Store
 *.ai
+
+# Local Netlify folder
+.netlify

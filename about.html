@@ -1,103 +1,372 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
   <title>About — FAIZ AKBARSYAH®</title>
-  <meta name="description" content="Tentang Faiz Akbarsyah — Creative Director dan Graphic Designer berbasis di Medan dengan 3+ tahun pengalaman di event visual, brand identity, dan visual storytelling untuk festival musik dan gaya hidup.">
-  <link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg">
-  <link rel="stylesheet" href="/css/style.css">
+
+  <meta
+    name="description"
+    content="Tentang Faiz Akbarsyah — Creative Director dan Graphic Designer berbasis di Medan dengan 3+ tahun pengalaman di event visual, brand identity, dan visual storytelling untuk festival musik dan gaya hidup."
+  >
+
+  <link
+    rel="icon"
+    type="image/svg+xml"
+    href="/assets/icons/favicon.svg"
+  >
+
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+  >
 </head>
+
 <body>
 
-  <a href="#main-content" class="skip-link">Lompat ke Konten Utama</a>
+  <a
+    href="#main-content"
+    class="skip-link"
+  >
+    Lompat ke Konten Utama
+  </a>
 
-  <header class="site-header" role="banner">
-    <a href="/" class="brand-logo" aria-label="Beranda FAIZ AKBARSYAH">FAIZ AKBARSYAH®</a>
-    <button id="navToggleBtn" class="nav-toggle-btn" type="button" aria-label="Buka Menu Navigasi" aria-expanded="false" aria-controls="mainNav">
-      <span class="nav-toggle-icon"></span>
+
+  <!-- ================================================================
+       SITE HEADER
+       ================================================================ -->
+
+  <header
+    class="site-header"
+    role="banner"
+  >
+
+    <a
+      href="/"
+      class="brand-logo"
+      aria-label="Beranda FAIZ AKBARSYAH"
+    >
+      FAIZ AKBARSYAH®
+    </a>
+
+    <button
+      id="navToggleBtn"
+      class="nav-toggle-btn"
+      type="button"
+      aria-label="Buka Menu Navigasi"
+      aria-expanded="false"
+      aria-controls="mainNav"
+    >
+      <span
+        class="nav-toggle-icon"
+        aria-hidden="true"
+      ></span>
     </button>
-    <nav id="mainNav" aria-label="Navigasi Utama">
+
+    <nav
+      id="mainNav"
+      aria-label="Navigasi Utama"
+    >
+
       <ul class="nav-links">
-        <li><a href="/#work">Work</a></li>
-        <li><a href="/about.html" style="color: var(--color-purple);">About</a></li>
-        <li><a href="/#services">Services</a></li>
-        <li><a href="/#contact">Contact</a></li>
+
+        <li>
+          <a href="/#work">
+            Work
+          </a>
+        </li>
+
+        <li>
+          <a
+            href="/about.html"
+            class="nav-active"
+          >
+            About
+          </a>
+        </li>
+
+        <li>
+          <a href="/#services">
+            Services
+          </a>
+        </li>
+
+        <li>
+          <a href="/#contact">
+            Contact
+          </a>
+        </li>
+
       </ul>
+
     </nav>
+
   </header>
 
-  <main id="main-content" style="padding-top: 10rem;">
+
+  <!-- ================================================================
+       MAIN CONTENT
+       ================================================================ -->
+
+  <main id="main-content">
+
     <article class="about-page-container">
-      <section style="border-bottom: none; padding-top: 0;">
-        <p class="hero-subtitle">04 / ABOUT & CREATIVE MINDSET</p>
-        <h1 class="font-serif" style="font-size: var(--text-h1); line-height: 1.05; margin-bottom: 3rem; max-width: 1000px;">
+
+      <section class="about-intro-section">
+
+        <p class="hero-subtitle">
+          04 / ABOUT & CREATIVE MINDSET
+        </p>
+
+        <h1 class="font-serif about-page-heading">
           Designing with clarity, narrative discipline, and strategic intent.
         </h1>
 
-        <!-- Dirender dinamis dari ABOUT_DATA.stats -->
+
+        <!--
+          Dirender dinamis dari ABOUT_DATA.stats
+          melalui initAboutPageView() di app.js.
+        -->
+
         <div id="aboutStatsBlock"></div>
 
+
+        <!-- ============================================================
+             ABOUT GRID
+             ============================================================ -->
+
         <div class="about-grid">
+
           <div class="about-col-left">
-            <!-- Dirender dinamis dari ABOUT_DATA.photo (lihat js/app.js -> initAboutPageView) -->
+
+            <!--
+              Dirender dari ABOUT_DATA.photo.
+            -->
+
             <div id="aboutPhotoCard"></div>
-            <!-- Dirender dinamis dari ABOUT_DATA.background -->
+
+
+            <!--
+              Dirender dari ABOUT_DATA.background.
+            -->
+
             <div id="aboutBackgroundBlock"></div>
+
           </div>
+
 
           <div class="about-col-right">
-            <!-- Dirender dinamis dari ABOUT_DATA.disciplines -->
+
+            <!--
+              Dirender dari ABOUT_DATA.disciplines.
+            -->
+
             <div id="aboutDisciplinesBlock"></div>
 
-            <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--color-border);">
-              <a href="/cv-print.html" target="_blank" rel="noopener" class="cta-pill cta-accent">
+
+            <div class="about-cv-action">
+
+              <a
+                href="/cv-print.html"
+                target="_blank"
+                rel="noopener"
+                class="cta-pill cta-accent"
+              >
                 Download Curriculum Vitae ↗
               </a>
+
             </div>
+
           </div>
+
         </div>
 
-        <!-- Dirender dinamis dari ABOUT_DATA.cv.experience (field summary) -->
+
+        <!--
+          Dirender dari ABOUT_DATA.cv.experience.
+          app.js menggunakan field summary untuk bagian ini.
+        -->
+
         <div id="aboutExperienceBlock"></div>
+
       </section>
 
-      <!-- Seksi Kontak Footer -->
-      <section class="contact-section" style="margin-top: 5rem;">
+
+      <!-- ================================================================
+           CONTACT
+           ================================================================ -->
+
+      <section class="contact-section">
+
         <div class="contact-content">
-          <p class="section-label">07 / CONTACT & INQUIRIES</p>
-          <h2 class="contact-heading font-serif">Have an idea worth turning into something people can see?</h2>
-          
+
+          <p class="section-label">
+            07 / CONTACT & INQUIRIES
+          </p>
+
+          <h2 class="contact-heading font-serif">
+            Have an idea worth turning into something people can see?
+          </h2>
+
+
           <div class="contact-actions">
-            <a id="emailLink" href="#" class="cta-pill cta-secondary">Email Me</a>
-            <a id="whatsappLink" href="#" class="cta-pill cta-secondary" target="_blank" rel="noopener">WhatsApp ↗</a>
-            <a href="/print.html" class="cta-pill cta-primary" target="_blank" rel="noopener">
-              <svg class="cta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+
+            <a
+              id="emailLink"
+              href="#"
+              class="cta-pill cta-secondary"
+            >
+              Email Me
+            </a>
+
+            <a
+              id="whatsappLink"
+              href="#"
+              class="cta-pill cta-secondary"
+              target="_blank"
+              rel="noopener"
+            >
+              WhatsApp ↗
+            </a>
+
+            <a
+              href="/print.html"
+              class="cta-pill cta-primary"
+              target="_blank"
+              rel="noopener"
+            >
+
+              <svg
+                class="cta-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line
+                  x1="12"
+                  y1="15"
+                  x2="12"
+                  y2="3"
+                ></line>
+              </svg>
+
               Download Portfolio PDF
+
             </a>
-            <a href="/cv-print.html" class="cta-pill cta-primary" target="_blank" rel="noopener">
-              <svg class="cta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+
+
+            <a
+              href="/cv-print.html"
+              class="cta-pill cta-primary"
+              target="_blank"
+              rel="noopener"
+            >
+
+              <svg
+                class="cta-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line
+                  x1="12"
+                  y1="15"
+                  x2="12"
+                  y2="3"
+                ></line>
+              </svg>
+
               Download CV
+
             </a>
+
           </div>
+
+
+          <!-- ==========================================================
+               SOCIAL LINKS
+               ========================================================== -->
 
           <div class="social-links-row">
-            <a href="https://instagram.com/faizakbarsyah" target="_blank" rel="noopener" class="social-link">Instagram ↗</a>
-            <a href="https://linkedin.com/in/faizakbarsyah" target="_blank" rel="noopener" class="social-link">LinkedIn ↗</a>
-            <a href="https://behance.net/faizakbarsyah" target="_blank" rel="noopener" class="social-link">Behance ↗</a>
+
+            <a
+              href="https://instagram.com/faizakbarsyah"
+              target="_blank"
+              rel="noopener"
+              class="social-link"
+            >
+              Instagram ↗
+            </a>
+
+            <a
+              href="https://linkedin.com/in/faizakbarsyah"
+              target="_blank"
+              rel="noopener"
+              class="social-link"
+            >
+              LinkedIn ↗
+            </a>
+
+            <a
+              href="https://behance.net/faizakbarsyah"
+              target="_blank"
+              rel="noopener"
+              class="social-link"
+            >
+              Behance ↗
+            </a>
+
           </div>
+
         </div>
 
-        <footer class="site-footer" role="contentinfo">
-          <span>© 2026 FAIZ AKBARSYAH®. ALL RIGHTS RESERVED.</span>
-          <span>MEDAN, INDONESIA</span>
+
+        <!-- ============================================================
+             FOOTER
+             ============================================================ -->
+
+        <footer
+          class="site-footer"
+          role="contentinfo"
+        >
+
+          <span>
+            © 2026 FAIZ AKBARSYAH®. ALL RIGHTS RESERVED.
+          </span>
+
+          <span>
+            MEDAN, INDONESIA
+          </span>
+
         </footer>
+
       </section>
+
     </article>
+
   </main>
+
+
+  <!-- ================================================================
+       DATA + APPLICATION
+       ================================================================ -->
 
   <script src="/data/site-config.js"></script>
   <script src="/data/about-data.js"></script>
   <script src="/js/app.js"></script>
+
 </body>
+
 </html>

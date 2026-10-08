@@ -1,23 +1,1413 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Project case study — FAIZ AKBARSYAH®"
+  >
+
   <title>Project Case Study — FAIZ AKBARSYAH®</title>
-  <link rel="stylesheet" href="/css/style.css">
+
+  <link
+    rel="icon"
+    type="image/svg+xml"
+    href="/assets/icons/favicon.svg"
+  >
+
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+  >
+
+  <style>
+
+    /* ---------------------------------------------------------------
+       PROJECT PAGE CONTAINER
+       --------------------------------------------------------------- */
+
+    #projectContainer {
+      padding-top: 0 !important;
+    }
+
+
+    /* ---------------------------------------------------------------
+       CASE STUDY HERO
+       --------------------------------------------------------------- */
+
+    #projectContainer .case-study-hero {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 8rem 2.5rem 2.75rem;
+    }
+
+    #projectContainer .case-study-hero .hero-subtitle {
+      margin-bottom: 0.75rem;
+    }
+
+    #projectContainer .case-study-hero h1 {
+      max-width: 900px !important;
+      margin: 0;
+      font-size: clamp(3rem, 6vw, 5.5rem) !important;
+      line-height: 0.98 !important;
+      letter-spacing: -0.025em;
+    }
+
+
+    /* ---------------------------------------------------------------
+       PROJECT META
+       --------------------------------------------------------------- */
+
+    #projectContainer .case-study-meta-grid {
+      max-width: 1200px;
+      margin: 0 auto 3.5rem;
+      padding: 1.25rem 2.5rem;
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+      gap: 2rem;
+    }
+
+    #projectContainer .meta-item-label {
+      margin-bottom: 0.15rem;
+    }
+
+    #projectContainer .meta-item-value {
+      font-size: 0.95rem;
+    }
+
+
+    /* ---------------------------------------------------------------
+       HERO COVER IMAGE
+       --------------------------------------------------------------- */
+
+    #projectContainer .case-study-media-hero {
+      width: calc(100% - 5rem);
+      max-width: 1200px;
+      margin: 0 auto 5rem;
+      background-color: transparent;
+      overflow: hidden;
+      line-height: 0;
+    }
+
+    #projectContainer .case-study-media-hero img,
+    #projectContainer .case-study-media-hero video {
+      width: 100%;
+      height: auto;
+      max-height: 72vh;
+      display: block;
+      object-fit: contain;
+      transition:
+        transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    #projectContainer .case-study-media-hero:hover img {
+      transform: scale(1.015);
+    }
+
+
+    /* ---------------------------------------------------------------
+       PDF LINK
+       --------------------------------------------------------------- */
+
+    #projectContainer .case-study-pdf-link {
+      width: calc(100% - 5rem);
+      max-width: 1200px;
+      margin: -2rem auto 4rem;
+    }
+
+    #projectContainer .case-study-pdf-link a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      color: var(--color-purple);
+      font-size: var(--text-meta);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      text-decoration: none;
+
+      border-bottom: 1px solid var(--color-purple);
+      padding-bottom: 0.25rem;
+
+      transition:
+        color var(--transition-fast),
+        border-color var(--transition-fast);
+    }
+
+    #projectContainer .case-study-pdf-link a:hover {
+      color: var(--color-text);
+      border-color: var(--color-text);
+    }
+
+
+    /* ---------------------------------------------------------------
+       NARRATIVE CONTENT
+       --------------------------------------------------------------- */
+
+    #projectContainer article > section:not(.case-study-hero) {
+      padding-top: 0;
+    }
+
+    #projectContainer .case-study-narrative {
+      max-width: 1200px;
+      margin: 0 auto 4rem;
+      padding-left: 2.5rem;
+      padding-right: 2.5rem;
+    }
+
+    #projectContainer .narrative-content {
+      max-width: 720px;
+    }
+
+
+    /* ---------------------------------------------------------------
+       BENTO GALLERY
+       --------------------------------------------------------------- */
+
+    #projectContainer .case-study-gallery {
+      width: calc(100% - 5rem);
+      max-width: 1200px;
+      margin: 5rem auto 6rem;
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+      grid-auto-rows: auto;
+      grid-auto-flow: row;
+
+      gap: 1rem;
+
+      align-items: start;
+    }
+
+
+    /* ---------------------------------------------------------------
+       BENTO ITEM
+       --------------------------------------------------------------- */
+
+    #projectContainer .case-study-gallery .gallery-item {
+      width: 100%;
+      min-width: 0;
+
+      grid-column: auto !important;
+      grid-row: auto !important;
+
+      background-color: var(--color-surface);
+      overflow: hidden;
+
+      position: relative;
+    }
+
+
+    /* ---------------------------------------------------------------
+       BENTO IMAGE
+       --------------------------------------------------------------- */
+
+    #projectContainer .case-study-gallery .gallery-item img,
+    #projectContainer .case-study-gallery .gallery-item video {
+      width: 100%;
+      height: auto;
+
+      display: block;
+
+      object-fit: contain;
+
+      background-color: var(--color-surface);
+
+      transform: scale(1);
+      transform-origin: center center;
+
+      transition:
+        transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+
+    /* ---------------------------------------------------------------
+       IMAGE CLICK CURSOR
+       --------------------------------------------------------------- */
+
+    #projectContainer
+      .case-study-gallery
+      .gallery-item
+      img {
+      cursor: zoom-in;
+    }
+
+
+    /* ---------------------------------------------------------------
+       HOVER ZOOM
+       --------------------------------------------------------------- */
+
+    #projectContainer
+      .case-study-gallery
+      .gallery-item:hover
+      img,
+
+    #projectContainer
+      .case-study-gallery
+      .gallery-item:hover
+      video {
+      transform: scale(1.055);
+    }
+
+
+    /* ---------------------------------------------------------------
+       YOUTUBE
+       --------------------------------------------------------------- */
+
+    #projectContainer
+      .case-study-gallery
+      .gallery-item
+      .yt-facade {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      height: auto;
+
+      overflow: hidden;
+    }
+
+    #projectContainer
+      .case-study-gallery
+      .gallery-item
+      .yt-facade-thumb {
+      transition:
+        transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+        opacity var(--transition-medium);
+    }
+
+    #projectContainer
+      .case-study-gallery
+      .gallery-item:hover
+      .yt-facade-thumb {
+      transform: scale(1.055);
+    }
+
+
+    /* ---------------------------------------------------------------
+       GALLERY CAPTION
+       --------------------------------------------------------------- */
+
+    #projectContainer .gallery-caption {
+      position: relative;
+      z-index: 2;
+
+      margin: 0;
+
+      padding: 0.7rem 0.8rem 0.75rem;
+
+      background-color: var(--color-surface);
+
+      font-size: 0.7rem;
+      line-height: 1.45;
+      color: var(--color-text-muted);
+    }
+
+
+    /* ===============================================================
+       LIGHTBOX / IMAGE GALLERY
+       =============================================================== */
+
+    .project-lightbox {
+      position: fixed;
+      inset: 0;
+
+      z-index: 1000;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 4rem 5rem;
+
+      background:
+        rgba(13, 13, 14, 0.94);
+
+      opacity: 0;
+      visibility: hidden;
+
+      pointer-events: none;
+
+      transition:
+        opacity 0.25s ease,
+        visibility 0.25s ease;
+    }
+
+
+    .project-lightbox.is-open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+
+    /* ---------------------------------------------------------------
+       LIGHTBOX IMAGE AREA
+       --------------------------------------------------------------- */
+
+    .project-lightbox-stage {
+      position: relative;
+
+      width: 100%;
+      height: 100%;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      overflow: hidden;
+    }
+
+
+    .project-lightbox-image {
+      max-width: 90vw;
+      max-height: 86vh;
+
+      width: auto;
+      height: auto;
+
+      object-fit: contain;
+
+      display: block;
+
+      user-select: none;
+
+      transform: scale(0.97);
+
+      transition:
+        transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+
+    .project-lightbox.is-open
+      .project-lightbox-image {
+      transform: scale(1);
+    }
+
+
+    /* ---------------------------------------------------------------
+       CLOSE BUTTON
+       --------------------------------------------------------------- */
+
+    .project-lightbox-close {
+      position: absolute;
+
+      top: 1.5rem;
+      right: 1.75rem;
+
+      width: 48px;
+      height: 48px;
+
+      border: 1px solid
+        rgba(245, 245, 240, 0.35);
+
+      border-radius: 50%;
+
+      background: transparent;
+
+      color: #F5F5F0;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-family: var(--font-sans);
+      font-size: 1.5rem;
+      font-weight: 300;
+
+      cursor: pointer;
+
+      z-index: 10;
+
+      transition:
+        background-color var(--transition-fast),
+        border-color var(--transition-fast),
+        color var(--transition-fast);
+    }
+
+
+    .project-lightbox-close:hover {
+      background-color: var(--color-lime);
+      border-color: var(--color-lime);
+      color: var(--color-bg-dark);
+    }
+
+
+    /* ---------------------------------------------------------------
+       PREVIOUS / NEXT
+       --------------------------------------------------------------- */
+
+    .project-lightbox-nav {
+      position: absolute;
+
+      top: 50%;
+
+      transform: translateY(-50%);
+
+      width: 52px;
+      height: 52px;
+
+      border-radius: 50%;
+
+      border: 1px solid
+        rgba(245, 245, 240, 0.35);
+
+      background: rgba(13, 13, 14, 0.35);
+
+      color: #F5F5F0;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-family: var(--font-sans);
+      font-size: 1.35rem;
+
+      cursor: pointer;
+
+      z-index: 10;
+
+      transition:
+        background-color var(--transition-fast),
+        border-color var(--transition-fast),
+        color var(--transition-fast);
+    }
+
+
+    .project-lightbox-nav:hover {
+      background-color: var(--color-lime);
+      border-color: var(--color-lime);
+      color: var(--color-bg-dark);
+    }
+
+
+    .project-lightbox-prev {
+      left: 1.5rem;
+    }
+
+
+    .project-lightbox-next {
+      right: 1.5rem;
+    }
+
+
+    /* ---------------------------------------------------------------
+       COUNTER
+       --------------------------------------------------------------- */
+
+    .project-lightbox-counter {
+      position: absolute;
+
+      left: 50%;
+      bottom: 1.5rem;
+
+      transform: translateX(-50%);
+
+      color: #F5F5F0;
+
+      font-size: var(--text-meta);
+      font-weight: 600;
+
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+
+      white-space: nowrap;
+
+      z-index: 10;
+    }
+
+
+    /* ---------------------------------------------------------------
+       CAPTION
+       --------------------------------------------------------------- */
+
+    .project-lightbox-caption {
+      position: absolute;
+
+      left: 50%;
+      bottom: 3.75rem;
+
+      transform: translateX(-50%);
+
+      max-width: 600px;
+
+      color: rgba(245, 245, 240, 0.75);
+
+      font-size: 0.75rem;
+
+      line-height: 1.5;
+
+      text-align: center;
+
+      z-index: 10;
+    }
+
+
+    /* ---------------------------------------------------------------
+       BODY LOCK
+       --------------------------------------------------------------- */
+
+    body.project-lightbox-open {
+      overflow: hidden;
+    }
+
+
+    /* ---------------------------------------------------------------
+       NEXT PROJECT
+       --------------------------------------------------------------- */
+
+    #projectContainer .next-project-bar {
+      margin-top: 2rem;
+    }
+
+
+    /* ===============================================================
+       TABLET
+       =============================================================== */
+
+    @media (max-width: 900px) {
+
+      #projectContainer .case-study-hero {
+        padding:
+          7rem
+          1.5rem
+          2.5rem;
+      }
+
+      #projectContainer .case-study-hero h1 {
+        font-size:
+          clamp(2.75rem, 8vw, 4.5rem) !important;
+      }
+
+      #projectContainer .case-study-meta-grid {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+        gap: 1.5rem;
+      }
+
+      #projectContainer .case-study-media-hero,
+      #projectContainer .case-study-pdf-link,
+      #projectContainer .case-study-gallery {
+        width: calc(100% - 3rem);
+      }
+
+      #projectContainer .case-study-gallery {
+        grid-template-columns:
+          repeat(2, minmax(0, 1fr));
+
+        gap: 0.85rem;
+      }
+
+      #projectContainer .case-study-narrative {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+
+
+      /* Lightbox tablet */
+
+      .project-lightbox {
+        padding:
+          4rem
+          3.5rem;
+      }
+
+      .project-lightbox-image {
+        max-width: 86vw;
+        max-height: 82vh;
+      }
+
+      .project-lightbox-prev {
+        left: 0.75rem;
+      }
+
+      .project-lightbox-next {
+        right: 0.75rem;
+      }
+
+    }
+
+
+    /* ===============================================================
+       MOBILE
+       =============================================================== */
+
+    @media (max-width: 600px) {
+
+      #projectContainer .case-study-hero {
+        padding:
+          6rem
+          1.25rem
+          2rem;
+      }
+
+      #projectContainer .case-study-hero h1 {
+        font-size:
+          clamp(2.5rem, 13vw, 4rem) !important;
+
+        line-height: 0.95 !important;
+      }
+
+      #projectContainer .case-study-meta-grid {
+        grid-template-columns: 1fr 1fr;
+
+        padding:
+          1rem
+          1.25rem;
+
+        margin-bottom: 2.5rem;
+
+        gap: 1rem;
+      }
+
+      #projectContainer .meta-item-value {
+        font-size: 0.9rem;
+      }
+
+      #projectContainer .case-study-media-hero {
+        width: calc(100% - 2.5rem);
+        margin-bottom: 3.5rem;
+      }
+
+      #projectContainer .case-study-media-hero img,
+      #projectContainer .case-study-media-hero video {
+        max-height: none;
+      }
+
+      #projectContainer .case-study-pdf-link {
+        width: calc(100% - 2.5rem);
+        margin-top: -1rem;
+        margin-bottom: 3rem;
+      }
+
+      #projectContainer .case-study-narrative {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+        margin-bottom: 3rem;
+      }
+
+      #projectContainer .case-study-gallery {
+        width: calc(100% - 2.5rem);
+
+        grid-template-columns: 1fr;
+
+        gap: 1rem;
+
+        margin-top: 4rem;
+        margin-bottom: 4rem;
+      }
+
+      #projectContainer
+        .case-study-gallery
+        .gallery-item:hover
+        img,
+
+      #projectContainer
+        .case-study-gallery
+        .gallery-item:hover
+        video,
+
+      #projectContainer
+        .case-study-gallery
+        .gallery-item:hover
+        .yt-facade-thumb {
+        transform: none;
+      }
+
+
+      /* -------------------------------------------------------------
+         LIGHTBOX MOBILE
+         ------------------------------------------------------------- */
+
+      .project-lightbox {
+        padding:
+          3.5rem
+          0.75rem
+          5.25rem;
+      }
+
+
+      .project-lightbox-stage {
+        height: 100%;
+      }
+
+
+      .project-lightbox-image {
+        max-width: 94vw;
+        max-height: 78vh;
+      }
+
+
+      /* Close tetap di kanan atas */
+
+      .project-lightbox-close {
+        top: 0.75rem;
+        right: 0.75rem;
+
+        width: 42px;
+        height: 42px;
+
+        font-size: 1.25rem;
+      }
+
+
+      /*
+       * Mobile:
+       * Prev + counter + next sekarang menjadi satu grup
+       * di bawah gambar.
+       */
+
+      .project-lightbox-nav {
+        top: auto;
+        bottom: 0.75rem;
+
+        transform: none;
+
+        width: 42px;
+        height: 42px;
+
+        font-size: 1rem;
+
+        background:
+          rgba(245, 245, 240, 0.08);
+      }
+
+
+      .project-lightbox-prev {
+        left: calc(50% - 78px);
+      }
+
+
+      .project-lightbox-next {
+        right: calc(50% - 78px);
+      }
+
+
+      .project-lightbox-counter {
+        left: 50%;
+        bottom: 1.05rem;
+
+        transform: translateX(-50%);
+
+        min-width: 60px;
+
+        text-align: center;
+      }
+
+
+      .project-lightbox-caption {
+        display: none;
+      }
+
+
+      #projectContainer .next-project-bar {
+        padding:
+          4rem
+          1.25rem;
+      }
+
+    }
+
+
+    /* ===============================================================
+       REDUCED MOTION
+       =============================================================== */
+
+    @media (prefers-reduced-motion: reduce) {
+
+      #projectContainer
+        .case-study-media-hero
+        img,
+
+      #projectContainer
+        .case-study-gallery
+        .gallery-item
+        img,
+
+      #projectContainer
+        .case-study-gallery
+        .gallery-item
+        video,
+
+      #projectContainer
+        .case-study-gallery
+        .gallery-item
+        .yt-facade-thumb,
+
+      .project-lightbox-image {
+
+        transition: none;
+
+      }
+
+    }
+
+  </style>
+
 </head>
+
 <body>
 
-  <header class="site-header">
-    <a href="/" class="brand-logo">← BACK TO WORK</a>
-    <a href="/" class="brand-logo">FAIZ AKBARSYAH®</a>
+  <!-- ================================================================
+       SITE HEADER
+       ================================================================ -->
+
+  <header
+    class="site-header"
+    role="banner"
+  >
+
+    <a
+      href="/"
+      class="brand-logo"
+      aria-label="Kembali ke portfolio"
+    >
+      ← BACK TO WORK
+    </a>
+
+    <a
+      href="/"
+      class="brand-logo"
+      aria-label="FAIZ AKBARSYAH — Beranda"
+    >
+      FAIZ AKBARSYAH®
+    </a>
+
   </header>
 
-  <main id="projectContainer" style="padding-top: 8rem;">
-    <!-- Dynamic Case Study Content rendered via js/app.js -->
+
+  <!-- ================================================================
+       PROJECT CASE STUDY
+       ================================================================ -->
+
+  <main
+    id="projectContainer"
+    role="main"
+  >
+    <!-- Dynamic Case Study Content rendered via app.js -->
   </main>
+
+
+  <!-- ================================================================
+       IMAGE LIGHTBOX
+       ================================================================ -->
+
+  <div
+    class="project-lightbox"
+    id="projectLightbox"
+    aria-hidden="true"
+    role="dialog"
+    aria-label="Project image gallery"
+  >
+
+    <button
+      type="button"
+      class="project-lightbox-close"
+      id="projectLightboxClose"
+      aria-label="Tutup gallery"
+    >
+      ×
+    </button>
+
+
+    <button
+      type="button"
+      class="project-lightbox-nav project-lightbox-prev"
+      id="projectLightboxPrev"
+      aria-label="Gambar sebelumnya"
+    >
+      ←
+    </button>
+
+
+    <div
+      class="project-lightbox-stage"
+      id="projectLightboxStage"
+    >
+
+      <img
+        class="project-lightbox-image"
+        id="projectLightboxImage"
+        src=""
+        alt=""
+      >
+
+    </div>
+
+
+    <button
+      type="button"
+      class="project-lightbox-nav project-lightbox-next"
+      id="projectLightboxNext"
+      aria-label="Gambar berikutnya"
+    >
+      →
+    </button>
+
+
+    <div
+      class="project-lightbox-caption"
+      id="projectLightboxCaption"
+    ></div>
+
+
+    <div
+      class="project-lightbox-counter"
+      id="projectLightboxCounter"
+    >
+      01 / 01
+    </div>
+
+  </div>
+
+
+  <!-- ================================================================
+       DATA + APPLICATION
+       ================================================================ -->
 
   <script src="/data/site-config.js"></script>
   <script src="/js/app.js"></script>
+
+
+  <!-- ================================================================
+       PROJECT LIGHTBOX LOGIC
+       ================================================================ -->
+
+  <script>
+
+    (() => {
+
+      const lightbox =
+        document.getElementById(
+          "projectLightbox"
+        );
+
+      const image =
+        document.getElementById(
+          "projectLightboxImage"
+        );
+
+      const caption =
+        document.getElementById(
+          "projectLightboxCaption"
+        );
+
+      const counter =
+        document.getElementById(
+          "projectLightboxCounter"
+        );
+
+      const closeButton =
+        document.getElementById(
+          "projectLightboxClose"
+        );
+
+      const previousButton =
+        document.getElementById(
+          "projectLightboxPrev"
+        );
+
+      const nextButton =
+        document.getElementById(
+          "projectLightboxNext"
+        );
+
+      const stage =
+        document.getElementById(
+          "projectLightboxStage"
+        );
+
+
+      if (
+        !lightbox ||
+        !image ||
+        !caption ||
+        !counter ||
+        !closeButton ||
+        !previousButton ||
+        !nextButton ||
+        !stage
+      ) {
+        return;
+      }
+
+
+      let galleryImages = [];
+
+      let currentIndex = 0;
+
+
+      /* -------------------------------------------------------------
+         COLLECT GALLERY IMAGES
+         ------------------------------------------------------------- */
+
+      const collectImages = () => {
+
+        galleryImages =
+          Array.from(
+            document.querySelectorAll(
+              "#projectContainer .case-study-gallery .gallery-item img"
+            )
+          );
+
+      };
+
+
+      /* -------------------------------------------------------------
+         FORMAT COUNTER
+         ------------------------------------------------------------- */
+
+      const formatNumber = number =>
+        String(number).padStart(2, "0");
+
+
+      /* -------------------------------------------------------------
+         UPDATE IMAGE
+         ------------------------------------------------------------- */
+
+      const showImage = index => {
+
+        if (
+          galleryImages.length === 0
+        ) {
+          return;
+        }
+
+
+        currentIndex =
+          (
+            index +
+            galleryImages.length
+          ) %
+          galleryImages.length;
+
+
+        const source =
+          galleryImages[
+            currentIndex
+          ];
+
+
+        if (!source) {
+          return;
+        }
+
+
+        image.src =
+          source.currentSrc ||
+          source.src;
+
+        image.alt =
+          source.alt || "";
+
+
+        const item =
+          source.closest(
+            ".gallery-item"
+          );
+
+
+        const itemCaption =
+          item
+            ? item.querySelector(
+                ".gallery-caption"
+              )
+            : null;
+
+
+        caption.textContent =
+          itemCaption
+            ? itemCaption.textContent.trim()
+            : "";
+
+
+        counter.textContent =
+          `${formatNumber(currentIndex + 1)} / ${formatNumber(galleryImages.length)}`;
+
+
+        previousButton.hidden =
+          galleryImages.length <= 1;
+
+        nextButton.hidden =
+          galleryImages.length <= 1;
+
+      };
+
+
+      /* -------------------------------------------------------------
+         OPEN
+         ------------------------------------------------------------- */
+
+      const openLightbox = index => {
+
+        collectImages();
+
+        if (
+          galleryImages.length === 0
+        ) {
+          return;
+        }
+
+
+        showImage(index);
+
+
+        lightbox.classList.add(
+          "is-open"
+        );
+
+        lightbox.setAttribute(
+          "aria-hidden",
+          "false"
+        );
+
+
+        document.body.classList.add(
+          "project-lightbox-open"
+        );
+
+
+        closeButton.focus();
+
+      };
+
+
+      /* -------------------------------------------------------------
+         CLOSE
+         ------------------------------------------------------------- */
+
+      const closeLightbox = () => {
+
+        lightbox.classList.remove(
+          "is-open"
+        );
+
+        lightbox.setAttribute(
+          "aria-hidden",
+          "true"
+        );
+
+
+        document.body.classList.remove(
+          "project-lightbox-open"
+        );
+
+
+        image.src = "";
+
+        caption.textContent = "";
+
+      };
+
+
+      /* -------------------------------------------------------------
+         CLICK IMAGE
+         ------------------------------------------------------------- */
+
+      document.addEventListener(
+        "click",
+        event => {
+
+          const clickedImage =
+            event.target.closest(
+              "#projectContainer .case-study-gallery .gallery-item img"
+            );
+
+
+          if (!clickedImage) {
+            return;
+          }
+
+
+          if (
+            clickedImage.closest(
+              ".yt-facade"
+            )
+          ) {
+            return;
+          }
+
+
+          collectImages();
+
+
+          const index =
+            galleryImages.indexOf(
+              clickedImage
+            );
+
+
+          if (index === -1) {
+            return;
+          }
+
+
+          event.preventDefault();
+
+          openLightbox(index);
+
+        }
+      );
+
+
+      /* -------------------------------------------------------------
+         CLOSE BUTTON
+         ------------------------------------------------------------- */
+
+      closeButton.addEventListener(
+        "click",
+        closeLightbox
+      );
+
+
+      /* -------------------------------------------------------------
+         PREVIOUS
+         ------------------------------------------------------------- */
+
+      previousButton.addEventListener(
+        "click",
+        event => {
+
+          event.stopPropagation();
+
+          showImage(
+            currentIndex - 1
+          );
+
+        }
+      );
+
+
+      /* -------------------------------------------------------------
+         NEXT
+         ------------------------------------------------------------- */
+
+      nextButton.addEventListener(
+        "click",
+        event => {
+
+          event.stopPropagation();
+
+          showImage(
+            currentIndex + 1
+          );
+
+        }
+      );
+
+
+      /* -------------------------------------------------------------
+         CLICK BACKDROP
+         ------------------------------------------------------------- */
+
+      lightbox.addEventListener(
+        "click",
+        event => {
+
+          if (
+            event.target ===
+            lightbox
+          ) {
+            closeLightbox();
+          }
+
+        }
+      );
+
+
+      stage.addEventListener(
+        "click",
+        event => {
+
+          if (
+            event.target === stage
+          ) {
+            closeLightbox();
+          }
+
+        }
+      );
+
+
+      /* -------------------------------------------------------------
+         KEYBOARD
+         ------------------------------------------------------------- */
+
+      document.addEventListener(
+        "keydown",
+        event => {
+
+          if (
+            !lightbox.classList.contains(
+              "is-open"
+            )
+          ) {
+            return;
+          }
+
+
+          if (
+            event.key === "Escape"
+          ) {
+
+            closeLightbox();
+
+            return;
+
+          }
+
+
+          if (
+            event.key === "ArrowLeft"
+          ) {
+
+            showImage(
+              currentIndex - 1
+            );
+
+            return;
+
+          }
+
+
+          if (
+            event.key === "ArrowRight"
+          ) {
+
+            showImage(
+              currentIndex + 1
+            );
+
+          }
+
+        }
+      );
+
+
+      /* -------------------------------------------------------------
+         PREVENT IMAGE DRAG
+         ------------------------------------------------------------- */
+
+      image.addEventListener(
+        "dragstart",
+        event => {
+          event.preventDefault();
+        }
+      );
+
+    })();
+
+  </script>
+
 </body>
+
 </html>

@@ -11,27 +11,6 @@
   status = 200
 
 # --------------------------------------------------------------------------
-# Protect internal build tools
-#
-# File di /tools hanya untuk workflow development lokal dan tidak boleh
-# diakses sebagai static asset dari website production.
-#
-# status = 404:
-#   request dianggap "Not Found"
-#
-# force = true:
-#   rule tetap berlaku walaupun file/path tersebut benar-benar ada di repo.
-#
-# Untuk sementara target diarahkan ke index.html dengan status 404.
-# Nanti pada P2, target ini bisa diganti ke 404.html custom Swiss Editorial.
-# --------------------------------------------------------------------------
-[[redirects]]
-  from = "/tools/*"
-  to = "/index.html"
-  status = 404
-  force = true
-
-# --------------------------------------------------------------------------
 # Cache-Control Strategy
 #
 # Nama file proyek belum menggunakan hash/versioning

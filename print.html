@@ -3,73 +3,210 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Portfolio PDF Generator — FAIZ AKBARSYAH®</title>
-  <link rel="stylesheet" href="/css/style.css">
+
+  <meta
+    name="description"
+    content="Portfolio PDF Generator — FAIZ AKBARSYAH®"
+  >
+
+  <meta
+    name="robots"
+    content="noindex, nofollow"
+  >
+
+  <link
+    rel="icon"
+    type="image/svg+xml"
+    href="/assets/icons/favicon.svg"
+  >
+
+  <link
+    rel="stylesheet"
+    href="/css/style.css"
+  >
 </head>
+
 <body class="print-body">
 
-  <!-- Controls Header (Disembunyikan Otomatis saat Di-Print/Save PDF) -->
-  <header class="print-controls-header no-print">
+  <!--
+    Controls Header
+    Disembunyikan otomatis saat Print / Save as PDF
+  -->
+  <header
+    class="print-controls-header no-print"
+    role="banner"
+  >
+
     <div class="print-controls-left">
-      <a href="/" class="brand-logo">← BACK TO WEBSITE</a>
-      <span class="print-separator">|</span>
-      <span class="print-title">PORTFOLIO PDF GENERATOR</span>
+
+      <a
+        href="/"
+        class="brand-logo"
+        aria-label="Kembali ke website utama"
+      >
+        ← BACK TO WEBSITE
+      </a>
+
+      <span
+        class="print-separator"
+        aria-hidden="true"
+      >
+        |
+      </span>
+
+      <span class="print-title">
+        PORTFOLIO PDF GENERATOR
+      </span>
+
     </div>
 
     <div class="print-controls-right">
-      <label for="categorySelect" class="print-label">Filter Kategori:</label>
-      <select id="categorySelect" class="print-select"></select>
 
-      <!-- Tombol Aksi Download PDF Utama Ber-Ikon & Mencolok -->
-      <button onclick="window.print()" class="btn-print-action">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <label
+        for="categorySelect"
+        class="print-label"
+      >
+        Filter Kategori:
+      </label>
+
+      <select
+        id="categorySelect"
+        class="print-select"
+        aria-label="Filter kategori portfolio"
+      ></select>
+
+      <button
+        type="button"
+        class="btn-print-action"
+        onclick="window.print()"
+      >
+
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
           <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
           <polyline points="7 10 12 15 17 10"></polyline>
-          <line x1="12" y1="15" x2="12" y2="3"></line>
+          <line
+            x1="12"
+            y1="15"
+            x2="12"
+            y2="3"
+          ></line>
         </svg>
-        <span>Save as PDF / Print</span>
+
+        <span>
+          Save as PDF / Print
+        </span>
+
       </button>
+
     </div>
+
   </header>
 
-  <!-- Dokumen Cetak / Editorial Layout -->
-  <main class="print-document">
+
+  <!--
+    Dokumen Cetak / Editorial Layout
+  -->
+  <main
+    class="print-document"
+    role="main"
+  >
+
     <header class="print-doc-header">
+
       <div>
-        <h1 class="font-serif print-doc-title">FAIZ AKBARSYAH®</h1>
-        <p class="print-doc-subtitle">Graphic Designer — Motion Designer — Creative Director</p>
+
+        <h1 class="font-serif print-doc-title">
+          FAIZ AKBARSYAH®
+        </h1>
+
+        <p class="print-doc-subtitle">
+          Graphic Designer — Motion Designer — Creative Director
+        </p>
+
       </div>
 
       <div class="print-doc-meta">
-        <span id="printCategoryLabel" class="print-tag">ALL CATEGORIES</span>
-        <span class="print-date">SELECTED WORKS 2026</span>
+
+        <span
+          id="printCategoryLabel"
+          class="print-tag"
+        >
+          ALL CATEGORIES
+        </span>
+
+        <span class="print-date">
+          SELECTED WORKS 2026
+        </span>
+
       </div>
+
     </header>
 
-    <!-- About Me — mengambil ±50% tinggi halaman pertama saat dicetak/di-PDF -->
-    <section class="print-about-section">
-      <h2 class="print-about-title font-serif">About</h2>
 
-      <!-- Dirender dinamis dari ABOUT_DATA (foto + printSummary) -->
-      <!-- lihat js/app.js -> initPrintView() -->
-      <div id="printAboutContent" class="print-about-grid"></div>
+    <!--
+      About Me
+      Dirender dinamis dari ABOUT_DATA
+      melalui initPrintView() di app.js
+    -->
+    <section class="print-about-section">
+
+      <h2 class="print-about-title font-serif">
+        About
+      </h2>
+
+      <div
+        id="printAboutContent"
+        class="print-about-grid"
+      ></div>
+
     </section>
 
-    <div id="printGallery" class="print-gallery-grid"></div>
 
-    <footer class="print-doc-footer">
-      <span>FAIZ AKBARSYAH® PORTFOLIO SHOWCASE</span>
+    <!--
+      Portfolio Gallery
+      Dirender dinamis dari projects.json
+    -->
+    <div
+      id="printGallery"
+      class="print-gallery-grid"
+    ></div>
+
+
+    <footer
+      class="print-doc-footer"
+      role="contentinfo"
+    >
+
+      <span>
+        FAIZ AKBARSYAH® PORTFOLIO SHOWCASE
+      </span>
 
       <!--
-        Kontak dirender dari SITE_CONFIG oleh initPrintView().
-        Jangan hardcode email / WhatsApp / lokasi di sini.
+        Kontak dirender dari SITE_CONFIG
+        oleh initPrintView().
       -->
       <span id="printFooterContact"></span>
+
     </footer>
+
   </main>
+
 
   <script src="/data/site-config.js"></script>
   <script src="/data/about-data.js"></script>
   <script src="/js/app.js"></script>
+
 </body>
 </html>
