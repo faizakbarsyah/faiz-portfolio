@@ -219,7 +219,7 @@
     "slug": "dua-sisi-imlek",
     "title": "Dua Sisi — Imlek Edition",
     "categories": [
-      "Social Media Design",
+      "Social Media Content",
       "Graphic Design"
     ],
     "year": "",
@@ -279,7 +279,7 @@
     "title": "Zin Studio",
     "categories": [
       "Presentation Design",
-      "Social Media Design",
+      "Social Media Content",
       "Graphic Design"
     ],
     "year": "",
@@ -1451,7 +1451,7 @@
     "title": "Mie Kari 129 — Pitstop Jam Sibuk",
     "categories": [
       "Brand Identity",
-      "Social Media Design",
+      "Social Media Content",
       "Graphic Design"
     ],
     "year": "2026",
@@ -1492,5 +1492,33 @@
     "impact": "",
     "reflection": "",
     "gallery": []
+  },
+  {
+    "slug": "lomba-sihir-announcement",
+    "title": "Lomba Sihir Announcement",
+    "categories": [
+      "Social Media Content"
+    ],
+    "year": "2026",
+    "client": "",
+    "role": "Social Media Designer",
+    "featured": false,
+    "size": "small",
+    "published": true,
+    "coverImage": "",
+    "previewVideo": "https://faiz-portfolio-media.contact-zincoztan.workers.dev/social/Lomba%20Sihir%20Announcement.mp4",
+    "summary": "Social media announcement content for Lomba Sihir.",
+    "context": "",
+    "approach": "",
+    "execution": "",
+    "impact": "",
+    "reflection": "",
+    "gallery": [
+      {
+        "type": "video",
+        "src": "https://faiz-portfolio-media.contact-zincoztan.workers.dev/social/Lomba%20Sihir%20Announcement.mp4",
+        "caption": "Social Media Announcement"
+      }
+    ]
   }
 ]

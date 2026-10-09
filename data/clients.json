@@ -1,0 +1,110 @@
+[
+    {
+      "slug": "hajatan",
+      "name": "Hajatan",
+      "description": "",
+      "industry": "",
+      "website": "",
+      "logo": "",
+      "published": true
+    },
+    {
+      "slug": "dua-sisi",
+      "name": "Dua Sisi",
+      "description": "",
+      "industry": "",
+      "website": "",
+      "logo": "",
+      "published": true
+    },
+    {
+      "slug": "zin-studio",
+      "name": "Zin Studio",
+      "description": "",
+      "industry": "Creative Agency",
+      "website": "",
+      "logo": "",
+      "published": true
+    },
+    {
+      "slug": "mudakom",
+      "name": "Mudakom",
+      "description": "",
+      "industry": "Event Management & Production",
+      "website": "",
+      "logo": "",
+      "published": true
+    },
+    {
+      "slug": "pasar-nurlela",
+      "name": "Pasar Nurlela",
+      "description": "",
+      "industry": "",
+      "website": "",
+      "logo": "",
+      "published": true
+    },
+    {
+      "slug": "cv-kas",
+      "name": "CV KAS",
+      "description": "",
+      "industry": "",
+      "website": "",
+      "logo": "",
+      "published": true
+    },
+    {
+      "slug": "seremony",
+      "name": "Seremony",
+      "description": "",
+      "industry": "Event Design & Management",
+      "website": "",
+      "logo": "",
+      "published": true
+    },
+    {
+      "slug": "glamspace",
+      "name": "Glamspace",
+      "description": "",
+      "industry": "Music & Entertainment",
+      "website": "",
+      "logo": "",
+      "published": true
+    },
+    {
+      "slug": "eramas-coconut-industries",
+      "name": "Eramas Coconut Industries",
+      "description": "",
+      "industry": "",
+      "website": "",
+      "logo": "",
+      "published": true
+    },
+    {
+      "slug": "fakultas-farmasi-usu",
+      "name": "Fakultas Farmasi USU",
+      "description": "",
+      "industry": "Education",
+      "website": "",
+      "logo": "",
+      "published": true
+    },
+    {
+      "slug": "mie-kari-129",
+      "name": "Mie Kari 129",
+      "description": "",
+      "industry": "Food & Beverage",
+      "website": "",
+      "logo": "",
+      "published": true
+    },
+    {
+      "slug": "hotel-sibayak-international-berastagi",
+      "name": "Hotel Sibayak International Berastagi",
+      "description": "",
+      "industry": "Hospitality",
+      "website": "",
+      "logo": "",
+      "published": true
+    }
+  ]

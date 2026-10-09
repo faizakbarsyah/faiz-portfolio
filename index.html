@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
 
   <meta charset="UTF-8">
@@ -15,8 +14,13 @@
   </title>
 
   <meta
+    name="title"
+    content="FAIZ AKBARSYAH® — Graphic Designer, Motion Designer & Creative Director"
+  >
+
+  <meta
     name="description"
-    content="Portofolio digital resmi Faiz Akbarsyah. Creative Director dan Multidisciplinary Designer spesialis Brand Identity, Motion Design, Event Visual, dan Editorial Web Design."
+    content="Portofolio digital resmi Faiz Akbarsyah. Creative Director dan Multidisciplinary Designer spesialis Brand Identity, Motion Design, Event Visual, Social Media Content, dan Editorial Web Design."
   >
 
   <meta
@@ -33,9 +37,6 @@
     rel="canonical"
     href="https://faizcreativework.netlify.app/"
   >
-
-
-  <!-- Open Graph -->
 
   <meta
     property="og:type"
@@ -54,7 +55,7 @@
 
   <meta
     property="og:description"
-    content="Portofolio digital resmi Faiz Akbarsyah. Creative Director dan Multidisciplinary Designer spesialis Brand Identity, Motion Design, Event Visual, dan Editorial Web Design."
+    content="Portofolio digital resmi Faiz Akbarsyah. Creative Director dan Multidisciplinary Designer."
   >
 
   <meta
@@ -62,34 +63,30 @@
     content="https://faizcreativework.netlify.app/assets/og-cover.jpg"
   >
 
-
-  <!-- Twitter -->
-
   <meta
-    name="twitter:card"
+    property="twitter:card"
     content="summary_large_image"
   >
 
   <meta
-    name="twitter:url"
+    property="twitter:url"
     content="https://faizcreativework.netlify.app/"
   >
 
   <meta
-    name="twitter:title"
+    property="twitter:title"
     content="FAIZ AKBARSYAH® — Graphic Designer, Motion Designer & Creative Director"
   >
 
   <meta
-    name="twitter:description"
-    content="Portofolio digital resmi Faiz Akbarsyah. Creative Director dan Multidisciplinary Designer spesialis Brand Identity, Motion Design, Event Visual, dan Editorial Web Design."
+    property="twitter:description"
+    content="Portofolio digital resmi Faiz Akbarsyah. Creative Director dan Multidisciplinary Designer."
   >
 
   <meta
-    name="twitter:image"
+    property="twitter:image"
     content="https://faizcreativework.netlify.app/assets/og-cover.jpg"
   >
-
 
   <link
     rel="icon"
@@ -102,41 +99,21 @@
     href="/css/style.css"
   >
 
-
-  <!-- Structured Data -->
-
   <script type="application/ld+json">
-
   {
     "@context": "https://schema.org",
-
     "@type": "Person",
-
     "name": "Faiz Akbarsyah",
-
     "alternateName": "FAIZ AKBARSYAH®",
-
-    "jobTitle":
-      "Creative Director & Multidisciplinary Designer",
-
-    "url":
-      "https://faizcreativework.netlify.app",
-
-    "email":
-      "mailto:faiz.akbarsyah@gmail.com",
-
+    "jobTitle": "Creative Director & Multidisciplinary Designer",
+    "url": "https://faizcreativework.netlify.app",
+    "email": "mailto:faiz.akbarsyah@gmail.com",
     "sameAs": [
-
       "https://instagram.com/faizakbarsyah",
-
       "https://linkedin.com/in/faizakbarsyah",
-
       "https://behance.net/faizakbarsyah"
-
     ]
-
   }
-
   </script>
 
 </head>
@@ -144,10 +121,6 @@
 
 <body>
 
-
-  <!-- =====================================================================
-       ACCESSIBILITY
-       ===================================================================== -->
 
   <a
     href="#main-content"
@@ -157,79 +130,87 @@
   </a>
 
 
-  <!-- =====================================================================
-       SITE HEADER
-       ===================================================================== -->
+  <!-- ================================================================
+       HEADER
+       ================================================================ -->
 
   <header
     class="site-header"
     role="banner"
   >
 
-    <a
-      href="/"
-      class="brand-logo"
-      aria-label="Beranda FAIZ AKBARSYAH"
-    >
-      FAIZ AKBARSYAH®
-    </a>
+    <div class="header-inner">
+
+      <a
+        href="/"
+        class="site-logo"
+        aria-label="Beranda FAIZ AKBARSYAH"
+      >
+        FAIZ AKBARSYAH®
+      </a>
 
 
-    <button
-      id="navToggleBtn"
-      class="nav-toggle-btn"
-      type="button"
-      aria-label="Buka Menu Navigasi"
-      aria-expanded="false"
-      aria-controls="mainNav"
-    >
+      <button
+        id="navToggleBtn"
+        class="nav-toggle"
+        type="button"
+        aria-label="Buka Menu Navigasi"
+        aria-expanded="false"
+        aria-controls="mainNav"
+      >
 
-      <span class="nav-toggle-icon"></span>
+        <span></span>
 
-    </button>
+      </button>
 
 
-    <nav
-      id="mainNav"
-      aria-label="Navigasi Utama"
-    >
+      <nav
+        id="mainNav"
+        class="main-nav"
+        aria-label="Navigasi Utama"
+      >
 
-      <ul class="nav-links">
+        <button
+          id="navCloseBtn"
+          class="nav-close"
+          type="button"
+          aria-label="Tutup menu navigasi"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="m6 6 12 12M18 6 6 18" />
+          </svg>
+        </button>
 
-        <li>
-          <a href="#work">
-            Work
-          </a>
-        </li>
+        <a href="#work">
+          Work
+        </a>
 
-        <li>
-          <a href="/about.html">
-            About
-          </a>
-        </li>
+        <a href="/client.html">
+          Clients
+        </a>
 
-        <li>
-          <a href="#services">
-            Services
-          </a>
-        </li>
+        <a href="/about.html">
+          About
+        </a>
 
-        <li>
-          <a href="#contact">
-            Contact
-          </a>
-        </li>
+        <a href="#services">
+          Services
+        </a>
 
-      </ul>
+        <a href="#contact">
+          Contact
+        </a>
 
-    </nav>
+      </nav>
+
+    </div>
 
   </header>
 
 
-  <!-- =====================================================================
+  <!-- ================================================================
        MAIN
-       ===================================================================== -->
+       ================================================================ -->
 
   <main
     id="main-content"
@@ -237,9 +218,9 @@
   >
 
 
-    <!-- ===================================================================
-         01. HERO
-         =================================================================== -->
+    <!-- ==============================================================
+         HERO
+         ============================================================== -->
 
     <section
       class="hero-section"
@@ -247,7 +228,7 @@
     >
 
       <div
-        class="hero-bg"
+        class="hero-cover"
         aria-hidden="true"
       >
 
@@ -260,7 +241,7 @@
 
           <img
             class="hero-cover-img"
-            src="/assets/images/hero-cover.jpg"
+            src="/assets/images/hero-cover.webp"
             alt=""
             loading="eager"
             fetchpriority="high"
@@ -271,143 +252,204 @@
       </div>
 
 
-      <p class="hero-subtitle">
-        Graphic Designer — Motion Designer — Creative Director
-      </p>
+      <div class="hero-content">
+
+        <p class="hero-kicker">
+          Strategic Visual Designer
+        </p>
 
 
-      <h1 class="hero-title">
+        <h1 class="hero-title">
 
-        <span class="hero-title-line">
-          FAIZ
-        </span>
+          <span class="hero-title-line">
+            FAIZ
+          </span>
 
-        <span class="hero-title-line">
-          AKBARSYAH®
-        </span>
+          <span class="hero-title-line">
+            AKBARSYAH®
+          </span>
 
-      </h1>
+        </h1>
+
+        <p class="hero-roles" aria-label="Graphic Design, Motion Graphics, Creative Direction">
+          <span>Graphic Design</span>
+          <span>Motion Graphics</span>
+          <span>Creative Direction</span>
+        </p>
+
+        <p class="hero-description">
+          Visual communication is the architectural structuring of brand perception.
+          I design clear, high-impact identities, motion systems, and event experiences
+          backed by strategic thinking.
+        </p>
+
+      </div>
 
     </section>
 
 
-    <!-- ===================================================================
-         02. MANIFESTO
-         =================================================================== -->
+    <!-- ==============================================================
+         INTRODUCTION
+         ============================================================== -->
 
     <section
-      class="manifesto-section"
-      aria-label="Filosofi Desain"
+      class="intro-section"
+      aria-labelledby="intro-heading"
     >
 
-      <p class="manifesto-text">
-        Visual communication is the architectural structuring of brand perception. I design clear, high-impact identities, motion systems, and event experiences backed by strategic thinking.
-      </p>
+      <div class="intro-inner">
 
-    </section>
+        <p class="intro-kicker">
+          A note on my practice
+        </p>
 
+        <div class="intro-content">
 
-    <!-- ===================================================================
-         03. WORK
-         =================================================================== -->
-
-    <section
-      id="work"
-      class="work-section"
-      aria-label="Galeri Karya"
-    >
-
-      <div class="gallery-controls-header">
-
-        <div
-          id="filterContainer"
-          class="filter-bar"
-          role="group"
-          aria-label="Filter Kategori Proyek"
-          style="margin-bottom:0;"
-        ></div>
-
-
-        <div class="gallery-nav-group">
-
-          <button
-            id="galleryPrev"
-            class="gallery-nav-btn"
-            type="button"
-            aria-label="Previous"
+          <h2
+            id="intro-heading"
+            class="intro-heading"
           >
-            ←
-          </button>
+            I make ideas unmistakable.
+          </h2>
 
-
-          <button
-            id="galleryNext"
-            class="gallery-nav-btn"
-            type="button"
-            aria-label="Next"
-          >
-            →
-          </button>
+          <p class="intro-copy">
+            I’m Faiz, a graphic and motion designer shaping clear identities,
+            campaigns, and experiences with strategic intent.
+          </p>
 
         </div>
 
       </div>
 
-
-      <div
-        id="workGallery"
-        class="horizontal-gallery-wrapper"
-        tabindex="0"
-        aria-label="Daftar Proyek"
-      ></div>
-
     </section>
 
-
-    <!-- ===================================================================
-         04. ABOUT PREVIEW
-         =================================================================== -->
+    <!-- ==============================================================
+         WORK
+         ============================================================== -->
 
     <section
-      id="about"
-      class="about-section"
-      aria-label="Ringkasan Tentang Faiz Akbarsyah"
+      id="work"
+      class="section horizontal-gallery-section"
+      aria-label="Galeri Karya"
     >
 
-      <div class="about-grid">
+      <div class="container">
 
-        <div class="about-col-left">
+        <div class="section-heading-row">
 
-          <p class="section-label">
-            04 / ABOUT & MINDSET
-          </p>
+          <div>
+
+            <p class="section-kicker">
+              01 / Selected Work
+            </p>
+
+            <h2 class="section-heading">
+              Work
+            </h2>
+
+          </div>
 
 
-          <h2 class="about-heading font-serif">
-            Designing with clarity, narrative discipline, and strategic intent.
-          </h2>
+          <div class="gallery-nav-group">
+
+            <button
+              id="galleryPrev"
+              class="gallery-nav-btn"
+              type="button"
+              aria-label="Project sebelumnya"
+            >
+              ←
+            </button>
+
+            <button
+              id="galleryNext"
+              class="gallery-nav-btn"
+              type="button"
+              aria-label="Project berikutnya"
+            >
+              →
+            </button>
+
+          </div>
 
         </div>
 
 
-        <div class="about-col-right">
-
-          <p class="about-text">
-            Creative Director and Graphic Designer based in Medan. For over three years, I've shaped the visual language of music festivals, lifestyle events, and brands — from the first key visual to the LED screen on show day.
-          </p>
-
+        <div class="filter-wrapper">
 
           <div
-            style="margin-top:2rem;"
-          >
+            id="filterContainer"
+            class="filter-container"
+            role="group"
+            aria-label="Filter Kategori Proyek"
+          ></div>
 
-            <a
-              href="/about.html"
-              class="cta-pill cta-secondary"
-              style="border:1px solid var(--color-text);"
+        </div>
+
+
+        <div
+          id="workGallery"
+          class="horizontal-gallery-wrapper"
+          tabindex="0"
+          aria-label="Daftar Proyek"
+        ></div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ==============================================================
+         ABOUT
+         ============================================================== -->
+
+    <section
+      id="about"
+      class="section"
+      aria-label="Ringkasan Tentang Faiz Akbarsyah"
+    >
+
+      <div class="container">
+
+        <div class="about-grid">
+
+          <div>
+
+            <p class="section-kicker">
+              02 / About & Mindset
+            </p>
+
+            <h2 class="section-heading">
+              Designing with clarity, narrative discipline, and strategic intent.
+            </h2>
+
+          </div>
+
+
+          <div>
+
+            <p class="about-text">
+              Creative Director and Graphic Designer based in Medan.
+              For over three years, I've shaped the visual language of
+              music festivals, lifestyle events, and brands — from the
+              first key visual to the LED screen on show day.
+            </p>
+
+
+            <div
+              style="
+                margin-top: 2rem;
+              "
             >
-              Read Full Biography ↗
-            </a>
+
+              <a
+                href="/about.html"
+                class="cta-pill cta-secondary"
+              >
+                Read Full Biography ↗
+              </a>
+
+            </div>
 
           </div>
 
@@ -418,197 +460,204 @@
     </section>
 
 
-    <!-- ===================================================================
-         05. SERVICES
-         =================================================================== -->
+    <!-- ==============================================================
+         SERVICES
+         ============================================================== -->
 
     <section
       id="services"
-      class="services-section"
+      class="section"
       aria-label="Layanan dan Disiplin"
     >
 
-      <p class="section-label">
-        05 / SERVICES & DISCIPLINES
-      </p>
+      <div class="container">
+
+        <p class="section-kicker">
+          03 / Services & Disciplines
+        </p>
 
 
-      <div class="services-list">
+        <h2 class="section-heading">
+          Services
+        </h2>
 
 
-        <a
-          href="/services.html?category=Brand%20Identity"
-          target="_blank"
-          rel="noopener"
-          class="service-item-link"
+        <div
+          class="services-list"
+          style="
+            margin-top: 3rem;
+            border-top: 1px solid var(--color-border);
+          "
         >
 
-          <h3 class="service-title">
+          <a
+            href="/services.html?category=Brand%20Identity"
+            class="service-item-link"
+          >
 
-            Brand Identity
+            <h3 class="service-title">
+              Brand Identity
+              <span class="service-indicator">↗</span>
+            </h3>
 
-            <span class="service-indicator">
-              ↗
-            </span>
-
-          </h3>
-
-        </a>
-
-
-        <a
-          href="/services.html?category=Graphic%20Design"
-          target="_blank"
-          rel="noopener"
-          class="service-item-link"
-        >
-
-          <h3 class="service-title">
-
-            Graphic Design
-
-            <span class="service-indicator">
-              ↗
-            </span>
-
-          </h3>
-
-        </a>
+          </a>
 
 
-        <a
-          href="/services.html?category=Motion%20Design"
-          target="_blank"
-          rel="noopener"
-          class="service-item-link"
-        >
+          <a
+            href="/services.html?category=Graphic%20Design"
+            class="service-item-link"
+          >
 
-          <h3 class="service-title">
+            <h3 class="service-title">
+              Graphic Design
+              <span class="service-indicator">↗</span>
+            </h3>
 
-            Motion Design
-
-            <span class="service-indicator">
-              ↗
-            </span>
-
-          </h3>
-
-        </a>
+          </a>
 
 
-        <a
-          href="/services.html?category=Event%20Visual"
-          target="_blank"
-          rel="noopener"
-          class="service-item-link"
-        >
+          <a
+            href="/services.html?category=Motion%20Design"
+            class="service-item-link"
+          >
 
-          <h3 class="service-title">
+            <h3 class="service-title">
+              Motion Design
+              <span class="service-indicator">↗</span>
+            </h3>
 
-            Event Visual
-
-            <span class="service-indicator">
-              ↗
-            </span>
-
-          </h3>
-
-        </a>
+          </a>
 
 
-        <a
-          href="/services.html?category=Social%20Media%20Design"
-          target="_blank"
-          rel="noopener"
-          class="service-item-link"
-        >
+          <a
+            href="/services.html?category=Event%20Visual"
+            class="service-item-link"
+          >
 
-          <h3 class="service-title">
+            <h3 class="service-title">
+              Event Visual
+              <span class="service-indicator">↗</span>
+            </h3>
 
-            Social Media Content
-
-            <span class="service-indicator">
-              ↗
-            </span>
-
-          </h3>
-
-        </a>
+          </a>
 
 
-        <a
-          href="/services.html?category=Presentation%20Design"
-          target="_blank"
-          rel="noopener"
-          class="service-item-link"
-        >
+          <a
+            href="/services.html?category=Social%20Media%20Content"
+            class="service-item-link"
+          >
 
-          <h3 class="service-title">
+            <h3 class="service-title">
+              Social Media Content
+              <span class="service-indicator">↗</span>
+            </h3>
 
-            Presentation Design
+          </a>
 
-            <span class="service-indicator">
-              ↗
-            </span>
 
-          </h3>
+          <a
+            href="/services.html?category=Creative%20Campaign"
+            class="service-item-link"
+          >
 
-        </a>
+            <h3 class="service-title">
+              Creative Campaign
+              <span class="service-indicator">↗</span>
+            </h3>
 
+          </a>
+
+
+          <a
+            href="/services.html?category=Digital%20Marketing"
+            class="service-item-link"
+          >
+
+            <h3 class="service-title">
+              Digital Marketing
+              <span class="service-indicator">↗</span>
+            </h3>
+
+          </a>
+
+
+          <a
+            href="/services.html?category=Presentation%20Design"
+            class="service-item-link"
+          >
+
+            <h3 class="service-title">
+              Presentation Design
+              <span class="service-indicator">↗</span>
+            </h3>
+
+          </a>
+
+        </div>
 
       </div>
 
     </section>
 
 
-    <!-- ===================================================================
-         06. TESTIMONIALS
-         =================================================================== -->
+    <!-- ==============================================================
+         TESTIMONIALS
+         ============================================================== -->
 
     <section
       id="testimonials"
-      class="testimonials-section"
+      class="section"
       aria-label="Rekomendasi Profesional"
       hidden
     >
 
-      <p class="section-label">
-        06 / ENDORSEMENTS
-      </p>
+      <div class="container">
 
+        <p class="section-kicker">
+          04 / Endorsements
+        </p>
 
-      <div
-        id="testimonialsGrid"
-        class="testimonials-grid"
-      ></div>
+        <div
+          id="testimonialsGrid"
+          class="testimonials-grid"
+        ></div>
+
+      </div>
 
     </section>
 
 
-    <!-- ===================================================================
-         07. CONTACT & FOOTER
-         =================================================================== -->
+    <!-- ==============================================================
+         CONTACT
+         ============================================================== -->
 
     <section
       id="contact"
-      class="contact-section"
+      class="section"
       aria-label="Kontak dan Informasi"
     >
 
-      <div class="contact-content">
+      <div class="container">
 
-        <p class="section-label">
-          07 / CONTACT & INQUIRIES
+        <p class="section-kicker">
+          05 / Contact & Inquiries
         </p>
 
 
-        <h2 class="contact-heading font-serif">
+        <h2 class="section-heading">
           Have an idea worth turning into something people can see?
         </h2>
 
 
-        <div class="contact-actions">
-
+        <div
+          class="contact-actions"
+          style="
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 2rem;
+          "
+        >
 
           <a
             id="emailLink"
@@ -624,7 +673,7 @@
             href="#"
             class="cta-pill cta-secondary"
             target="_blank"
-            rel="noopener"
+            rel="noopener noreferrer"
           >
             WhatsApp ↗
           </a>
@@ -632,77 +681,66 @@
 
           <a
             href="/print.html"
-            class="cta-pill cta-primary"
+            class="cta-pill cta-primary cta-download"
             target="_blank"
-            rel="noopener"
-          >
-
-            <svg
-              class="cta-icon"
-              viewBox="0 0 24 24"
+            rel="noopener noreferrer"
+          >            <svg
+              class="cta-download-icon"
+              viewBox="0 0 20 20"
               fill="none"
-              stroke="currentColor"
+              aria-hidden="true"
+              focusable="false"
             >
-
-              <path d="M21 15v4a2 2 0 0 1-2 2v-4"></path>
-
-              <polyline points="7 10 12 15 17 10"></polyline>
-
-              <line
-                x1="12"
-                y1="15"
-                x2="12"
-                y2="3"
-              ></line>
-
-            </svg>
-
-            Download Portfolio PDF
-
+              <path
+                d="M10 2.75v9.5m0 0 3.5-3.5M10 12.25l-3.5-3.5M3 14.25v2.5h14v-2.5"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>            <span>Download Portfolio PDF</span>
           </a>
 
 
           <a
             href="/cv-print.html"
-            class="cta-pill cta-primary"
+            class="cta-pill cta-primary cta-download"
             target="_blank"
-            rel="noopener"
-          >
-
-            <svg
-              class="cta-icon"
-              viewBox="0 0 24 24"
+            rel="noopener noreferrer"
+          >            <svg
+              class="cta-download-icon"
+              viewBox="0 0 20 20"
               fill="none"
-              stroke="currentColor"
+              aria-hidden="true"
+              focusable="false"
             >
-
-              <path d="M21 15v4a2 2 0 0 1-2 2v-4"></path>
-
-              <polyline points="7 10 12 15 17 10"></polyline>
-
-              <line
-                x1="12"
-                y1="15"
-                x2="12"
-                y2="3"
-              ></line>
-
-            </svg>
-
-            Download CV
-
+              <path
+                d="M10 2.75v9.5m0 0 3.5-3.5M10 12.25l-3.5-3.5M3 14.25v2.5h14v-2.5"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>            <span>Download CV</span>
           </a>
-
 
         </div>
 
 
-        <div class="social-links-row">
+        <div
+          class="social-links-row"
+          style="
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-top: 2rem;
+          "
+        >
 
           <a
             href="https://instagram.com/faizakbarsyah"
             target="_blank"
-            rel="noopener"
+            rel="noopener noreferrer"
             class="social-link"
           >
             Instagram ↗
@@ -712,7 +750,7 @@
           <a
             href="https://linkedin.com/in/faizakbarsyah"
             target="_blank"
-            rel="noopener"
+            rel="noopener noreferrer"
             class="social-link"
           >
             LinkedIn ↗
@@ -722,7 +760,7 @@
           <a
             href="https://behance.net/faizakbarsyah"
             target="_blank"
-            rel="noopener"
+            rel="noopener noreferrer"
             class="social-link"
           >
             Behance ↗
@@ -733,223 +771,82 @@
       </div>
 
 
+      <!-- ============================================================
+           FOOTER
+           ============================================================ -->
+
       <footer
         class="site-footer"
         role="contentinfo"
       >
 
-        <span>
-          © 2026 FAIZ AKBARSYAH®. ALL RIGHTS RESERVED.
-        </span>
+        <div class="footer-main">
 
-        <span>
-          MEDAN, INDONESIA
-        </span>
+          <div class="footer-brand">
+
+            <strong>
+              FAIZ AKBARSYAH®
+            </strong>
+
+            <p>
+              Graphic Designer, Motion Designer & Creative Director.
+            </p>
+
+          </div>
+
+
+          <div class="footer-links">
+
+            <a href="#work">
+              Work
+            </a>
+
+            <a href="/client.html">
+              Clients
+            </a>
+
+            <a href="/about.html">
+              About
+            </a>
+
+            <a href="#services">
+              Services
+            </a>
+
+            <a href="#contact">
+              Contact
+            </a>
+
+          </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+          <span>
+            © 2026 FAIZ AKBARSYAH®. ALL RIGHTS RESERVED.
+          </span>
+
+          <span>
+            MEDAN, INDONESIA
+          </span>
+
+        </div>
 
       </footer>
 
     </section>
 
-
   </main>
 
 
-  <script src="/data/site-config.js"></script>
+  <!-- ================================================================
+       SCRIPTS
+       ================================================================ -->
 
+  <script src="/data/site-config.js"></script>
   <script src="/js/app.js"></script>
 
-
-  <!-- =====================================================================
-       SOCIAL MEDIA CONTENT
-       Menampilkan video di gallery Work yang sama ketika filter
-       "Social Media Content" dipilih.
-       ===================================================================== -->
-
-  <script>
-
-    document.addEventListener(
-      "DOMContentLoaded",
-      () => {
-
-        const filterContainer =
-          document.getElementById(
-            "filterContainer"
-          );
-
-        const gallery =
-          document.getElementById(
-            "workGallery"
-          );
-
-        if (
-          !filterContainer ||
-          !gallery
-        ) {
-          return;
-        }
-
-
-        fetch(
-          "/data/social-content.json"
-        )
-          .then(response => {
-
-            if (!response.ok) {
-              throw new Error(
-                `HTTP ${response.status}`
-              );
-            }
-
-            return response.json();
-
-          })
-          .then(data => {
-
-            const socialItems =
-              Array.isArray(data.items)
-                ? data.items.filter(
-                    item =>
-                      item.published !== false &&
-                      item.video
-                  )
-                : [];
-
-
-            if (
-              socialItems.length === 0
-            ) {
-              return;
-            }
-
-
-            const renderSocialVideos =
-              () => {
-
-                gallery.innerHTML =
-                  socialItems
-                    .map(
-                      item => `
-
-                        <article
-                          class="project-card size-small"
-                          style="cursor:default;"
-                        >
-
-                          <div
-                            class="card-media-wrapper"
-                            style="
-                              aspect-ratio:9 / 16;
-                              background:var(--color-surface);
-                            "
-                          >
-
-                            <video
-                              src="${item.video}"
-                              poster="${item.poster || ""}"
-                              controls
-                              playsinline
-                              preload="metadata"
-                              style="
-                                position:static;
-                                width:100%;
-                                height:100%;
-                                opacity:1;
-                                pointer-events:auto;
-                                object-fit:contain;
-                                background:var(--color-surface);
-                              "
-                            >
-                            </video>
-
-                          </div>
-
-
-                          <div class="card-info">
-
-                            <span class="card-title">
-                              ${item.title || "Social Media Content"}
-                            </span>
-
-
-                            <span class="card-meta">
-
-                              ${
-                                [
-                                  item.client,
-                                  item.year
-                                ]
-                                  .filter(Boolean)
-                                  .join(" / ")
-                              }
-
-                            </span>
-
-                          </div>
-
-                        </article>
-
-                      `
-                    )
-                    .join("");
-
-              };
-
-
-            const bindFilter =
-              () => {
-
-                const buttons =
-                  filterContainer.querySelectorAll(
-                    ".filter-btn"
-                  );
-
-
-                const socialButton =
-                  Array.from(
-                    buttons
-                  ).find(
-                    button =>
-                      button.dataset.category ===
-                      "Social Media Content"
-                  );
-
-
-                if (
-                  !socialButton
-                ) {
-                  return;
-                }
-
-
-                socialButton.addEventListener(
-                  "click",
-                  () => {
-
-                    renderSocialVideos();
-
-                  }
-                );
-
-              };
-
-
-            bindFilter();
-
-          })
-          .catch(
-            error =>
-              console.error(
-                "Gagal memuat Social Media Content:",
-                error
-              )
-          );
-
-      }
-    );
-
-  </script>
-
-
 </body>
-
 </html>

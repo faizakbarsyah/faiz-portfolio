@@ -203,66 +203,141 @@ function initHeroDynamicBackground() {
    ========================================================================== */
 
 function initMobileNavToggle() {
-  const toggleBtn =
-    document.getElementById("navToggleBtn");
-
-  const nav =
-    document.getElementById("mainNav");
+  const toggleBtn = document.getElementById("navToggleBtn");
+  const closeBtn = document.getElementById("navCloseBtn");
+  const nav = document.getElementById("mainNav");
 
   if (!toggleBtn || !nav) return;
 
-  const closeNav = () => {
+  const closeNav = (restoreFocus = false) => {
     document.body.classList.remove("nav-open");
+    toggleBtn.setAttribute("aria-expanded", "false");
+    toggleBtn.setAttribute("aria-label", "Buka Menu Navigasi");
 
-    toggleBtn.setAttribute(
-      "aria-expanded",
-      "false"
-    );
+    if (restoreFocus) {
+      toggleBtn.focus();
+    }
   };
 
   const openNav = () => {
     document.body.classList.add("nav-open");
-
-    toggleBtn.setAttribute(
-      "aria-expanded",
-      "true"
-    );
+    toggleBtn.setAttribute("aria-expanded", "true");
+    toggleBtn.setAttribute("aria-label", "Tutup Menu Navigasi");
+    (closeBtn || nav.querySelector("a"))?.focus();
   };
 
   toggleBtn.addEventListener("click", () => {
-    const isOpen =
-      document.body.classList.contains(
-        "nav-open"
-      );
-
-    isOpen
-      ? closeNav()
-      : openNav();
+    const isOpen = document.body.classList.contains("nav-open");
+    isOpen ? closeNav(true) : openNav();
   });
 
+  closeBtn?.addEventListener("click", () => closeNav(true));
+
   nav.querySelectorAll("a").forEach(link => {
-    link.addEventListener(
-      "click",
-      closeNav
-    );
+    link.addEventListener("click", () => closeNav());
+  });
+
+  nav.addEventListener("click", event => {
+    if (event.target === nav) closeNav(true);
   });
 
   window.addEventListener("resize", () => {
-    if (window.innerWidth > 768) {
-      closeNav();
-    }
+    if (window.innerWidth > 768) closeNav();
   });
 
-  document.addEventListener("keydown", e => {
-    if (e.key === "Escape") {
-      closeNav();
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape" && document.body.classList.contains("nav-open")) {
+      closeNav(true);
     }
+  });
+}
+
+/* ==========================================================================
+   02. PROJECT MEDIA HELPERS
+   ========================================================================== */
+
+function renderProjectCardMedia(project) {
+  const title = project.title || "Project";
+  const cover = project.coverImage || "";
+  const video = project.previewVideo || "";
+
+  if (video) {
+    return `
+      <div class="card-media-wrapper">
+        <video
+          src="${video}"
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          aria-label="${title}"
+        ></video>
+      </div>
+    `;
+  }
+
+  if (cover) {
+    return `
+      <div class="card-media-wrapper">
+        <img
+          src="${cover}"
+          alt="${title}"
+          loading="lazy" />
+      </div>
+    `;
+  }
+
+  return `
+    <div class="card-media-wrapper">
+      <div class="project-card-placeholder">
+        ${title}
+      </div>
+    </div>
+  `;
+}
+
+
+function attachHoverVideoHandlers(root = document) {
+  const cards = root.querySelectorAll(".project-card[data-video]");
+
+  cards.forEach(card => {
+    if (card.dataset.videoBound === "true") return;
+
+    const video = card.querySelector("video");
+    if (!video) return;
+
+    card.dataset.videoBound = "true";
+
+    const playVideo = () => {
+      video.play().catch(() => {});
+    };
+
+    const resetVideo = () => {
+      video.pause();
+
+      try {
+        video.currentTime = 0;
+      } catch (e) {
+        // Ignore reset errors while media is loading.
+      }
+    };
+
+    card.addEventListener("mouseenter", playVideo);
+    card.addEventListener("mouseleave", resetVideo);
+
+    card.addEventListener("focusin", playVideo);
+
+    card.addEventListener("focusout", event => {
+      if (!card.contains(event.relatedTarget)) {
+        resetVideo();
+      }
+    });
   });
 }
 
 
 /* ==========================================================================
-   02. GALLERY
+   03. GALLERY
    ========================================================================== */
 
 function initFilterAndGallery(projects) {
@@ -303,15 +378,11 @@ function initFilterAndGallery(projects) {
     gallery.innerHTML =
       filtered.map(p => `
         <a
-          href="/project.html?slug=${p.slug}"
-          class="project-card size-${p.size || "medium"}">
+          href="/project.html?slug=${encodeURIComponent(p.slug)}"
+          class="project-card size-${p.size || "medium"}${p.previewVideo ? " has-video" : ""}"
+          ${p.previewVideo ? `data-video="${p.previewVideo}"` : ""}>
 
-          <div class="card-media-wrapper">
-            <img
-              src="${p.coverImage}"
-              alt="${p.title}"
-              loading="lazy" />
-          </div>
+          ${renderProjectCardMedia(p)}
 
           <div class="card-info">
             <span class="card-title">
@@ -332,6 +403,8 @@ function initFilterAndGallery(projects) {
 
         </a>
       `).join("");
+
+    attachHoverVideoHandlers(gallery);
 
     attachYouTubeThumbFallback(
       gallery
@@ -459,7 +532,7 @@ function initServicesPageView(projects) {
   galleryEl.innerHTML =
     filtered.map(p => `
       <a
-        href="/project.html?slug=${p.slug}"
+        href="/project.html?slug=${encodeURIComponent(p.slug)}"
         style="
           text-decoration:none;
           color:inherit;
@@ -467,6 +540,7 @@ function initServicesPageView(projects) {
         ">
 
         <div
+          class="service-card-media ${p.previewVideo ? "has-video" : ""}"
           style="
             aspect-ratio:4/3;
             background:var(--color-surface);
@@ -474,15 +548,36 @@ function initServicesPageView(projects) {
             margin-bottom:0.75rem;
           ">
 
-          <img
-            src="${p.coverImage}"
-            alt="${p.title}"
-            style="
-              width:100%;
-              height:100%;
-              object-fit:cover;
-            "
-            loading="lazy" />
+          ${p.previewVideo ? `
+            <video
+              src="${p.previewVideo}"
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              style="
+                width:100%;
+                height:100%;
+                object-fit:cover;
+                display:block;
+              "
+            ></video>
+          ` : p.coverImage ? `
+            <img
+              src="${p.coverImage}"
+              alt="${p.title}"
+              style="
+                width:100%;
+                height:100%;
+                object-fit:cover;
+                display:block;
+              "
+              loading="lazy" />
+          ` : `
+            <div class="project-card-placeholder">
+              ${p.title}
+            </div>
+          `}
 
         </div>
 
@@ -496,6 +591,24 @@ function initServicesPageView(projects) {
 
       </a>
     `).join("");
+
+  galleryEl.querySelectorAll("video").forEach(video => {
+    const card = video.closest("a");
+
+    if (!card) return;
+
+    card.addEventListener("mouseenter", () => {
+      video.play().catch(() => {});
+    });
+
+    card.addEventListener("mouseleave", () => {
+      video.pause();
+
+      try {
+        video.currentTime = 0;
+      } catch (e) {}
+    });
+  });
 
   attachYouTubeThumbFallback(
     galleryEl
@@ -569,11 +682,7 @@ function initProjectDetailView(projects) {
 
           ${
             project.gallery.map(item => `
-              <div
-                class="gallery-item"
-                data-media-type="${item.type === "youtube" ? "youtube" : "image"}"
-                data-ratio="${item.type === "youtube" ? "1.7777777778" : ""}"
-              >
+              <div class="gallery-item">
 
                 ${
                   item.type === "youtube"
@@ -581,15 +690,24 @@ function initProjectDetailView(projects) {
                         item,
                         project.title
                       )
-                    : `
-                      <img
-                        src="${item.src}"
-                        alt="${
-                          item.caption ||
-                          project.title
-                        }"
-                        loading="lazy" />
-                    `
+                    : item.type === "video"
+                      ? `
+                        <video
+                          src="${item.src || ""}"
+                          controls
+                          preload="metadata"
+                          playsinline>
+                        </video>
+                      `
+                      : `
+                        <img
+                          src="${item.src || ""}"
+                          alt="${
+                            item.caption ||
+                            project.title
+                          }"
+                          loading="lazy" />
+                      `
                 }
 
                 ${
@@ -703,9 +821,23 @@ function initProjectDetailView(projects) {
 
 
       <div class="case-study-media-hero">
-        <img
-          src="${project.coverImage}"
-          alt="${project.title}" />
+        ${project.coverImage ? `
+          <img
+            src="${project.coverImage}"
+            alt="${project.title}" />
+        ` : project.previewVideo ? `
+          <video
+            src="${project.previewVideo}"
+            controls
+            preload="metadata"
+            playsinline
+            muted>
+          </video>
+        ` : `
+          <div class="project-card-placeholder">
+            ${project.title}
+          </div>
+        `}
       </div>
 
 
@@ -815,7 +947,7 @@ function initProjectDetailView(projects) {
 
 
       <a
-        href="/project.html?slug=${nextProject.slug}"
+        href="/project.html?slug=${encodeURIComponent(nextProject.slug)}"
         class="next-project-bar">
 
         <div>
@@ -850,154 +982,6 @@ function initProjectDetailView(projects) {
   attachYouTubeThumbFallback(
     container
   );
-
-  initCaseStudyGalleryLayout(container);
-}
-
-
-/* ==========================================================================
-   04a. CASE STUDY BENTO GALLERY LAYOUT
-   ========================================================================== */
-
-function initCaseStudyGalleryLayout(root) {
-  if (!root) return;
-
-  const gallery =
-    root.querySelector(
-      ".case-study-gallery"
-    );
-
-  if (!gallery) return;
-
-  const ROW_HEIGHT = 8;
-  const GAP = 16;
-
-  const applyLayout = () => {
-    const items =
-      gallery.querySelectorAll(
-        ".gallery-item"
-      );
-
-    items.forEach(item => {
-      const image =
-        item.querySelector(
-          ":scope > img"
-        );
-
-      let ratio =
-        parseFloat(
-          item.dataset.ratio
-        );
-
-      if (
-        image &&
-        image.naturalWidth > 0 &&
-        image.naturalHeight > 0
-      ) {
-        ratio =
-          image.naturalWidth /
-          image.naturalHeight;
-
-        item.dataset.ratio =
-          ratio.toString();
-      }
-
-      if (
-        !Number.isFinite(ratio) ||
-        ratio <= 0
-      ) {
-        return;
-      }
-
-      let columnSpan = 6;
-
-      if (ratio <= 0.72) {
-        columnSpan = 4;
-      } else if (ratio <= 1.05) {
-        columnSpan = 6;
-      } else if (ratio <= 1.45) {
-        columnSpan = 6;
-      } else if (ratio <= 2.1) {
-        columnSpan = 8;
-      } else {
-        columnSpan = 12;
-      }
-
-      item.style.gridColumn =
-        `span ${columnSpan}`;
-
-      const width =
-        item.getBoundingClientRect().width;
-
-      if (width <= 0) return;
-
-      const mediaHeight =
-        width / ratio;
-
-      const caption =
-        item.querySelector(
-          ".gallery-caption"
-        );
-
-      const captionHeight =
-        caption
-          ? caption.getBoundingClientRect().height + 12
-          : 0;
-
-      const totalHeight =
-        mediaHeight +
-        captionHeight;
-
-      const rowSpan = Math.max(
-        1,
-        Math.ceil(
-          (totalHeight + GAP) /
-          (ROW_HEIGHT + GAP)
-        )
-      );
-
-      item.style.gridRowEnd =
-        `span ${rowSpan}`;
-    });
-  };
-
-  const images =
-    gallery.querySelectorAll(
-      ":scope .gallery-item > img"
-    );
-
-  images.forEach(image => {
-    if (image.complete) {
-      image.addEventListener(
-        "load",
-        applyLayout,
-        { once: true }
-      );
-    } else {
-      image.addEventListener(
-        "load",
-        applyLayout,
-        { once: true }
-      );
-    }
-  });
-
-  applyLayout();
-
-  if (typeof ResizeObserver !== "undefined") {
-    const observer =
-      new ResizeObserver(() => {
-        applyLayout();
-      });
-
-    observer.observe(gallery);
-  } else {
-    window.addEventListener(
-      "resize",
-      applyLayout,
-      { passive: true }
-    );
-  }
 }
 
 
@@ -1169,9 +1153,15 @@ function initPrintView(projects) {
 
             <div class="print-item-image">
 
-              <img
-                src="${p.coverImage}"
-                alt="${p.title}" />
+              ${p.coverImage ? `
+                <img
+                  src="${p.coverImage}"
+                  alt="${p.title}" />
+              ` : `
+                <div class="project-card-placeholder">
+                  ${p.title}
+                </div>
+              `}
 
             </div>
 

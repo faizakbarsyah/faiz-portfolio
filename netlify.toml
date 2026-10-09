@@ -1,52 +1,112 @@
 [build]
   publish = "."
 
+
 # --------------------------------------------------------------------------
 # Pretty project URLs
-# /projects/<slug> -> /project.html?slug=<slug>
+#
+# /projects/<slug>
+# ->
+# /project.html?slug=<slug>
 # --------------------------------------------------------------------------
+
 [[redirects]]
   from = "/projects/*"
   to = "/project.html?slug=:splat"
   status = 200
 
+
+# --------------------------------------------------------------------------
+# Client directory
+#
+# /clients.html
+# ->
+# /client.html
+#
+# Ini menjaga link lama tetap bekerja setelah rename.
+# --------------------------------------------------------------------------
+
+[[redirects]]
+  from = "/clients.html"
+  to = "/client.html"
+  status = 301
+  force = true
+
+
+# --------------------------------------------------------------------------
+# Legacy client detail URLs
+#
+# Struktur lama:
+# /clients/<slug>
+#
+# Struktur baru:
+# /client-detail.html?slug=<slug>
+#
+# Redirect ini menjaga URL lama tetap kompatibel.
+# --------------------------------------------------------------------------
+
+[[redirects]]
+  from = "/clients/*"
+  to = "/client-detail.html?slug=:splat"
+  status = 301
+  force = true
+
+
+# --------------------------------------------------------------------------
+# Protect internal build tools
+# --------------------------------------------------------------------------
+
+[[redirects]]
+  from = "/tools/*"
+  to = "/index.html"
+  status = 404
+  force = true
+
+
 # --------------------------------------------------------------------------
 # Cache-Control Strategy
 #
-# Nama file proyek belum menggunakan hash/versioning
-# (mis. style.css, app.js, hero-cover.webp), sehingga browser harus
-# mengecek kembali ke server pada setiap kunjungan.
-#
-# Netlify tetap bisa memakai ETag untuk response ringan ketika asset tidak
-# berubah.
+# Asset filenames belum menggunakan hash/versioning.
+# Browser harus selalu melakukan revalidation setelah deployment.
 # --------------------------------------------------------------------------
+
 [[headers]]
   for = "/assets/*"
-    [headers.values]
-      Cache-Control = "public, max-age=0, must-revalidate"
+
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
 
 [[headers]]
   for = "/css/*"
-    [headers.values]
-      Cache-Control = "public, max-age=0, must-revalidate"
+
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
 
 [[headers]]
   for = "/js/*"
-    [headers.values]
-      Cache-Control = "public, max-age=0, must-revalidate"
+
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
 
 [[headers]]
   for = "/data/*"
-    [headers.values]
-      Cache-Control = "public, max-age=0, must-revalidate"
+
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
 
 # --------------------------------------------------------------------------
 # Global Security Headers
 # --------------------------------------------------------------------------
+
 [[headers]]
   for = "/*"
-    [headers.values]
-      X-Frame-Options = "DENY"
-      X-Content-Type-Options = "nosniff"
-      Referrer-Policy = "strict-origin-when-cross-origin"
-      X-XSS-Protection = "1; mode=block"
+
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-XSS-Protection = "1; mode=block"
