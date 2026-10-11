@@ -258,10 +258,10 @@ function initMobileNavToggle() {
 
 function renderProjectCardMedia(project) {
   const title = project.title || "Project";
-  const cover = project.coverImage || "";
+  const cover = project.thumbnailImage || project.coverImage || "";
   const video = project.previewVideo || "";
 
-  if (video) {
+  if (video && !project.thumbnailImage) {
     return `
       <div class="card-media-wrapper">
         <video
@@ -356,27 +356,26 @@ function initFilterAndGallery(projects) {
   }
 
   const categories =
-    SITE_CONFIG.categories || ["All"];
+    (SITE_CONFIG.categories || []).filter(cat => cat !== "All");
 
   filterContainer.innerHTML =
-    categories.map((cat, idx) => `
-      <button
-        class="filter-btn ${idx === 0 ? "active" : ""}"
-        data-category="${cat}">
+    categories.map(cat => `
+      <a
+        class="filter-btn"
+        href="/services.html?category=${encodeURIComponent(cat)}">
         ${cat}
-      </button>
-    `).join("");
+      </a>
+    `).join("") + `
+      <a class="filter-btn filter-btn-more" href="/client.html">
+        Explore Work & Clients ↗
+      </a>
+    `;
 
-  const renderProjects = category => {
-    const filtered =
-      category === "All"
-        ? projects
-        : projects.filter(p =>
-            p.categories.includes(category)
-          );
+  const selectedProjects = projects.filter(p => p.featured === true);
 
+  const renderProjects = () => {
     gallery.innerHTML =
-      filtered.map(p => `
+      selectedProjects.map(p => `
         <a
           href="/project.html?slug=${encodeURIComponent(p.slug)}"
           class="project-card size-${p.size || "medium"}${p.previewVideo ? " has-video" : ""}"
@@ -411,32 +410,7 @@ function initFilterAndGallery(projects) {
     );
   };
 
-  renderProjects("All");
-
-  filterContainer.addEventListener(
-    "click",
-    e => {
-      if (
-        !e.target.classList.contains(
-          "filter-btn"
-        )
-      ) {
-        return;
-      }
-
-      document
-        .querySelectorAll(".filter-btn")
-        .forEach(btn =>
-          btn.classList.remove("active")
-        );
-
-      e.target.classList.add("active");
-
-      renderProjects(
-        e.target.dataset.category
-      );
-    }
-  );
+  renderProjects();
 
   // Circular Desktop Navigation
   const prevBtn =
@@ -821,21 +795,13 @@ function initProjectDetailView(projects) {
 
 
       <div class="case-study-media-hero">
-        ${project.coverImage ? `
+        ${project.caseStudyBanner ? `
           <img
-            src="${project.coverImage}"
-            alt="${project.title}" />
-        ` : project.previewVideo ? `
-          <video
-            src="${project.previewVideo}"
-            controls
-            preload="metadata"
-            playsinline
-            muted>
-          </video>
+            src="${project.caseStudyBanner}"
+            alt="${project.title} case study banner" />
         ` : `
-          <div class="project-card-placeholder">
-            ${project.title}
+          <div class="case-study-banner-placeholder" aria-label="Banner studi kasus ${project.title}">
+            <span>CASE STUDY BANNER</span>
           </div>
         `}
       </div>
@@ -943,6 +909,34 @@ function initProjectDetailView(projects) {
             : ""
         }
 
+        ${(() => {
+          const relatedProjects = project.clientSlug
+            ? projects.filter(item =>
+                item.clientSlug === project.clientSlug && item.slug !== project.slug
+              )
+            : [];
+
+          if (!relatedProjects.length) return "";
+
+          return `
+            <section class="related-client-work" aria-labelledby="relatedClientWorkTitle">
+              <p class="hero-subtitle">MORE WORK FOR ${project.client || "THIS CLIENT"}</p>
+              <h2 id="relatedClientWorkTitle" class="font-serif">Related Projects</h2>
+              <div class="client-project-grid">
+                ${relatedProjects.map(item => `
+                  <a href="/project.html?slug=${encodeURIComponent(item.slug)}" class="project-card size-${item.size || "medium"}${item.previewVideo ? " has-video" : ""}" ${item.previewVideo ? `data-video="${item.previewVideo}"` : ""}>
+                    ${renderProjectCardMedia(item)}
+                    <div class="card-info">
+                      <span class="card-title">${item.title}</span>
+                      <span class="card-meta">${[item.categories?.[0], item.year].filter(Boolean).join(" / ")}</span>
+                    </div>
+                  </a>
+                `).join("")}
+              </div>
+            </section>
+          `;
+        })()}
+
       </section>
 
 
@@ -978,6 +972,8 @@ function initProjectDetailView(projects) {
   `;
 
   initYouTubeFacades(container);
+
+  attachHoverVideoHandlers(container);
 
   attachYouTubeThumbFallback(
     container

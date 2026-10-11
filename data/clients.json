@@ -1,29 +1,38 @@
 [
     {
-      "slug": "hajatan",
-      "name": "Hajatan",
+      "slug": "hajatan-anak-medan-2023",
+      "name": "Hajatan Anak Medan 2023",
       "description": "",
-      "industry": "",
+      "industry": "Music Festival",
       "website": "",
-      "logo": "",
+      "logo": "assets/images/logo-client/logo-HAM2023.png",
+      "published": true
+    },
+    {
+      "slug": "hajatan-xperience-2025",
+      "name": "Hajatan Xperience 2025",
+      "description": "",
+      "industry": "Music Festival",
+      "website": "",
+      "logo": "assets/images/logo-client/logo-HAM2025.png",
       "published": true
     },
     {
       "slug": "dua-sisi",
-      "name": "Dua Sisi",
+      "name": "Dua Sisi Giftbox",
       "description": "",
-      "industry": "",
+      "industry": "Giftbox Store",
       "website": "",
-      "logo": "",
+      "logo": "assets/images/logo-client/logo-duasisi.png",
       "published": true
     },
     {
       "slug": "zin-studio",
       "name": "Zin Studio",
-      "description": "",
+      "description": "A Creative Studio",
       "industry": "Creative Agency",
       "website": "",
-      "logo": "",
+      "logo": "assets/images/logo-client/logo-zinstudio.png",
       "published": true
     },
     {
@@ -32,25 +41,25 @@
       "description": "",
       "industry": "Event Management & Production",
       "website": "",
-      "logo": "",
+      "logo": "assets/images/logo-client/logo-mudakom.png",
       "published": true
     },
     {
-      "slug": "pasar-nurlela",
-      "name": "Pasar Nurlela",
+      "slug": "denta-fair-sumut",
+      "name": "Denta Fair Sumut 2026",
       "description": "",
-      "industry": "",
+      "industry": "Family Run Event",
       "website": "",
-      "logo": "",
+      "logo": "assets/images/logo-client/logo-dentafair.png",
       "published": true
     },
     {
-      "slug": "cv-kas",
-      "name": "CV KAS",
+      "slug": "healthy-lifetyle-festival",
+      "name": "Healthy Lifestyle Festival 2025",
       "description": "",
-      "industry": "",
+      "industry": "Running Event",
       "website": "",
-      "logo": "",
+      "logo": "assets/images/logo-client/logo-HLF.png",
       "published": true
     },
     {
@@ -59,25 +68,25 @@
       "description": "",
       "industry": "Event Design & Management",
       "website": "",
-      "logo": "",
+      "logo": "assets/images/logo-client/logo-seremony.png",
       "published": true
     },
     {
       "slug": "glamspace",
-      "name": "Glamspace",
+      "name": "Glamspace 2023",
       "description": "",
-      "industry": "Music & Entertainment",
+      "industry": "Beauty & Music Festival",
       "website": "",
-      "logo": "",
+      "logo": "assets/images/logo-client/logo-glamspace.png",
       "published": true
     },
     {
       "slug": "eramas-coconut-industries",
       "name": "Eramas Coconut Industries",
       "description": "",
-      "industry": "",
+      "industry": "Coconut Industry Company",
       "website": "",
-      "logo": "",
+      "logo": "assets/images/logo-client/logo-eramas.png",
       "published": true
     },
     {
@@ -86,25 +95,52 @@
       "description": "",
       "industry": "Education",
       "website": "",
-      "logo": "",
+      "logo": "assets/images/logo-client/logo-usu.png",
       "published": true
     },
     {
       "slug": "mie-kari-129",
       "name": "Mie Kari 129",
       "description": "",
-      "industry": "Food & Beverage",
+      "industry": "Restaurant",
       "website": "",
-      "logo": "",
+      "logo": "assets/images/logo-client/logo-miekari129.png",
       "published": true
     },
     {
-      "slug": "hotel-sibayak-international-berastagi",
-      "name": "Hotel Sibayak International Berastagi",
+      "slug": "royal-cigar",
+      "name": "Royal Cigar",
       "description": "",
-      "industry": "Hospitality",
-      "website": "",
-      "logo": "",
+      "industry": "Tobacco Industry",
+      "website": "www.instagram.com/royalcigar.mdn",
+      "logo": "assets/images/logo-client/logo-RC.png",
+      "published": true
+    },
+    {
+      "slug": "lembaga-penjamin-simpanan",
+      "name": "LPS",
+      "description": "",
+      "industry": "independent State Institution",
+      "website": "www.instagram.com/royalcigar.mdn",
+      "logo": "assets/images/logo-client/logo-LPS.png",
+      "published": true
+    },
+    {
+      "slug": "nooci",
+      "name": "Nooci",
+      "description": "",
+      "industry": "Coffee Shop",
+      "website": "www.instagram.com/royalcigar.mdn",
+      "logo": "assets/images/logo-client/logo-nooci.png",
+      "published": true
+    },
+    {
+      "slug": "satu-arah-coffee",
+      "name": "Satu Arah Coffee",
+      "description": "",
+      "industry": "Coffee Shop",
+      "website": "www.instagram.com/royalcigar.mdn",
+      "logo": "assets/images/logo-client/logo-satuarah.png",
       "published": true
     }
   ]

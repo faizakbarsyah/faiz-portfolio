@@ -476,6 +476,9 @@
      cursor: pointer;
      border-radius: 100px;
      transition: all var(--transition-fast);
+   display: inline-flex;
+   align-items: center;
+   text-decoration: none;
    }
    
    .filter-btn.active,
@@ -3922,7 +3925,7 @@ body:has(.clients-page) > .site-footer .footer-bottom {
    PROJECT COVER — WIDE IMMERSIVE CROP, NO DISTORTION
    ======================================================================== */
 
-/* The project data's coverImage (cover.webp for HLF) fills this wide frame. */
+/* Dedicated caseStudyBanner assets fill this consistent wide frame. */
 .case-study-media-hero {
   width: 100%;
   height: auto;
@@ -3951,5 +3954,118 @@ body:has(.clients-page) > .site-footer .footer-bottom {
   .case-study-media-hero {
     aspect-ratio: 16 / 10;
     margin-bottom: 2.5rem;
+  }
+}
+
+/* Keep long client names readable inside cards at every directory breakpoint. */
+.clients-page #clientsDirectory .client-directory-name {
+  max-width: 100%;
+  min-width: 0;
+  font-size: clamp(1.125rem, 2.4vw, 2.25rem);
+  line-height: 1.05;
+  overflow-wrap: anywhere;
+}
+
+.related-client-work {
+  margin-top: 5rem;
+}
+
+.related-client-work h2 {
+  margin: 0 0 2rem;
+  font-size: var(--text-h2);
+}
+
+#workGallery .project-card,
+#workGallery .project-card.size-large,
+#workGallery .project-card.size-small {
+  flex: 0 0 450px;
+  width: 450px;
+}
+
+#workGallery .card-media-wrapper {
+  aspect-ratio: 16 / 10;
+}
+
+.case-study-banner-placeholder {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  min-height: 220px;
+  border: 1px dashed var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  font-size: var(--text-meta);
+  letter-spacing: 0.12em;
+}
+
+.service-category-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  align-items: start;
+  gap: clamp(2rem, 5vw, 5rem);
+  margin-top: 2rem;
+}
+
+.service-category-description,
+.service-category-results {
+  min-width: 0;
+}
+
+.service-category-description .pitch-grid {
+  grid-template-columns: minmax(5rem, 0.65fr) minmax(0, 2fr);
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+  padding-top: 1.5rem;
+}
+
+.service-category-results h2 {
+  margin: 0.75rem 0 2rem;
+  font-size: var(--text-h2);
+}
+
+.service-category-results .services-gallery {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.service-category-results .service-card-media {
+  aspect-ratio: 4 / 3;
+}
+
+#filterContainer .filter-btn-more {
+  background-color: var(--color-purple);
+  border-color: var(--color-purple);
+  color: var(--color-text-inverse);
+  font-weight: 600;
+}
+
+#filterContainer .filter-btn-more:hover,
+#filterContainer .filter-btn-more:focus-visible {
+  background-color: var(--color-lime);
+  border-color: var(--color-lime);
+  color: var(--color-bg-dark);
+}
+
+@media (max-width: 900px) {
+  #workGallery .project-card,
+  #workGallery .project-card.size-large,
+  #workGallery .project-card.size-small {
+    flex-basis: 85vw;
+    width: 85vw;
+  }
+
+  .service-category-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .service-category-description .pitch-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .service-category-results .services-gallery {
+    grid-template-columns: 1fr;
   }
 }

@@ -723,12 +723,7 @@
               projects.filter(
                 project =>
                   project.published !== false &&
-                  String(
-                    project.client || ""
-                  ).trim() ===
-                  String(
-                    client.name || ""
-                  ).trim()
+                  project.clientSlug === client.slug
               );
 
 

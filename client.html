@@ -514,7 +514,11 @@
             const publishedClients =
               clients.filter(
                 client =>
-                  client.published !== false
+                  client.published !== false &&
+                  projects.some(project =>
+                    project.published !== false &&
+                    project.clientSlug === client.slug
+                  )
               );
 
 
@@ -557,17 +561,15 @@
                       projects.filter(
                         project =>
                           project.published !== false &&
-                          String(
-                            project.client || ""
-                          ).trim() ===
-                          String(
-                            client.name || ""
-                          ).trim()
+                          project.clientSlug === client.slug
                       );
 
 
                     const projectCount =
                       clientProjects.length;
+
+                    const primaryProject =
+                      clientProjects.find(project => project.featured) || clientProjects[0];
 
 
                     const monogram =
@@ -585,8 +587,8 @@
                     return `
 
                       <a
-                        href="/client-detail.html?slug=${encodeURIComponent(
-                          client.slug
+                        href="/project.html?slug=${encodeURIComponent(
+                          primaryProject.slug
                         )}"
                         class="${cardClass}"
                         aria-label="View work for ${escapeHtml(
@@ -691,7 +693,7 @@
                         >
 
                           <span>
-                            View Client
+                            View Case Study
                           </span>
 
                           <span aria-hidden="true">
