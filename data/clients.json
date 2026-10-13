@@ -142,5 +142,23 @@
       "website": "www.instagram.com/royalcigar.mdn",
       "logo": "assets/images/logo-client/logo-satuarah.png",
       "published": true
+    },
+    {
+      "slug": "muda-production",
+      "name": "Muda Production",
+      "description": "",
+      "industry": "",
+      "website": "",
+      "logo": "",
+      "published": true
+    },
+    {
+      "slug": "beaubites",
+      "name": "BeauBites",
+      "description": "",
+      "industry": "",
+      "website": "",
+      "logo": "",
+      "published": true
     }
   ]

@@ -507,7 +507,9 @@
    
    .gallery-nav-group {
      display: flex;
+     justify-content: center;
      gap: 0.5rem;
+     margin-top: 0.75rem;
    }
    
    .gallery-nav-btn {
@@ -531,7 +533,7 @@
      border-color: var(--color-purple);
    }
    
-   @media (max-width: 768px) {
+   @media (max-width: 600px) {
    
      .gallery-nav-group {
        display: none;
@@ -2989,6 +2991,10 @@ body.nav-open .nav-toggle span::after {
   margin: 1.75rem 0 2.5rem;
 }
 
+#workGallery {
+  padding-bottom: 0.5rem;
+}
+
 #filterContainer {
   display: flex;
   flex-wrap: wrap;
@@ -3283,8 +3289,31 @@ body.nav-open .nav-toggle span::after {
 }
 
 #contact .section-heading {
-  max-width: 18ch;
+  max-width: 1000px;
   color: var(--color-text-inverse);
+  font-size: clamp(2.5rem, 4.5vw, 4rem);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.contact-mobile-break {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  #contact .section-heading {
+    font-size: clamp(2.1rem, 8.5vw, 2.8rem);
+    line-height: 0.88;
+  }
+
+  .contact-desktop-break {
+    display: none;
+  }
+
+  .contact-mobile-break {
+    display: initial;
+  }
 }
 
 #contact .social-link {
