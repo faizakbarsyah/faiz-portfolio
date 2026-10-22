@@ -182,44 +182,6 @@
     }
 
     /* ================================================================
-       PRINT
-       ================================================================ */
-
-    @page {
-      size: A4;
-      margin: 1.4cm 1.6cm;
-    }
-
-    @media print {
-
-      .no-print-bar {
-        display: none !important;
-      }
-
-      body {
-        background: #fff;
-        font-size: 12.5px;
-      }
-
-      .cv-container {
-        border: none;
-        padding: 0;
-        margin: 0;
-        max-width: 100%;
-      }
-
-      .cv-item {
-        break-inside: avoid;
-        page-break-inside: avoid;
-      }
-
-      .cv-section-title {
-        break-after: avoid;
-        page-break-after: avoid;
-      }
-    }
-
-    /* ================================================================
        MOBILE
        ================================================================ */
 
@@ -253,6 +215,94 @@
       .cv-item-header {
         flex-direction: column;
         gap: 0;
+      }
+    }
+
+    /* ================================================================
+       PRINT
+       ================================================================ */
+
+    @page {
+      /* Respect the paper size selected in the browser's print dialog. */
+      size: auto;
+      margin: 4% 3% 3%;
+    }
+
+    @media print {
+
+      .no-print-bar {
+        display: none !important;
+      }
+
+      body {
+        background: #fff;
+        font-size: 11px;
+        line-height: 1.35;
+      }
+
+      .cv-container {
+        width: auto;
+        max-width: none;
+        margin: 0;
+        padding: 0;
+        border: none;
+        background: #fff;
+      }
+
+      .cv-header {
+        padding-bottom: 0.75rem;
+        margin-bottom: 1rem;
+      }
+
+      .cv-name {
+        font-size: 23px;
+      }
+
+      .cv-contact {
+        line-height: 1.45;
+      }
+
+      .cv-section {
+        margin-bottom: 1rem;
+      }
+
+      .cv-section-title {
+        margin-bottom: 0.5rem;
+        break-after: avoid;
+        page-break-after: avoid;
+      }
+
+      /* Let entries flow into the remaining page area instead of moving a
+         whole long experience block and leaving a large blank gap behind. */
+      .cv-item {
+        margin-bottom: 0.7rem;
+        break-inside: auto;
+        page-break-inside: auto;
+      }
+
+      .cv-item-header {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0 0.75rem;
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      .cv-item-sub {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      .cv-item-desc,
+      .cv-list li {
+        font-size: 11px;
+        line-height: 1.35;
+      }
+
+      .cv-list li {
+        margin-bottom: 0.12rem;
+        break-inside: avoid;
+        page-break-inside: avoid;
       }
     }
   </style>
