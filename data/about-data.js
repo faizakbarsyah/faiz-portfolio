@@ -92,7 +92,7 @@ const ABOUT_DATA = {
        DAN timeline about.html (role, organization, location, period, summary). */
     experience: [
       {
-        role: "Lead Graphic Designer",
+        role: "Creative Director",
         organization: "Zin Studio",
         location: "Medan, Indonesia",
         period: "2024 — Sekarang",
